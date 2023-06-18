@@ -27,6 +27,7 @@ $colors: "dark"; // white dark light classic
   --color-mode: "light";
   --color-accent-1: #377295;
   --color-background: #d6e2f5;
+  --color-text: #090908;
 }
 
 .tip {
@@ -73,7 +74,6 @@ html {
   --color-meta: var(--color-border);
   --color-meta-code: gray;
   --color-link: #2bbc89;
-  --color-text: #363533;
   --color-accent-3: #666666;
   --color-accent-2: #111111;
   --color-quote: #ccffb6;
