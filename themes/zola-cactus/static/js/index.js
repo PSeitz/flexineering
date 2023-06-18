@@ -391,7 +391,7 @@ function loadActions() {
   //});
 
 {
-  const elements = document.getElementsByClassName('mode-specific');
+  const elements = document.getElementsByClassName('mode-toggle');
   Array.from(elements).forEach(element => {
 	  element.addEventListener('click', () =>setUserColorMode(true) );
   });
