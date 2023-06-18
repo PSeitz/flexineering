@@ -218,45 +218,45 @@ function insertBefore(newNode, existingNode) {
   })();
 })();
 
-function createCopyButton(codeNode) {
-  const copyBtn = createEl('button')
-  copyBtn.className = 'code-copy-btn'
-  copyBtn.type = 'button'
-  copyBtn.innerText = 'copy'
+//function createCopyButton(codeNode) {
+  //const copyBtn = createEl('button')
+  //copyBtn.className = 'code-copy-btn'
+  //copyBtn.type = 'button'
+  //copyBtn.innerText = 'copy'
 
-  let resetTimer
-  copyBtn.addEventListener('click', () => {
-    navigator.clipboard.writeText(codeNode.innerText).then(() => {
-      copyBtn.innerText = 'copied!'
-    }).then(() => {
-      clearTimeout(resetTimer)
-      resetTimer = setTimeout(() => {
-        copyBtn.innerText = 'copy'
-      }, 1000)
-    })
-  })
+  //let resetTimer
+  //copyBtn.addEventListener('click', () => {
+    //navigator.clipboard.writeText(codeNode.innerText).then(() => {
+      //copyBtn.innerText = 'copied!'
+    //}).then(() => {
+      //clearTimeout(resetTimer)
+      //resetTimer = setTimeout(() => {
+        //copyBtn.innerText = 'copy'
+      //}, 1000)
+    //})
+  //})
 
-  return copyBtn
-}
+  //return copyBtn
+//}
 
-document.querySelectorAll('pre > code')
-.forEach((codeNode) => {
-  const copyBtn = createCopyButton(codeNode);
-  codeNode.parentNode.insertBefore(copyBtn, codeNode);
-});
+//document.querySelectorAll('pre > code')
+//.forEach((codeNode) => {
+  //const copyBtn = createCopyButton(codeNode);
+  //codeNode.parentNode.insertBefore(copyBtn, codeNode);
+//});
 
 // document.querySelectorAll('.highlight table > tbody > tr > td:first-child .code-copy-btn')
 // .forEach((btn) => {
 //   btn.remove()
 // })
 
-function toggleMobileMenu(event) {
-  const target = event.target;
-  event.preventDefault();
-  const activeClass = 'responsive';
-  const menuEl = target.closest('ul');
-  modifyClass(menuEl, activeClass);
-}
+//function toggleMobileMenu(event) {
+  //const target = event.target;
+  //event.preventDefault();
+  //const activeClass = 'responsive';
+  //const menuEl = target.closest('ul');
+  //modifyClass(menuEl, activeClass);
+//}
 
 function loadActions() {
   const light = 'light';
@@ -397,12 +397,12 @@ function loadActions() {
   });
 }
  
-{
-  const elements = document.getElementsByClassName('nav_toggle');
-  Array.from(elements).forEach(element => {
-	  element.addEventListener('click', event =>toggleMobileMenu(event) );
-  });
-}
+//{
+  //const elements = document.getElementsByClassName('nav_toggle');
+  //Array.from(elements).forEach(element => {
+	  //element.addEventListener('click', event =>toggleMobileMenu(event) );
+  //});
+//}
 
 }
 
@@ -412,10 +412,7 @@ function loadActions() {
 document.addEventListener('readystatechange', function() {
   console.log(document.readyState);
   if (document.readyState === 'interactive') {
-    // Your code here
-    loadActions(); // Call loadActions earlier
-    
-    // Rest of your code
+    loadActions();
   }
 });
 

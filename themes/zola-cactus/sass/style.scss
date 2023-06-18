@@ -3,6 +3,7 @@
 @import "util";
 @import "mixins";
 @import "extend";
+@import "reset";
 //@import "fonts";
 
 // global-reset()
@@ -31,6 +32,12 @@
 *:before,
 *:after {
   box-sizing: border-box;
+}
+svg {
+    //max-width: 250pt; // for mobile
+}	
+ul{
+    margin: 0;
 }
 html {
   margin: 0;
@@ -210,8 +217,6 @@ pre {
 }
 
 code {
-  white-space: nowrap;
-  overflow-wrap: break-word;
   font-family: $font-family-mono;
   padding: 0 5px;
   border: 1px dotted var(--color-border);
@@ -221,6 +226,8 @@ code {
 
 code:not(pre code) {
   background-color: var(--color-background-code);
+  white-space: nowrap;
+  overflow-wrap: break-word;
 }
 
 .highlight {

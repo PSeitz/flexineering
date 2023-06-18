@@ -16,7 +16,8 @@
         <link rel="alternate" href="http://flexineering.com/posts/lz4-011/" type="text/html"/>
         <id>http://flexineering.com/posts/lz4-011/</id>
         
-        <content type="html">&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;pseitz&#x2F;lz4_flex&quot;&gt;lz4_flex&lt;&#x2F;a&gt; 0.11 has been unleashed, and since the sole purpose of this blog is memes, I’ll summarize the performance gainnzzzz as:&lt;&#x2F;p&gt;
+        <content type="html">&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;pseitz&#x2F;lz4_flex&quot;&gt;lz4_flex&lt;&#x2F;a&gt; is a LZ4 compression library written in Rust.&lt;&#x2F;p&gt;
+&lt;p&gt;lz4_flex 0.11 has been unleashed, and since the sole purpose of this blog is memes, I’ll summarize the performance gainnzzzz as:&lt;&#x2F;p&gt;
 &lt;div class=&quot;mode-specific dark-mode-only&quot;&gt;
     &lt;?xml version=&quot;1.0&quot; standalone=&quot;no&quot;?&gt;
 &lt;!DOCTYPE svg PUBLIC &quot;-&#x2F;&#x2F;W3C&#x2F;&#x2F;DTD SVG 20010904&#x2F;&#x2F;EN&quot;
@@ -29,8 +30,8 @@ Created by potrace 1.10, written by Peter Selinger 2001-2011
 &lt;&#x2F;metadata&gt;
   &lt;defs&gt;
     &lt;radialGradient id=&quot;backgroundGradient&quot; cx=&quot;50%&quot; cy=&quot;50%&quot; r=&quot;50%&quot; fx=&quot;50%&quot; fy=&quot;50%&quot;&gt;
-      &lt;stop offset=&quot;0%&quot; stop-color=&quot;#ee6060&quot; &#x2F;&gt;
-      &lt;stop offset=&quot;100%&quot; stop-color=&quot;#333333&quot; &#x2F;&gt;
+    &lt;stop offset=&quot;0%&quot; stop-color=&quot;#ee6060&quot; &#x2F;&gt;
+    &lt;stop offset=&quot;100%&quot; stop-color=&quot;#333333&quot; &#x2F;&gt;
     &lt;&#x2F;radialGradient&gt;
   &lt;&#x2F;defs&gt;
   
@@ -764,16 +765,16 @@ m30 -10 c3 -5 1 -10 -4 -10 -6 0 -11 5 -11 10 0 6 2 10 4 10 3 0 8 -4 11 -10z&quot
     }
 &lt;&#x2F;style&gt;
 &lt;svg version=&quot;1.0&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;
- width=&quot;45pt&quot; height=&quot;45pt&quot; viewBox=&quot;0 0 275.000000 275.000000&quot;
+ width=&quot;45pt&quot; height=&quot;45pt&quot; viewBox=&quot;0 0 275 275&quot;
  preserveAspectRatio=&quot;xMidYMid meet&quot;&gt;
  &lt;defs&gt;
-    &lt;radialGradient id=&quot;darkGradient&quot; cx=&quot;50%&quot; cy=&quot;50%&quot; r=&quot;50%&quot; fx=&quot;50%&quot; fy=&quot;50%&quot;&gt;
+    &lt;radialGradient id=&quot;darkGradient&quot; cx=&quot;50%&quot; cy=&quot;50%&quot; r=&quot;50%&quot; fx=&quot;50%&quot; fy=&quot;40%&quot;&gt;
       &lt;stop offset=&quot;0%&quot; stop-color=&quot;var(--color-background)&quot; &#x2F;&gt;
-      &lt;stop offset=&quot;100%&quot; stop-color=&quot;#1d1f21&quot; &#x2F;&gt;
+      &lt;stop offset=&quot;50%&quot; stop-color=&quot;#1d1f21&quot; &#x2F;&gt;
     &lt;&#x2F;radialGradient&gt;
-    &lt;radialGradient id=&quot;lightGradient&quot; cx=&quot;50%&quot; cy=&quot;50%&quot; r=&quot;50%&quot; fx=&quot;50%&quot; fy=&quot;50%&quot;&gt;
+    &lt;radialGradient id=&quot;lightGradient&quot; cx=&quot;50%&quot; cy=&quot;50%&quot; r=&quot;50%&quot; fx=&quot;50%&quot; fy=&quot;40%&quot;&gt;
       &lt;stop offset=&quot;0%&quot; stop-color=&quot;#f6e2f5&quot; &#x2F;&gt;
-      &lt;stop offset=&quot;100%&quot; stop-color=&quot;#d6e2f5&quot; &#x2F;&gt;
+      &lt;stop offset=&quot;50%&quot; stop-color=&quot;#d6e2f5&quot; &#x2F;&gt;
     &lt;&#x2F;radialGradient&gt;
 &lt;&#x2F;defs&gt;
 &lt;circle class=&quot;myCircle&quot; cx=&quot;140&quot; cy=&quot;140&quot; r=&quot;128&quot; &#x2F;&gt;
@@ -894,15 +895,15 @@ c103 -31 164 -103 181 -211 l6 -41 -140 -153 c-77 -84 -162 -181 -188 -216
 &lt;span class=&quot;flex-info&quot;&gt;Flex Info&lt;&#x2F;span&gt;
 &lt;&#x2F;div&gt;
 	&lt;div&gt; &lt;p&gt;lz4_flex &lt;code&gt;0.10&lt;&#x2F;code&gt; and before had a feature-flag &lt;code&gt;checked-decode&lt;&#x2F;code&gt; to do additional checks to avoid out-of-bounds access.
-&lt;code&gt;0.11&lt;&#x2F;code&gt; inverted this feature-flag to &lt;code&gt;unchecked-decode&lt;&#x2F;code&gt;. In the benchmarks below all tests are done with out-of-bounds checks.&lt;&#x2F;p&gt;
+&lt;code&gt;0.11&lt;&#x2F;code&gt; inverts this feature-flag to &lt;code&gt;unchecked-decode&lt;&#x2F;code&gt;. In the benchmarks below all tests are done with out-of-bounds checks.&lt;&#x2F;p&gt;
  &lt;&#x2F;div&gt;
 &lt;&#x2F;div&gt;
 &lt;h2 id=&quot;block-format&quot;&gt;Block Format&lt;&#x2F;h2&gt;
-&lt;p&gt;The graph illustrates a comparison between versions v0.11 and v0.10, and the C90 reference implementation. The lz4_flex crate has two configuration variants:&lt;&#x2F;p&gt;
+&lt;p&gt;The block format is ideal for small data up to several megabytes.
+The lz4_flex crate is tested in two configuration variants:&lt;&#x2F;p&gt;
 &lt;ul&gt;
 &lt;li&gt;no suffix: contains &lt;code&gt;unsafe&lt;&#x2F;code&gt;.&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;code&gt;safe&lt;&#x2F;code&gt; suffix: contains no &lt;code&gt;unsafe&lt;&#x2F;code&gt;.
-The block format is ideal for small data up to several megabytes.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;safe&lt;&#x2F;code&gt; suffix: contains no &lt;code&gt;unsafe&lt;&#x2F;code&gt;.&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
 &lt;div class=&quot;testo&quot;&gt;
 &lt;svg viewBox=&quot;0 0 800 600&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;
@@ -1404,7 +1405,8 @@ The unrolling is avoided by manually unrolling with a less aggressive version. D
 &lt;&#x2F;ul&gt;
 &lt;h3 id=&quot;simplify-extend-from-within-overlapping&quot;&gt;Simplify extend_from_within_overlapping&lt;&#x2F;h3&gt;
 &lt;p&gt;&lt;code&gt;extend_from_within_overlapping&lt;&#x2F;code&gt; is used in safe decompression when overlapping data has been detected. 
-The prev version had an unnecessary assertion, since this does not hoist the bounds checks. Removing the temporary &lt;code&gt;&amp;amp;mut&lt;&#x2F;code&gt; slice also simplifies the resulting assembly.&lt;&#x2F;p&gt;
+The previous version had an unnecessary assertion, which did not hoist the bounds checks. 
+Removing the temporary &lt;code&gt;&amp;amp;mut&lt;&#x2F;code&gt; slice also simplifies the resulting assembly.&lt;&#x2F;p&gt;
 &lt;p&gt;uiCA Code Analyzer:&lt;&#x2F;p&gt;
 &lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Variant&lt;&#x2F;th&gt;&lt;th&gt;Skylake&lt;&#x2F;th&gt;&lt;th&gt;IceLake&lt;&#x2F;th&gt;&lt;th&gt;Tiger Lake&lt;&#x2F;th&gt;&lt;th&gt;Rocket Lake&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
 &lt;tr&gt;&lt;td&gt;uiCA Cycles Prev&lt;&#x2F;td&gt;&lt;td&gt;28.71&lt;&#x2F;td&gt;&lt;td&gt;30.67&lt;&#x2F;td&gt;&lt;td&gt;28.71&lt;&#x2F;td&gt;&lt;td&gt;27.57&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
@@ -1466,16 +1468,16 @@ For any slice access with addition the compiler has to assume that value may wra
     }
 &lt;&#x2F;style&gt;
 &lt;svg version=&quot;1.0&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;
- width=&quot;45pt&quot; height=&quot;45pt&quot; viewBox=&quot;0 0 275.000000 275.000000&quot;
+ width=&quot;45pt&quot; height=&quot;45pt&quot; viewBox=&quot;0 0 275 275&quot;
  preserveAspectRatio=&quot;xMidYMid meet&quot;&gt;
  &lt;defs&gt;
-    &lt;radialGradient id=&quot;darkGradient&quot; cx=&quot;50%&quot; cy=&quot;50%&quot; r=&quot;50%&quot; fx=&quot;50%&quot; fy=&quot;50%&quot;&gt;
+    &lt;radialGradient id=&quot;darkGradient&quot; cx=&quot;50%&quot; cy=&quot;50%&quot; r=&quot;50%&quot; fx=&quot;50%&quot; fy=&quot;40%&quot;&gt;
       &lt;stop offset=&quot;0%&quot; stop-color=&quot;var(--color-background)&quot; &#x2F;&gt;
-      &lt;stop offset=&quot;100%&quot; stop-color=&quot;#1d1f21&quot; &#x2F;&gt;
+      &lt;stop offset=&quot;50%&quot; stop-color=&quot;#1d1f21&quot; &#x2F;&gt;
     &lt;&#x2F;radialGradient&gt;
-    &lt;radialGradient id=&quot;lightGradient&quot; cx=&quot;50%&quot; cy=&quot;50%&quot; r=&quot;50%&quot; fx=&quot;50%&quot; fy=&quot;50%&quot;&gt;
+    &lt;radialGradient id=&quot;lightGradient&quot; cx=&quot;50%&quot; cy=&quot;50%&quot; r=&quot;50%&quot; fx=&quot;50%&quot; fy=&quot;40%&quot;&gt;
       &lt;stop offset=&quot;0%&quot; stop-color=&quot;#f6e2f5&quot; &#x2F;&gt;
-      &lt;stop offset=&quot;100%&quot; stop-color=&quot;#d6e2f5&quot; &#x2F;&gt;
+      &lt;stop offset=&quot;50%&quot; stop-color=&quot;#d6e2f5&quot; &#x2F;&gt;
     &lt;&#x2F;radialGradient&gt;
 &lt;&#x2F;defs&gt;
 &lt;circle class=&quot;myCircle&quot; cx=&quot;140&quot; cy=&quot;140&quot; r=&quot;128&quot; &#x2F;&gt;
@@ -1595,7 +1597,7 @@ c103 -31 164 -103 181 -211 l6 -41 -140 -153 c-77 -84 -162 -181 -188 -216
 &lt;&#x2F;svg&gt;
 &lt;span class=&quot;flex-info&quot;&gt;Flex Info&lt;&#x2F;span&gt;
 &lt;&#x2F;div&gt;
-	&lt;div&gt; &lt;p&gt;&lt;code&gt;slice_index_order&lt;&#x2F;code&gt; checks can be avoided by proving to the compiler the value can’t wrap, e.g.
+	&lt;div&gt; &lt;p&gt;&lt;code&gt;slice_index_order&lt;&#x2F;code&gt; checks can be avoided by proving a value can’t wrap, e.g.
 &lt;code&gt;pos_u32 as usize + 10&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
  &lt;&#x2F;div&gt;
 &lt;&#x2F;div&gt;
@@ -1606,7 +1608,7 @@ Reordering the code can’t be done if it reorders a bounds check and therefore 
 Additionally, there are cases where LLVM generates suboptimal assembly code, further impacting performance. 
 I think the reason for that is that the rust compiler generates a lot of llvm IR.&lt;&#x2F;li&gt;
 &lt;&#x2F;ol&gt;
-&lt;p&gt;An example regarding bounds checks is a &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;blob&#x2F;main&#x2F;src&#x2F;sink.rs#L191-L195&quot;&gt;loop&lt;&#x2F;a&gt; where hoisting was unable to be performed, resulting in two bounds
+&lt;p&gt;An example where bounds checks hoisting was unable to be performed is a backwards &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;blob&#x2F;main&#x2F;src&#x2F;sink.rs#L191-L195&quot;&gt;loop&lt;&#x2F;a&gt;, resulting in two bounds
 checks per iteration for every byte copied. That’s a lot of overhead.&lt;&#x2F;p&gt;
 &lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#282a36;color:#f8f8f2;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;color:#ff79c6;&quot;&gt;pub &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#8be9fd;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#50fa7b;&quot;&gt;extend_from_within_overlapping&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#ffb86c;&quot;&gt;output&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff79c6;&quot;&gt;&amp;amp;mut&lt;&#x2F;span&gt;&lt;span&gt; [&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#8be9fd;&quot;&gt;u8&lt;&#x2F;span&gt;&lt;span&gt;], &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#ffb86c;&quot;&gt;pos&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff79c6;&quot;&gt;&amp;amp;mut &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#8be9fd;&quot;&gt;usize&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#ffb86c;&quot;&gt;start&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#8be9fd;&quot;&gt;usize&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#ffb86c;&quot;&gt;num_bytes&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#8be9fd;&quot;&gt;usize&lt;&#x2F;span&gt;&lt;span&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffffff;&quot;&gt;{
 &lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#8be9fd;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span&gt; offset &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff79c6;&quot;&gt;= *&lt;&#x2F;span&gt;&lt;span&gt;pos &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff79c6;&quot;&gt;-&lt;&#x2F;span&gt;&lt;span&gt; start;
@@ -1619,24 +1621,40 @@ checks per iteration for every byte copied. That’s a lot of overhead.&lt;&#x2F
 &lt;p&gt;So if you are up for the challenge to try to remove the bounds checks, it’s all ready for you:
 &lt;a href=&quot;https:&#x2F;&#x2F;godbolt.org&#x2F;z&#x2F;bscqYModz&quot;&gt;https:&#x2F;&#x2F;godbolt.org&#x2F;z&#x2F;bscqYModz&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;h1 id=&quot;new-features&quot;&gt;New Features&lt;&#x2F;h1&gt;
-&lt;ul&gt;
-&lt;li&gt;Allow to pass buffer larger than size &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;78&quot;&gt;#78&lt;&#x2F;a&gt;.
-This removes an unnecessary check in the decompression, when the passed buffer is too big.&lt;&#x2F;li&gt;
-&lt;li&gt;Add auto_finish to FrameEncoder &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;95&quot;&gt;#95&lt;&#x2F;a&gt; &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;100&quot;&gt;#100&lt;&#x2F;a&gt;.
-Empty input was ignored previously and didn’t write anything. Now an empty Frame is written. This improves compatibility with the reference implementation and some corner cases.&lt;&#x2F;li&gt;
-&lt;li&gt;Autodetect frame blocksize &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;81&quot;&gt;#81&lt;&#x2F;a&gt;.
-The default blocksize of FrameInfo is now auto instead of 64kb, it will detect the blocksize
+&lt;h3 id=&quot;allow-to-pass-buffer-larger-than-size&quot;&gt;Allow to pass buffer larger than size&lt;&#x2F;h3&gt;
+&lt;p&gt;This removes an unnecessary check in the decompression, when the passed buffer is too big.
+&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;78&quot;&gt;#78&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;add-auto-finish-to-frameencoder&quot;&gt;Add auto_finish to FrameEncoder&lt;&#x2F;h3&gt;
+&lt;p&gt;Empty input was ignored previously and didn’t write anything. Now an empty Frame is written. This improves compatibility with the reference implementation and some corner cases.
+&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;95&quot;&gt;#95&lt;&#x2F;a&gt; &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;100&quot;&gt;#100&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;autodetect-frame-blocksize&quot;&gt;Autodetect frame blocksize&lt;&#x2F;h3&gt;
+&lt;p&gt;The default blocksize of FrameInfo is now auto instead of 64kb, it will detect the blocksize
 depending of the size of the first write call. This increases
 compression ratio and speed for use cases where the data is larger than
-64kb.&lt;&#x2F;li&gt;
-&lt;li&gt;Add fluent API style contruction for FrameInfo &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;99&quot;&gt;#99&lt;&#x2F;a&gt; (thanks @CosmicHorrorDev).
-This adds in fluent API style construction for FrameInfo. Now you can do
-let info = FrameInfo::new()
-.block_size(BlockSize::Max1MB)
-.content_checksum(true);&lt;&#x2F;li&gt;
-&lt;li&gt;Handle empty input &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;120&quot;&gt;#120&lt;&#x2F;a&gt;.
-Empty input was ignored previously and didn’t write anything. Now an empty Frame is written. This improves compatibility with the reference implementation and some corner cases.&lt;&#x2F;li&gt;
+64kb.
+&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;81&quot;&gt;#81&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;add-fluent-api-style-contruction-for-frameinfo&quot;&gt;Add fluent API style contruction for FrameInfo&lt;&#x2F;h3&gt;
+&lt;p&gt;This adds in fluent API style construction for FrameInfo. Now you can do&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#282a36;color:#f8f8f2;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;font-style:italic;color:#8be9fd;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span&gt; info &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff79c6;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;text-decoration:underline;color:#66d9ef;&quot;&gt;FrameInfo&lt;&#x2F;span&gt;&lt;span style=&quot;text-decoration:underline;color:#ff79c6;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;new()
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff79c6;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8be9fd;&quot;&gt;block_size&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;text-decoration:underline;color:#66d9ef;&quot;&gt;BlockSize&lt;&#x2F;span&gt;&lt;span style=&quot;text-decoration:underline;color:#ff79c6;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;Max1MB)
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff79c6;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8be9fd;&quot;&gt;content_checksum&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bd93f9;&quot;&gt;true&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;99&quot;&gt;#99&lt;&#x2F;a&gt; (thanks @CosmicHorrorDev).&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;handle-empty-input&quot;&gt;Handle empty input&lt;&#x2F;h3&gt;
+&lt;p&gt;Empty input was ignored previously and didn’t write anything. Now an empty Frame is written. This improves compatibility with the reference implementation and some corner cases.
+&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;120&quot;&gt;#120&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;breaking-changes&quot;&gt;Breaking Changes&lt;&#x2F;h1&gt;
+&lt;p&gt;lz4_flex &lt;code&gt;0.10&lt;&#x2F;code&gt; and before had a feature-flag &lt;code&gt;checked-decode&lt;&#x2F;code&gt; to do additional checks to avoid out-of-bounds access. &lt;code&gt;0.11&lt;&#x2F;code&gt; inverts this feature-flag to &lt;code&gt;unchecked-decode&lt;&#x2F;code&gt;.
+Typically features flags are additive in Rust, so enabling a feature flag will add functionality. In the case of &lt;code&gt;checked-decode&lt;&#x2F;code&gt;, there was a unwanted side-effect. 
+&lt;code&gt;default-features=false&lt;&#x2F;code&gt; caused the API to be unsound. With &lt;code&gt;unchecked-decode&lt;&#x2F;code&gt; it requires deliberate action to enable the unsafe API.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;unchecked-decode&lt;&#x2F;code&gt; can be used in a few cases:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Compression&#x2F;Decompression happens in memory.&lt;&#x2F;li&gt;
+&lt;li&gt;You run sandboxed so out of bounds reads&#x2F;writes are not a problem.&lt;&#x2F;li&gt;
+&lt;li&gt;You data is checked against a checksum.&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
+&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;&#x2F;h1&gt;
+&lt;p&gt;See the full changelog &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;blob&#x2F;main&#x2F;CHANGELOG.md&quot;&gt;here&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 </content>
         
     </entry>

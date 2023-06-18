@@ -25,7 +25,7 @@ h2,
 }
 h3 {
   color: var(--color-accent-2);
-  text-decoration: underline;
+  text-decoration: underline var(--color-accent-1);
   font-weight: bold;
   font-size: .9rem;
 }

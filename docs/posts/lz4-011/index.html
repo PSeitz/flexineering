@@ -83,7 +83,8 @@
   
   
   <div class="content" itemprop="articleBody">
-    <p><a href="https://github.com/pseitz/lz4_flex">lz4_flex</a> 0.11 has been unleashed, and since the sole purpose of this blog is memes, I’ll summarize the performance gainnzzzz as:</p>
+    <p><a href="https://github.com/pseitz/lz4_flex">lz4_flex</a> is a LZ4 compression library written in Rust.</p>
+<p>lz4_flex 0.11 has been unleashed, and since the sole purpose of this blog is memes, I’ll summarize the performance gainnzzzz as:</p>
 <div class="mode-specific dark-mode-only">
     <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
@@ -96,8 +97,8 @@ Created by potrace 1.10, written by Peter Selinger 2001-2011
 </metadata>
   <defs>
     <radialGradient id="backgroundGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-      <stop offset="0%" stop-color="#ee6060" />
-      <stop offset="100%" stop-color="#333333" />
+    <stop offset="0%" stop-color="#ee6060" />
+    <stop offset="100%" stop-color="#333333" />
     </radialGradient>
   </defs>
   
@@ -831,16 +832,16 @@ m30 -10 c3 -5 1 -10 -4 -10 -6 0 -11 5 -11 10 0 6 2 10 4 10 3 0 8 -4 11 -10z"/>
     }
 </style>
 <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
- width="45pt" height="45pt" viewBox="0 0 275.000000 275.000000"
+ width="45pt" height="45pt" viewBox="0 0 275 275"
  preserveAspectRatio="xMidYMid meet">
  <defs>
-    <radialGradient id="darkGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+    <radialGradient id="darkGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="40%">
       <stop offset="0%" stop-color="var(--color-background)" />
-      <stop offset="100%" stop-color="#1d1f21" />
+      <stop offset="50%" stop-color="#1d1f21" />
     </radialGradient>
-    <radialGradient id="lightGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+    <radialGradient id="lightGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="40%">
       <stop offset="0%" stop-color="#f6e2f5" />
-      <stop offset="100%" stop-color="#d6e2f5" />
+      <stop offset="50%" stop-color="#d6e2f5" />
     </radialGradient>
 </defs>
 <circle class="myCircle" cx="140" cy="140" r="128" />
@@ -961,15 +962,15 @@ c103 -31 164 -103 181 -211 l6 -41 -140 -153 c-77 -84 -162 -181 -188 -216
 <span class="flex-info">Flex Info</span>
 </div>
 	<div> <p>lz4_flex <code>0.10</code> and before had a feature-flag <code>checked-decode</code> to do additional checks to avoid out-of-bounds access.
-<code>0.11</code> inverted this feature-flag to <code>unchecked-decode</code>. In the benchmarks below all tests are done with out-of-bounds checks.</p>
+<code>0.11</code> inverts this feature-flag to <code>unchecked-decode</code>. In the benchmarks below all tests are done with out-of-bounds checks.</p>
  </div>
 </div>
 <h2 id="block-format">Block Format</h2>
-<p>The graph illustrates a comparison between versions v0.11 and v0.10, and the C90 reference implementation. The lz4_flex crate has two configuration variants:</p>
+<p>The block format is ideal for small data up to several megabytes.
+The lz4_flex crate is tested in two configuration variants:</p>
 <ul>
 <li>no suffix: contains <code>unsafe</code>.</li>
-<li><code>safe</code> suffix: contains no <code>unsafe</code>.
-The block format is ideal for small data up to several megabytes.</li>
+<li><code>safe</code> suffix: contains no <code>unsafe</code>.</li>
 </ul>
 <div class="testo">
 <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
@@ -1471,7 +1472,8 @@ The unrolling is avoided by manually unrolling with a less aggressive version. D
 </ul>
 <h3 id="simplify-extend-from-within-overlapping">Simplify extend_from_within_overlapping</h3>
 <p><code>extend_from_within_overlapping</code> is used in safe decompression when overlapping data has been detected. 
-The prev version had an unnecessary assertion, since this does not hoist the bounds checks. Removing the temporary <code>&amp;mut</code> slice also simplifies the resulting assembly.</p>
+The previous version had an unnecessary assertion, which did not hoist the bounds checks. 
+Removing the temporary <code>&amp;mut</code> slice also simplifies the resulting assembly.</p>
 <p>uiCA Code Analyzer:</p>
 <table><thead><tr><th>Variant</th><th>Skylake</th><th>IceLake</th><th>Tiger Lake</th><th>Rocket Lake</th></tr></thead><tbody>
 <tr><td>uiCA Cycles Prev</td><td>28.71</td><td>30.67</td><td>28.71</td><td>27.57</td></tr>
@@ -1533,16 +1535,16 @@ For any slice access with addition the compiler has to assume that value may wra
     }
 </style>
 <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
- width="45pt" height="45pt" viewBox="0 0 275.000000 275.000000"
+ width="45pt" height="45pt" viewBox="0 0 275 275"
  preserveAspectRatio="xMidYMid meet">
  <defs>
-    <radialGradient id="darkGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+    <radialGradient id="darkGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="40%">
       <stop offset="0%" stop-color="var(--color-background)" />
-      <stop offset="100%" stop-color="#1d1f21" />
+      <stop offset="50%" stop-color="#1d1f21" />
     </radialGradient>
-    <radialGradient id="lightGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+    <radialGradient id="lightGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="40%">
       <stop offset="0%" stop-color="#f6e2f5" />
-      <stop offset="100%" stop-color="#d6e2f5" />
+      <stop offset="50%" stop-color="#d6e2f5" />
     </radialGradient>
 </defs>
 <circle class="myCircle" cx="140" cy="140" r="128" />
@@ -1662,7 +1664,7 @@ c103 -31 164 -103 181 -211 l6 -41 -140 -153 c-77 -84 -162 -181 -188 -216
 </svg>
 <span class="flex-info">Flex Info</span>
 </div>
-	<div> <p><code>slice_index_order</code> checks can be avoided by proving to the compiler the value can’t wrap, e.g.
+	<div> <p><code>slice_index_order</code> checks can be avoided by proving a value can’t wrap, e.g.
 <code>pos_u32 as usize + 10</code></p>
  </div>
 </div>
@@ -1673,7 +1675,7 @@ Reordering the code can’t be done if it reorders a bounds check and therefore 
 Additionally, there are cases where LLVM generates suboptimal assembly code, further impacting performance. 
 I think the reason for that is that the rust compiler generates a lot of llvm IR.</li>
 </ol>
-<p>An example regarding bounds checks is a <a href="https://github.com/PSeitz/lz4_flex/blob/main/src/sink.rs#L191-L195">loop</a> where hoisting was unable to be performed, resulting in two bounds
+<p>An example where bounds checks hoisting was unable to be performed is a backwards <a href="https://github.com/PSeitz/lz4_flex/blob/main/src/sink.rs#L191-L195">loop</a>, resulting in two bounds
 checks per iteration for every byte copied. That’s a lot of overhead.</p>
 <pre data-lang="rust" style="background-color:#282a36;color:#f8f8f2;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#ff79c6;">pub </span><span style="font-style:italic;color:#8be9fd;">fn </span><span style="color:#50fa7b;">extend_from_within_overlapping</span><span>(</span><span style="font-style:italic;color:#ffb86c;">output</span><span>: </span><span style="color:#ff79c6;">&amp;mut</span><span> [</span><span style="font-style:italic;color:#8be9fd;">u8</span><span>], </span><span style="font-style:italic;color:#ffb86c;">pos</span><span>: </span><span style="color:#ff79c6;">&amp;mut </span><span style="font-style:italic;color:#8be9fd;">usize</span><span>, </span><span style="font-style:italic;color:#ffb86c;">start</span><span>: </span><span style="font-style:italic;color:#8be9fd;">usize</span><span>, </span><span style="font-style:italic;color:#ffb86c;">num_bytes</span><span>: </span><span style="font-style:italic;color:#8be9fd;">usize</span><span>) </span><span style="color:#ffffff;">{
 </span><span>    </span><span style="font-style:italic;color:#8be9fd;">let</span><span> offset </span><span style="color:#ff79c6;">= *</span><span>pos </span><span style="color:#ff79c6;">-</span><span> start;
@@ -1686,24 +1688,40 @@ checks per iteration for every byte copied. That’s a lot of overhead.</p>
 <p>So if you are up for the challenge to try to remove the bounds checks, it’s all ready for you:
 <a href="https://godbolt.org/z/bscqYModz">https://godbolt.org/z/bscqYModz</a></p>
 <h1 id="new-features">New Features</h1>
-<ul>
-<li>Allow to pass buffer larger than size <a href="https://github.com/PSeitz/lz4_flex/pull/78">#78</a>.
-This removes an unnecessary check in the decompression, when the passed buffer is too big.</li>
-<li>Add auto_finish to FrameEncoder <a href="https://github.com/PSeitz/lz4_flex/pull/95">#95</a> <a href="https://github.com/PSeitz/lz4_flex/pull/100">#100</a>.
-Empty input was ignored previously and didn’t write anything. Now an empty Frame is written. This improves compatibility with the reference implementation and some corner cases.</li>
-<li>Autodetect frame blocksize <a href="https://github.com/PSeitz/lz4_flex/pull/81">#81</a>.
-The default blocksize of FrameInfo is now auto instead of 64kb, it will detect the blocksize
+<h3 id="allow-to-pass-buffer-larger-than-size">Allow to pass buffer larger than size</h3>
+<p>This removes an unnecessary check in the decompression, when the passed buffer is too big.
+<a href="https://github.com/PSeitz/lz4_flex/pull/78">#78</a>.</p>
+<h3 id="add-auto-finish-to-frameencoder">Add auto_finish to FrameEncoder</h3>
+<p>Empty input was ignored previously and didn’t write anything. Now an empty Frame is written. This improves compatibility with the reference implementation and some corner cases.
+<a href="https://github.com/PSeitz/lz4_flex/pull/95">#95</a> <a href="https://github.com/PSeitz/lz4_flex/pull/100">#100</a>.</p>
+<h3 id="autodetect-frame-blocksize">Autodetect frame blocksize</h3>
+<p>The default blocksize of FrameInfo is now auto instead of 64kb, it will detect the blocksize
 depending of the size of the first write call. This increases
 compression ratio and speed for use cases where the data is larger than
-64kb.</li>
-<li>Add fluent API style contruction for FrameInfo <a href="https://github.com/PSeitz/lz4_flex/pull/99">#99</a> (thanks @CosmicHorrorDev).
-This adds in fluent API style construction for FrameInfo. Now you can do
-let info = FrameInfo::new()
-.block_size(BlockSize::Max1MB)
-.content_checksum(true);</li>
-<li>Handle empty input <a href="https://github.com/PSeitz/lz4_flex/pull/120">#120</a>.
-Empty input was ignored previously and didn’t write anything. Now an empty Frame is written. This improves compatibility with the reference implementation and some corner cases.</li>
+64kb.
+<a href="https://github.com/PSeitz/lz4_flex/pull/81">#81</a></p>
+<h3 id="add-fluent-api-style-contruction-for-frameinfo">Add fluent API style contruction for FrameInfo</h3>
+<p>This adds in fluent API style construction for FrameInfo. Now you can do</p>
+<pre data-lang="rust" style="background-color:#282a36;color:#f8f8f2;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="font-style:italic;color:#8be9fd;">let</span><span> info </span><span style="color:#ff79c6;">= </span><span style="text-decoration:underline;color:#66d9ef;">FrameInfo</span><span style="text-decoration:underline;color:#ff79c6;">::</span><span>new()
+</span><span>    </span><span style="color:#ff79c6;">.</span><span style="color:#8be9fd;">block_size</span><span>(</span><span style="text-decoration:underline;color:#66d9ef;">BlockSize</span><span style="text-decoration:underline;color:#ff79c6;">::</span><span>Max1MB)
+</span><span>    </span><span style="color:#ff79c6;">.</span><span style="color:#8be9fd;">content_checksum</span><span>(</span><span style="color:#bd93f9;">true</span><span>);
+</span></code></pre>
+<p><a href="https://github.com/PSeitz/lz4_flex/pull/99">#99</a> (thanks @CosmicHorrorDev).</p>
+<h3 id="handle-empty-input">Handle empty input</h3>
+<p>Empty input was ignored previously and didn’t write anything. Now an empty Frame is written. This improves compatibility with the reference implementation and some corner cases.
+<a href="https://github.com/PSeitz/lz4_flex/pull/120">#120</a>.</p>
+<h1 id="breaking-changes">Breaking Changes</h1>
+<p>lz4_flex <code>0.10</code> and before had a feature-flag <code>checked-decode</code> to do additional checks to avoid out-of-bounds access. <code>0.11</code> inverts this feature-flag to <code>unchecked-decode</code>.
+Typically features flags are additive in Rust, so enabling a feature flag will add functionality. In the case of <code>checked-decode</code>, there was a unwanted side-effect. 
+<code>default-features=false</code> caused the API to be unsound. With <code>unchecked-decode</code> it requires deliberate action to enable the unsafe API.</p>
+<p><code>unchecked-decode</code> can be used in a few cases:</p>
+<ul>
+<li>Compression/Decompression happens in memory.</li>
+<li>You run sandboxed so out of bounds reads/writes are not a problem.</li>
+<li>You data is checked against a checksum.</li>
 </ul>
+<h1 id="changelog">Changelog</h1>
+<p>See the full changelog <a href="https://github.com/PSeitz/lz4_flex/blob/main/CHANGELOG.md">here</a></p>
 
   </div>
 </article>

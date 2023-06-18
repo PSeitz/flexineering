@@ -22,7 +22,9 @@
     <li class="project-item">
       <a href="">A very cool SVG logo</a>: 
 
-   <style>
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 275.000000 275.000000"
+ preserveAspectRatio="xMidYMid meet">
+<style>
     [data-mode="light"]{
       --gradient: url(#lightGradient);
     }
@@ -38,10 +40,11 @@
     .myCircle {
       fill: var(--gradient);
     }
+
+    svg {
+    	max-width: 250pt; /* for mobile */
+    }	
 </style>
-<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
- width="275.000000pt" height="275.000000pt" viewBox="0 0 275.000000 275.000000"
- preserveAspectRatio="xMidYMid meet">
  <defs>
     <radialGradient id="darkGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
       <stop offset="0%" stop-color="var(--color-background)" />
