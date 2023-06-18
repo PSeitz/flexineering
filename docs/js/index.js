@@ -320,31 +320,16 @@ function loadActions() {
     }
   }
 
-  function setUserColorMode(mode = false) {
-    const isDarkMode = currentMode() == dark;
-    const storedMode = window.localStorage.getItem(storageKey);
+  function toggleColorMode(mode = false) {
+    const isDarkMode = currentMode() != light;
     const sysMode = systemMode();
-    if(storedMode) {
-      if(mode) {
-        changeMode(isDarkMode);
-      } else {
-        elemAttribute(doc, data, storedMode);
-      }
-    } else {
-      if(mode === true) {
-        changeMode(isDarkMode)
-      } else {
-        changeMode(sysMode!==dark);
-      }
-    }
+    changeMode(isDarkMode);
     const userMode = doc.dataset.mode;
     doc.dataset.systemmode = sysMode;
     if(userMode) {
       pickModePicture(userMode,sysMode,mode);
     }
   }
-
-  setUserColorMode();
 
   (function updateDate() {
     const date = new Date();
@@ -393,7 +378,7 @@ function loadActions() {
 {
   const elements = document.getElementsByClassName('mode-toggle');
   Array.from(elements).forEach(element => {
-	  element.addEventListener('click', () =>setUserColorMode(true) );
+	  element.addEventListener('click', () =>toggleColorMode() );
   });
 }
  

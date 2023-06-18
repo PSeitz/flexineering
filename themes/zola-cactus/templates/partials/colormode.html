@@ -3,8 +3,13 @@
     setUserColorMode();
     function setUserColorMode() {
       const storedMode = window.localStorage.getItem('colorMode');
-      const isDarkMode =  storedMode == 'dark';  
+      let fallbackMode = wantsLightMode() ? 'light' : 'dark';
+      console.log(storedMode || fallbackMode)
+      const isDarkMode =  (storedMode || fallbackMode) == 'dark';  
       const root = document.documentElement;
       root.setAttribute('data-mode', isDarkMode ? 'dark' : 'light');
+    }
+    function wantsLightMode(){
+	return window.matchMedia('(prefers-color-scheme: light)').matches;
     }
   </script>
