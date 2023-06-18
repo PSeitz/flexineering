@@ -4,7 +4,7 @@
 base_url = "http://flexineering.com/"
 
 github = "https://github.com/PSeitz"
-description = "WAAAAAAAA"
+description = "A blog post about Rust, WebAssembly, and other things."
 
 # Whether to automatically compile all Sass files in the sass directory
 compile_sass = true
