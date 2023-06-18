@@ -3,8 +3,10 @@
 <!--<link rel="stylesheet" href="https://latest.cactus.chat/style.css" type="text/css">-->
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-{% if config.description %}
-  <meta name="description" content="{{ config.description }}">
+
+{% set title = page.description | default(value=config.description) -%}
+{% if title %}
+  <meta name="description" content="{{ title }}">
 {% endif %}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="all,follow">

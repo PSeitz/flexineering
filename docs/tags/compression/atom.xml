@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title> - compression</title>
+    <subtitle>WAAAAAAAA</subtitle>
     <link href="http://flexineering.com/tags/compression/atom.xml" rel="self" type="application/atom+xml"/>
     <link href="http://flexineering.com/"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
@@ -1660,7 +1661,7 @@ Typically features flags are additive in Rust, so enabling a feature flag will a
 &lt;li&gt;The data is validated against a checksum.&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
 &lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;&#x2F;h1&gt;
-&lt;p&gt;See the full changelog &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;blob&#x2F;main&#x2F;CHANGELOG.md&quot;&gt;here&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;See the full &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;blob&#x2F;main&#x2F;CHANGELOG.md&quot;&gt;changelog&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 </content>
         
     </entry>
