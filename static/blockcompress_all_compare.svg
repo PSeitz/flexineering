@@ -1,0 +1,98 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+<g fill="#FFFFFF" font-family="Roboto-Regular,Roboto, sans-serif">
+<rect fill="#1d1f21" height="600" width="800" x="0" y="0"/>
+<g transform="translate(0,30)">
+<line stroke="#999999" x1="85" x2="80" y1="510" y2="510"/>
+<line stroke="#999999" x1="80" x2="643" y1="510" y2="510"/>
+<text direction="rtl" font-size="12" x="75" y="514">
+0
+</text>
+<line stroke="#999999" x1="85" x2="80" y1="367.6663" y2="367.6663"/>
+<line stroke="#999999" x1="80" x2="643" y1="367.6663" y2="367.6663"/>
+<text direction="rtl" font-size="12" x="75" y="371.6663">
+0.5
+</text>
+<line stroke="#999999" x1="85" x2="80" y1="225.33258" y2="225.33258"/>
+<line stroke="#999999" x1="80" x2="643" y1="225.33258" y2="225.33258"/>
+<text direction="rtl" font-size="12" x="75" y="229.33258">
+1
+</text>
+<line stroke="#999999" x1="85" x2="80" y1="82.99887" y2="82.99887"/>
+<line stroke="#999999" x1="80" x2="643" y1="82.99887" y2="82.99887"/>
+<text direction="rtl" font-size="12" x="75" y="86.99887">
+1.5
+</text>
+<text text-anchor="middle" x="30" y="255">
+Gb/s
+</text>
+<line stroke="#999999" x1="85" x2="85" y1="10" y2="510"/>
+<line stroke="#999999" x1="85" x2="730" y1="510" y2="510"/>
+<rect fill="#66CC99" height="192.08052" width="17.6" x="90" y="317.9195"/>
+<rect fill="#F3CF7A" height="183.47768" width="17.6" x="110.6" y="326.52234"/>
+<rect fill="#4B8BBC" height="148.8039" width="17.6" x="131.2" y="361.1961"/>
+<rect fill="#A1D99B" height="166.93855" width="17.6" x="151.8" y="343.06146"/>
+<rect fill="#87C3D4" height="131.9755" width="17.6" x="172.40001" y="378.0245"/>
+<text text-anchor="left" x="90" y="530">
+34K Text
+</text>
+<rect fill="#66CC99" height="122.538345" width="17.6" x="218" y="387.46167"/>
+<rect fill="#F3CF7A" height="135.50781" width="17.6" x="238.6" y="374.4922"/>
+<rect fill="#4B8BBC" height="97.06771" width="17.6" x="259.2" y="412.93228"/>
+<rect fill="#A1D99B" height="119.74715" width="17.6" x="279.80002" y="390.25287"/>
+<rect fill="#87C3D4" height="103.24371" width="17.6" x="300.40002" y="406.7563"/>
+<text text-anchor="left" x="218" y="530">
+65K Text
+</text>
+<rect fill="#66CC99" height="500" width="17.6" x="346" y="10"/>
+<rect fill="#F3CF7A" height="443.66934" width="17.6" x="366.6" y="66.33066"/>
+<rect fill="#4B8BBC" height="414.21362" width="17.6" x="387.2" y="95.78638"/>
+<rect fill="#A1D99B" height="463.69836" width="17.6" x="407.80002" y="46.301636"/>
+<rect fill="#87C3D4" height="377.97867" width="17.6" x="428.40002" y="132.02133"/>
+<text text-anchor="left" x="346" y="530">
+66K JSON
+</text>
+<rect fill="#66CC99" height="189.75397" width="17.6" x="474" y="320.24603"/>
+<rect fill="#F3CF7A" height="201.60255" width="17.6" x="494.6" y="308.39746"/>
+<rect fill="#4B8BBC" height="143.43517" width="17.6" x="515.2" y="366.56482"/>
+<rect fill="#A1D99B" height="185.47726" width="17.6" x="535.8" y="324.52274"/>
+<rect fill="#87C3D4" height="144.99138" width="17.6" x="556.39996" y="365.0086"/>
+<text text-anchor="left" x="474" y="530">
+725b Text
+</text>
+<rect fill="#66CC99" height="104.30107" width="17.6" x="602" y="405.6989"/>
+<rect fill="#F3CF7A" height="100.12231" width="17.6" x="622.6" y="409.8777"/>
+<rect fill="#4B8BBC" height="86.49474" width="17.6" x="643.19995" y="423.50525"/>
+<rect fill="#A1D99B" height="97.55975" width="17.6" x="663.7999" y="412.44025"/>
+<rect fill="#87C3D4" height="83.44683" width="17.6" x="684.3999" y="426.55316"/>
+<text text-anchor="left" x="602" y="530">
+10Mb Dickens
+</text>
+<g fill="#000000" transform="translate(627,0)">
+<rect fill="#FFFFFF" height="120" stroke="#121212" width="153"/>
+<text font-size="12" x="10" y="25">
+lz4_cpp
+</text>
+<rect fill="#F3CF7A" height="10" width="20" x="123" y="15"/>
+<text font-size="12" x="10" y="45">
+lz4_flex
+</text>
+<rect fill="#66CC99" height="10" width="20" x="123" y="35"/>
+<text font-size="12" x="10" y="65">
+lz4_flex_safe
+</text>
+<rect fill="#4B8BBC" height="10" width="20" x="123" y="55"/>
+<text font-size="12" x="10" y="85">
+lz4_flex_v10
+</text>
+<rect fill="#A1D99B" height="10" width="20" x="123" y="75"/>
+<text font-size="12" x="10" y="105">
+lz4_flex_v10_safe
+</text>
+<rect fill="#87C3D4" height="10" width="20" x="123" y="95"/>
+</g>
+<text font-weight="bold" text-anchor="middle" x="400" y="0">
+Block Compress
+</text>
+</g>
+</g>
+</svg>

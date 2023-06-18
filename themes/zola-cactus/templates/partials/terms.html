@@ -1,0 +1,23 @@
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="content" itemprop="articleBody">
+    <div id="tag-cloud">
+      <!-- <mark>{ terms.name }}</mark><br> -->
+      <!-- { taxonomy } -->
+      {% if terms %}
+      {% else %}
+      <div class="tag-cloud-title">
+        No {{ term.name }}
+      </div>
+      {% endif %}
+      <div class="tag-cloud-tags">
+        {% set terms_count = 15 %}
+        {% for term in terms %}
+        <a style="font-size: 1rem;" href="{{ term.permalink }}">
+          {{- term.name -}}
+        </a>
+        <span>({{ term.pages | length }})</span>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</article>

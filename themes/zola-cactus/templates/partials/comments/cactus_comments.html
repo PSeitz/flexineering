@@ -1,0 +1,12 @@
+{%- set cactus = config.extra.comments.Cactuscomments %}
+<div id="cactus-comments-thread">
+  <script>
+  initComments({
+    node: document.getElementById("cactus-comments-thread"),
+    defaultHomeserverUrl: '{{ cactus.serverUrl | default(value="https://matrix.cactus.chat:8448") }}',
+    serverName: '{{ cactus.serverName | default(value="cactus.chat") }}',
+    siteName: "{{ cactus.siteName }}",
+    commentSectionId: "{{ page.permalink }}" // relpermalink
+  })
+</script>
+</div>

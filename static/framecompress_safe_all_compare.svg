@@ -1,0 +1,122 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+<g fill="#FFFFFF" font-family="Roboto-Regular,Roboto, sans-serif">
+<rect fill="#1d1f21" height="600" width="800" x="0" y="0"/>
+<g transform="translate(0,30)">
+<line stroke="#999999" x1="85" x2="80" y1="510" y2="510"/>
+<line stroke="#999999" x1="80" x2="643" y1="510" y2="510"/>
+<text direction="rtl" font-size="12" x="75" y="514">
+0
+</text>
+<line stroke="#999999" x1="85" x2="80" y1="443.6492" y2="443.6492"/>
+<line stroke="#999999" x1="80" x2="643" y1="443.6492" y2="443.6492"/>
+<text direction="rtl" font-size="12" x="75" y="447.6492">
+0.2
+</text>
+<line stroke="#999999" x1="85" x2="80" y1="377.2984" y2="377.2984"/>
+<line stroke="#999999" x1="80" x2="643" y1="377.2984" y2="377.2984"/>
+<text direction="rtl" font-size="12" x="75" y="381.2984">
+0.4
+</text>
+<line stroke="#999999" x1="85" x2="80" y1="310.94757" y2="310.94757"/>
+<line stroke="#999999" x1="80" x2="643" y1="310.94757" y2="310.94757"/>
+<text direction="rtl" font-size="12" x="75" y="314.94757">
+0.6
+</text>
+<line stroke="#999999" x1="85" x2="80" y1="244.5968" y2="244.5968"/>
+<line stroke="#999999" x1="80" x2="643" y1="244.5968" y2="244.5968"/>
+<text direction="rtl" font-size="12" x="75" y="248.5968">
+0.8
+</text>
+<line stroke="#999999" x1="85" x2="80" y1="178.246" y2="178.246"/>
+<line stroke="#999999" x1="80" x2="643" y1="178.246" y2="178.246"/>
+<text direction="rtl" font-size="12" x="75" y="182.246">
+1
+</text>
+<line stroke="#999999" x1="85" x2="80" y1="111.89517" y2="111.89517"/>
+<line stroke="#999999" x1="80" x2="643" y1="111.89517" y2="111.89517"/>
+<text direction="rtl" font-size="12" x="75" y="115.89517">
+1.2
+</text>
+<text text-anchor="middle" x="30" y="255">
+Gb/s
+</text>
+<line stroke="#999999" x1="85" x2="85" y1="10" y2="510"/>
+<line stroke="#999999" x1="85" x2="730" y1="510" y2="510"/>
+<rect fill="#66CC99" height="191.3969" width="14.666667" x="90" y="318.6031"/>
+<rect fill="#4B8BBC" height="186.26973" width="14.666667" x="107.66667" y="323.7303"/>
+<rect fill="#87C3D4" height="187.05159" width="14.666667" x="125.33334" y="322.94843"/>
+<rect fill="#A1D99B" height="180.21016" width="14.666667" x="143.00002" y="329.78986"/>
+<rect fill="#F3CF7A" height="241.39435" width="14.666667" x="160.66669" y="268.60565"/>
+<rect fill="#E3CE7A" height="239.56937" width="14.666667" x="178.33336" y="270.43063"/>
+<text text-anchor="left" x="90" y="530">
+XML Collection
+</text>
+<rect fill="#66CC99" height="93.57418" width="14.666667" x="218" y="416.4258"/>
+<rect fill="#4B8BBC" height="91.308205" width="14.666667" x="235.66667" y="418.6918"/>
+<rect fill="#87C3D4" height="89.1141" width="14.666667" x="253.33334" y="420.8859"/>
+<rect fill="#A1D99B" height="87.85004" width="14.666667" x="271" y="422.14996"/>
+<rect fill="#F3CF7A" height="113.35707" width="14.666667" x="288.66666" y="396.64294"/>
+<rect fill="#E3CE7A" height="111.188156" width="14.666667" x="306.3333" y="398.81183"/>
+<text text-anchor="left" x="218" y="530">
+Reymont PDF
+</text>
+<rect fill="#66CC99" height="357.5943" width="14.666667" x="346" y="152.4057"/>
+<rect fill="#4B8BBC" height="348.33804" width="14.666667" x="363.66666" y="161.66196"/>
+<rect fill="#87C3D4" height="358.1835" width="14.666667" x="381.3333" y="151.8165"/>
+<rect fill="#A1D99B" height="337.8097" width="14.666667" x="398.99997" y="172.1903"/>
+<rect fill="#F3CF7A" height="500" width="14.666667" x="416.66663" y="10"/>
+<rect fill="#E3CE7A" height="480.47525" width="14.666667" x="434.33328" y="29.52475"/>
+<text text-anchor="left" x="346" y="530">
+HDFS LOG JSON
+</text>
+<rect fill="#66CC99" height="121.803314" width="14.666667" x="474" y="388.1967"/>
+<rect fill="#4B8BBC" height="121.96" width="14.666667" x="491.66666" y="388.04"/>
+<rect fill="#87C3D4" height="111.792854" width="14.666667" x="509.3333" y="398.20715"/>
+<rect fill="#A1D99B" height="115.96418" width="14.666667" x="527" y="394.03583"/>
+<rect fill="#F3CF7A" height="45.276833" width="14.666667" x="544.6667" y="464.72318"/>
+<rect fill="#E3CE7A" height="30.012783" width="14.666667" x="562.3334" y="479.9872"/>
+<text text-anchor="left" x="474" y="530">
+725b Text
+</text>
+<rect fill="#66CC99" height="90.77232" width="14.666667" x="602" y="419.22766"/>
+<rect fill="#4B8BBC" height="83.63924" width="14.666667" x="619.6667" y="426.36078"/>
+<rect fill="#87C3D4" height="85.07334" width="14.666667" x="637.3334" y="424.92667"/>
+<rect fill="#A1D99B" height="81.163124" width="14.666667" x="655.00006" y="428.83688"/>
+<rect fill="#F3CF7A" height="103.54595" width="14.666667" x="672.66675" y="406.45404"/>
+<rect fill="#E3CE7A" height="103.31026" width="14.666667" x="690.33344" y="406.68976"/>
+<text text-anchor="left" x="602" y="530">
+10Mb Dickens
+</text>
+<g fill="#000000" transform="translate(609,0)">
+<rect fill="#FFFFFF" height="140" stroke="#121212" width="171"/>
+<text font-size="12" x="10" y="25">
+lz4_cpp_indep
+</text>
+<rect fill="#F3CF7A" height="10" width="20" x="141" y="15"/>
+<text font-size="12" x="10" y="45">
+lz4_cpp_linked
+</text>
+<rect fill="#E3CE7A" height="10" width="20" x="141" y="35"/>
+<text font-size="12" x="10" y="65">
+lz4_flex_indep
+</text>
+<rect fill="#66CC99" height="10" width="20" x="141" y="55"/>
+<text font-size="12" x="10" y="85">
+lz4_flex_linked
+</text>
+<rect fill="#4B8BBC" height="10" width="20" x="141" y="75"/>
+<text font-size="12" x="10" y="105">
+lz4_flex_v10_indep
+</text>
+<rect fill="#87C3D4" height="10" width="20" x="141" y="95"/>
+<text font-size="12" x="10" y="125">
+lz4_flex_v10_linked
+</text>
+<rect fill="#A1D99B" height="10" width="20" x="141" y="115"/>
+</g>
+<text font-weight="bold" text-anchor="middle" x="400" y="0">
+Frame Compress
+</text>
+</g>
+</g>
+</svg>

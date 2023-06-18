@@ -1,0 +1,11 @@
+{% set utterances = config.extra.comments.utterances %}
+<div id="disquss_thread">
+  <script src="https://utteranc.es/client.js"
+    repo="{{ utterances.repo }}"
+    issue-term="pathname"
+    label="{{ utterances.label }}"
+    theme="{{ utterances.theme }}"
+    crossorigin="anonymous"
+    async>
+  </script>
+</div>

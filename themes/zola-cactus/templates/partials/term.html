@@ -1,0 +1,40 @@
+<div id="archive">
+  <ul class="post-list">
+  <!-- { set mainPosts = paginator.pages } -->
+  {% set mainPosts = get_section(path="posts/_index.md") %}
+  {% if config.extra.showAllPostsArchive %}
+    {% set mainPosts = get_section(path="posts/_index.md") %}
+  {% endif %}
+  {% set mainPosts = mainPosts.pages | sort(attribute="date") | reverse %}
+  {% set label = taxonomy.name %}
+  {% set currentTaxonomy = term.name %}
+  {% for post in mainPosts %}
+    {% set currentTaxonomies = post.taxonomies[label] %}
+    {% if currentTaxonomies is containing(currentTaxonomy) %}
+    {% set pageYear = post.date | date(format="%Y") %}
+    {% set index = loop.index - 2 %}
+    {% set previousPageYear = pageYear %}
+    {% if loop.index > 1 %}
+      {% set previousPost = mainPosts | nth(n=index) %}
+      {% set previousPageYear = previousPost.date | date(format="%Y") %}
+    {% endif %}
+    {% if loop.index == 1 %}
+      <h2>{{ pageYear }}</h2>
+    {% elif pageYear != previousPageYear %}
+      <h2>{{ pageYear }}</h2>
+    {% endif %}
+    <li class="post-item">
+      <div class="meta">
+        <time datetime="{{ post.date }}" itemprop="datePublished">{{ post.date | date(format=config.extra.date_format) }}</time>
+      </div>
+      <span>
+        <a class="" href="{{ post.permalink }}">{{ post.title | default(value="Untitled") }}</a>
+      </span>
+    </li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+  {% if config.extra.showAllPostsArchive == false %}
+    {% include "pagination.html" ignore missing %}
+  {% endif %}
+</div>

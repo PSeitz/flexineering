@@ -1,0 +1,125 @@
+# The URL the site will be built for
+#base_url = "https://pseitz.github.io/lz4-flex/"
+#base_url = "http://192.168.1.103:8080/"
+base_url = "http://flexineering.com/"
+
+github = "https://github.com/PSeitz"
+
+# Whether to automatically compile all Sass files in the sass directory
+compile_sass = true
+
+# Whether to build a search index to be used later on by a JavaScript library
+build_search_index = true
+
+theme = "zola-cactus" # "after-dark"
+#title = "zola-cactus"
+
+paginate_by = 5
+
+taxonomies = [
+    # You can enable/disable RSS
+    {name = "categories", feed = true},
+    {name = "tags", feed = true},
+]
+
+ignored_content = ["**/jquery", "*jquery*", "font-awesome*"]
+#ignored_content = ["*jquery*", "font-awesome*"]
+
+[extra]
+# Put all your custom variables here
+after_dark_menu = [
+    {url = "$BASE_URL", name = "Home"},
+    #{url = "$BASE_URL/categories", name = "Categories"},
+    {url = "$BASE_URL/tags", name = "Tags"},
+]
+
+
+damn = false
+custom_css = ""
+showProjectsList = true # show projects list by default (if projects data file exists).
+projectsUrl = "https://github.com/PSeitz" # title link for projects list
+copyright = "Pascal Seitz" # cactus will use title if copyright is not set
+date_format="%Y-%m-%d"
+showAllPostsArchive = false # default
+# Home page settings
+mainSection = "posts" # your main section
+mainSectionTitle = "Blog"
+showAllPostsOnHomePage = false # default
+postsOnHomePage = 6 # this option will be ignored if showAllPostsOnHomePage is set to true
+tagsOverview = false # show tags overview by default.
+ShowAllPostsOnHomePage = false
+toc = false
+rss = true # generate rss feed. default value is false
+# googleAnalytics = "UA-1234-5"
+googleAnalyticsAsync = true # use asynchronous tracking. Synchronous tracking by default
+# https://gohugo.io/functions/format/#hugo-date-and-time-templating-reference
+dateFormat = "2006-01-02" # default
+# Post page settings
+show_updated = false # default
+showReadTime = false # default
+showTags = false # default
+# the value of name should be an valid font awesome icon name (brands type)
+# https://fontawesome.com/icons?d=gallery&s=brands
+
+
+# Main menu which appears below site header.
+[[extra.menu.main]]
+name = "Home"
+url = "/"
+weight = 1
+
+[[extra.menu.main]]
+name = "Posts"
+url = "/posts"
+weight = 2
+
+#[[extra.menu.main]]
+#name = "Tags"
+#url = "/tags"
+#weight = 4
+
+[[extra.menu.main]]
+name = "About"
+url = "/about"
+weight = 5
+
+[[extra.projects]]
+name = "lz4_flex"
+url = "https://github.com/PSeitz/lz4_flex"
+desc = "Fastest pure Rust implementation of LZ4 compression/decompression."
+
+[[extra.projects]]
+name = "serde_json_borrow"
+url = "https://github.com/PSeitz/serde_json_borrow"
+desc = "Fast JSON deserialization into DOM on borrowed data."
+
+[[extra.projects]]
+name = "TOML <-> JSON Converter"
+url = "https://pseitz.github.io/toml-to-json-online-converter/"
+desc = "With Rust + WebAssembly." 
+
+
+#[[extra.social]]
+  #name = "github"
+  #link = "https://github.com/PSeitz"
+#[[extra.social]]
+  #name = "email"
+  #link = "pascal.seitz@gmail.com"  # no need for "mailto:" in the head
+
+[extra.comments]
+  enabled = true # default
+  engine = "utterances" # only disqus, utterances, and cactus_comments is supported
+[extra.comments.utterances]
+  repo = "PSeitz/lz4_flex"
+  label = "blubber-site-name" # you can use however you want to label your name in your repo's issues
+  theme = "github-light"
+#[extra.comments.cactuscomments]
+  #siteName = "your_cactus_comments_sitename" # see https://cactus.chat/ on how to register your site name
+  #serverUrl = "" # Defaults to https://matrix.cactus.chat:8448 (Cactus Chat public server)
+  #serverName = "" # Defaults to cactus.chat
+
+[markdown]
+# When set to "true", all code blocks are highlighted.
+highlight_code = true
+smart_punctuation = true
+highlight_theme = "dracula"

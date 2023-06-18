@@ -1,0 +1,18 @@
+<!-- print hugo function >> zola -->
+<footer id="footer">
+  <div class="footer-left">
+    Copyright  &copy; {{ now() | date(format="%Y") }} {% if config.extra.copyright %} {{ config.extra.copyright }} {% else %} {{ config.title }} {% endif %}
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        {% for link in config.extra.menu.main %} 
+        <li><a href="{{ link.url }}">{{ link.name }}</a></li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+
+
+
+</footer>

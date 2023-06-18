@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+  {% include "partials/head.html" %}
+  <title>{{ page.title | default(value=config.title) }}</title>
+  <link rel = 'canonical' href = '{{ page.permalink | default(value=config.title) }}'>
+</head>
+<body class="max-width mx-auto px3 ltr">
+  <div class="content index py3">
+
+    {% include "partials/header.html" %}
+    {% if page.ancestors | length > 1 %}
+      {% include "partials/post.html" %}
+    {% else %}
+      {{ page.content | safe }}<br>
+    {% endif %}
+
+
+    {% include "partials/footer.html" ignore missing %}
+
+  </div>
+  {% include "partials/colormode.html" %}
+</body>
+{% include "partials/scripts.html" %}
+</html>

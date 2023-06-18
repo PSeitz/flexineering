@@ -1,0 +1,53 @@
+<ul>
+  {% set icon_class_name = "icon_class_name" %}
+  {% if page.Description %}
+    {% set description = page.description %}
+  {% else %}
+    {% set description = page.summary %}
+  {% endif %}
+  <li>
+    <a aria-label="Facebook" class="icon" href="http://www.facebook.com/sharer.php?u={{ page.permalink }}">
+      <i aria-hidden="true" class="fab fa-facebook {{ icon_class_name }}"></i>
+    </a>
+  </li>
+  <li>
+    <a aria-label="Twitter" class="icon" href="https://twitter.com/share?url={{ page.permalink }}&text={{ page.title }}">
+      <i aria-hidden="true" class="fab fa-twitter {{ icon_class_name }}"></i>
+    </a>
+  </li>
+  <li>
+    <a aria-label="Linkedin" class="icon" href="http://www.linkedin.com/shareArticle?url={{ page.permalink }}&title={{ page.title }}">
+      <i aria-hidden="true" class="fab fa-linkedin {{ icon_class_name }}"></i>
+    </a>
+  </li>
+  <li>
+    <a aria-label="Pinterest" class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url={{ page.permalink }}&is_video=false&description={{ page.title }}">
+      <i aria-hidden="true" class="fab fa-pinterest {{ icon_class_name }}"></i>
+    </a>
+  </li>
+  <li>
+    <a aria-label="Email" class="icon" href="mailto:?subject={{ page.title }}&body=Check out this article: {{ page.permalink }}">
+      <i aria-hidden="true" class="fas fa-envelope {{ icon_class_name }}"></i>
+    </a>
+  </li>
+  <li>
+    <a aria-label="Pocket" class="icon" href="https://getpocket.com/save?url={{ page.permalink }}&title={{ page.title }}">
+      <i aria-hidden="true" class="fab fa-get-pocket {{ icon_class_name }}"></i>
+    </a>
+  </li>
+  <li>
+    <a aria-label="reddit" class="icon" href="http://reddit.com/submit?url={{ page.permalink }}&title={{ page.title }}">
+      <i aria-hidden="true" class="fab fa-reddit {{ icon_class_name }}"></i>
+    </a>
+  </li>
+  <li>
+    <a aria-label="Tumblr" class="icon" href="http://www.tumblr.com/share/link?url={{ page.permalink }}&name={{ page.title }}&description={{ description }}">
+      <i aria-hidden="true" class="fab fa-tumblr {{ icon_class_name }}"></i>
+    </a>
+  </li>
+  <li>
+    <a aria-label="Hacker News" class="icon" href="https://news.ycombinator.com/submitlink?u={{ page.permalink }}&t={{ page.title }}">
+      <i aria-hidden="true" class="fab fa-hacker-news {{ icon_class_name }}"></i>
+    </a>
+  </li>
+</ul>

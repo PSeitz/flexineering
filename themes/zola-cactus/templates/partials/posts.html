@@ -1,0 +1,47 @@
+<section id="writing">
+
+
+
+  <span class="h1"><a href="{{ config.extra.mainSection }}">{{ config.extra.mainSectionTitle | default(value="Writings") }}</a></span>
+  {% set tags = get_taxonomy(kind="tags") %}
+  {% set tags = tags.items %}
+  {% if config.extra.tagsOverview and tags %}
+  <span class="h2">Topics</span>
+  <span class="widget tagcloud">
+    {% for tag in tags %}
+      <a href="{{ tag.permalink }}">{{- tag.name -}}</a>
+    {% endfor %}
+  </span>
+  <span class="h2">Most recent</span>
+  {% endif %}
+
+  {% set showAllPostsOnHomePage = config.extra.ShowAllPostsOnHomePage %}
+  {% set mainPosts = get_section(path="posts/_index.md") %}
+  {% set mainPosts = mainPosts.pages | sort(attribute="date") | reverse %}
+  {% if showAllPostsOnHomePage %}
+  <ul class="post-list">
+    {% for post in mainPosts %}
+      <li class="post-item">
+        <div class="meta"><time datetime="{{ post.date }}" itemprop="datePublished">{{ post.date | date(format=config.extra.date_format) }}</time></div>
+        <span><a href="{{ post.permalink }}">{{- post.title | default(value="Untitled") -}}</a></span>
+      </li>
+    {% endfor %}
+  </ul>
+
+  {% include "pagination.html" ignore missing %}
+
+  {% else %}
+  <ul class="post-list">
+    {% set post_counts = config.extra.postsOnHomePage | default(value=5) %}
+    <!-- (first (.Scratch.Get "count") -->
+    {% for post in mainPosts %}
+      {% if loop.index <= post_counts %}
+      <li class="post-item">
+        <div class="meta"><time datetime="{{ post.date }}" itemprop="datePublished">{{ post.date | date(format=config.extra.date_format) }}</time></div>
+        <span><a href="{{ post.permalink }}">{{- post.title | default(value="Untitled") -}}</a></span>
+      </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+  {% endif %}
+</section>

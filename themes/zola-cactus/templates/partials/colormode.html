@@ -1,0 +1,10 @@
+  <script>
+    // avoid flickering
+    setUserColorMode();
+    function setUserColorMode() {
+      const storedMode = window.localStorage.getItem('colorMode');
+      const isDarkMode =  storedMode == 'dark';  
+      const root = document.documentElement;
+      root.setAttribute('data-mode', isDarkMode ? 'dark' : 'light');
+    }
+  </script>

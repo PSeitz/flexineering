@@ -1,0 +1,12 @@
+name = "Cactaceae"
+license = "MIT"
+description = "A simple Zola theme for personal blog. Inspired by Hugo theme cactus created by @probberechts."
+homepage = ""
+demosite = ""
+tags = ["blog", "simple", "clean"]
+features = ["mathjax", "customizable", "search", "table of contents"]
+
+# If the theme has a single author
+[author]
+  name = "Niels Gouman"
+  homepage = "https://example.com"

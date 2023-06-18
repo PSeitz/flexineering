@@ -1,0 +1,64 @@
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    <h1 class="posttitle" itemprop="name headline">
+      {{ page.title }}
+    </h1>
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">{{ config.extra.author | default(value=config.title)}}
+        </span>
+      </span>
+      <div class="postdate">
+        {% if config.extra.show_updated %}
+	<time datetime="{{ page.date }}" itemprop="datePublished">{{ page.date | date(format=config.extra.date_format) }}</time>
+          (Updated: <time datetime="{{ page.modified }}" itemprop="dateModified">{{ page.modified }}</time>)
+        {% endif %}
+      </div>
+      {% set showReadTime = page.showReadTime | default(value=false) %}
+      {% if showReadTime %}
+      <div class="article-read-time">
+        <i class="far fa-clock"></i>
+        {% set readTime = (page.wordcount / 220) | round  %}
+        {{ readTime | default(value=1) }} minute read
+      </div>
+      {% endif %}
+      {% if page.taxonomies.categories | length > 0 %}
+      <div class="article-category">
+        <i class="fas fa-archive"></i>
+        {% for cat in page.taxonomies.categories %}
+          {% if loop.index > 1 %} ", " {% endif %}
+          <a class="category-link" href="{{ "/categories/" }}{{ cat | slugify }}">{{ cat }}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if showTags %}
+	      {% if page.taxonomies.tags | length > 0 %}
+	      <div class="article-tag">
+		<i class="fas fa-tag"></i>
+		{% for tag in page.taxonomies.tags %}
+		{% if loop.index > 1 %} ", " {% endif %}
+		<a class="tag-link" href="{{ "/tags/" }}{{ tag | slugify }}" rel="tag">{{ tag }}</a>
+		{% endfor %}
+	      </div>
+	      {% endif %}
+      {% endif %}
+    </div>
+  </header>
+
+  {% if page.images %}
+    <div class="article-gallery">
+      {% for image in page.images %}
+      <a class="gallery-item" href="{{ page.url }}" rel="gallery_{{ loop.index }}">
+        <img src="{{ page.url }}" itemprop="image" />
+      </a>
+      {% endfor %}
+    </div>
+  {% endif %}
+  {% if config.extra.toc %}
+    {% include "partials/toc.html" %}
+  {% endif %}
+  <div class="content" itemprop="articleBody">
+    {{ page.content | safe }}
+  </div>
+</article>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+  {% include "partials/head.html" %}
+  <title>{{ page.title | default(value=config.title) }}</title>
+  <link rel = 'canonical' href = '{{ page.permalink | default(value=config.title) }}'>
+</head>
+<body class="max-width mx-auto px3 ltr">
+  <div class="content index py3">
+
+    {% include "partials/header.html" %}
+
+    {% include "partials/archive.html" %}
+
+    {% include "partials/footer.html" ignore missing %}
+
+  </div>
+</body>
+{% include "partials/scripts.html" %}
+</html>

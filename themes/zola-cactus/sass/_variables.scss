@@ -1,0 +1,93 @@
+$font-family-body: system-ui, 'Helvetica Neue', Helvetica, sans-serif;
+$font-family-mono: system-ui, 'Helvetica Neue', Helvetica, sans-serif;
+$font-family-tt: "Inconsolata", monospace;
+$font-size: 14px;
+$line-height: 1.725;
+$page-width: 48rem;
+$logo-width: 50px;
+$logo-height: 50px;
+$logo-grayout: true;
+// Colors
+$colors: "dark"; // white dark light classic
+
+@mixin darkmode {
+  --color-mode: "dark";
+  --color-background: #1d1f21;
+  --color-background-code: #222426;
+  --color-footer-mobile-2: #35393c;
+  --color-meta-code: #666;
+  --color-link: #d480aa;
+  --color-text: #c9cacc;
+  --color-accent-1: #5fffc6;
+  --color-accent-3: #cccccc;
+  --color-accent-2: #eeeeee;
+
+}
+@mixin lightmode {
+  --color-mode: "light";
+  --color-accent-1: #377295;
+  --color-background: #d6e2f5;
+}
+
+.tip {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  //background-color: var(--color-background-code);
+  padding: 5px;
+  margin: 5px;
+  margin-left: 0;
+  margin-right: 0;
+  border: 1px dashed var(--color-accent-1);
+}
+
+.tipheader {
+  display: flex;
+  align-items: center; /* Vertical center alignment */
+  text-transform: uppercase;
+}
+
+.flex-info {
+  font-weight: 600;
+  font-size: 125%;
+  margin-left: 8px; /* Add spacing between the SVG and text */
+}
+
+path {
+    fill: var(--color-accent-1); 
+}
+ellipse{
+    fill: var(--color-accent-1); 
+}
+circle{
+    fill: var(--color-accent-1); 
+}
+html {
+  --color-background: #e2e0de;
+  --color-background-code: #dddbd9;
+  --color-accent: var(--color-background-code);
+  --color-footer-mobile-1: var(--color-background-code);
+  --color-footer-mobile-2: #cac7c3;
+  --color-border: #666;
+  --color-meta: var(--color-border);
+  --color-meta-code: gray;
+  --color-link: #2bbc89;
+  --color-text: #363533;
+  --color-accent-3: #666666;
+  --color-accent-2: #111111;
+  --color-quote: #ccffb6;
+
+  &[data-mode="dark"] {
+    @include darkmode;
+  }
+  &[data-mode="light"] {
+    @include lightmode;
+  }
+
+  &.dark:not([data-mode="light"]) {
+    @media (prefers-color-scheme: dark) {
+      @include darkmode;
+    }
+  }
+}
