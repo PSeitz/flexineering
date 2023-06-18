@@ -1488,7 +1488,8 @@ If you use it, be aware that the assembly may drastically change with inlining.<
 <p>Reduce multiple slice fetches: every slice access, also nested ones, carries some overhead. In the hot loop, a fixed <code>&amp;[u8;16]</code> is fetched to operate on. 
 This is purely done to pass that info to the compiler. Remove error handling that only carries overhead. As we are in safe mode, we can rely on bounds checks if custom 
 error handling only adds overhead. In normal operation, no error should occur.</p>
-<p>The strategy to identify improvements was by counting the lines of assembly. A rough heuristic, but seems effective.</p>
+<p>The strategy to identify improvements was by counting the lines of assembly. A rough heuristic, but seems effective.
+<code>cargo asm --release --example decompress_block decompress_internal | wc -l</code></p>
 <ul>
 <li>PR: <a href="https://github.com/PSeitz/lz4_flex/pull/73">#73</a></li>
 </ul>
