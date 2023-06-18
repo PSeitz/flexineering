@@ -1180,7 +1180,7 @@ Block Compress
 <h2 id="frame-format">Frame Format</h2>
 <p>The frame format is suitable for streaming large data. That is reflected on the test data for the benchmarks.
 It consists of concatenated blocks. Blocks in the frame format can be independent or linked for higher compression.
-The tests below are only from the lz4_flex versions that contain <code>unsafe</code>.</p>
+The tests below are from the lz4_flex variants that contain <code>unsafe</code>.</p>
 <p><div >
 <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
 <g fill="#FFFFFF" font-family="Roboto-Regular,Roboto, sans-serif">
@@ -1493,7 +1493,9 @@ error handling only adds overhead. In normal operation, no error should occur.</
 <li>PR: <a href="https://github.com/PSeitz/lz4_flex/pull/73">#73</a></li>
 </ul>
 <h2 id="improve-safe-frame-compression-performance-7-15">Improve Safe Frame Compression Performance 7-15%</h2>
-<p>The frame encoding uses a fixed size hashtable. By creating a special hashtable with a Box&lt;[u32; 4096]&gt; size, in combination with the bit shift of 4, which is also moved into a constant, the compiler can remove the bounds checks. For that to happen, the compiler also needs to recognize the <code>&gt;&gt; 48</code> right shift from the hash algorithm (u64 &gt;&gt; 52 &lt;= 4096), which is the case. Yey. It also means we can use less <code>unsafe</code> for the unsafe version.</p>
+<p>The frame encoding uses a fixed size hashtable. By creating a special hashtable with a <code>Box&lt;[u32; 4096]&gt;</code> size, in combination with the bit shift of 4, 
+which is also moved into a constant, the compiler can remove the bounds checks. For that to happen, the compiler also needs to recognize the <code>&gt;&gt; 48</code> right shift 
+from the hash algorithm (u64 &gt;&gt; 52 &lt;= 4096), which is the case. Yey. It also means we can use less <code>unsafe</code> for the unsafe variant.</p>
 <ul>
 <li>PR: <a href="https://github.com/PSeitz/lz4_flex/pull/74">#74</a></li>
 </ul>

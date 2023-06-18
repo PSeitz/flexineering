@@ -51,6 +51,7 @@ $colors: "dark"; // white dark light classic
 }
 
 .flex-info {
+  color: var(--color-accent-2);
   font-weight: 600;
   font-size: 125%;
   margin-left: 8px; /* Add spacing between the SVG and text */

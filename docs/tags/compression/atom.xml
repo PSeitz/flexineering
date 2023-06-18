@@ -1113,7 +1113,7 @@ Block Compress
 &lt;h2 id=&quot;frame-format&quot;&gt;Frame Format&lt;&#x2F;h2&gt;
 &lt;p&gt;The frame format is suitable for streaming large data. That is reflected on the test data for the benchmarks.
 It consists of concatenated blocks. Blocks in the frame format can be independent or linked for higher compression.
-The tests below are only from the lz4_flex versions that contain &lt;code&gt;unsafe&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+The tests below are from the lz4_flex variants that contain &lt;code&gt;unsafe&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
 &lt;p&gt;&lt;div &gt;
 &lt;svg viewBox=&quot;0 0 800 600&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;
 &lt;g fill=&quot;#FFFFFF&quot; font-family=&quot;Roboto-Regular,Roboto, sans-serif&quot;&gt;
@@ -1426,7 +1426,9 @@ error handling only adds overhead. In normal operation, no error should occur.&l
 &lt;li&gt;PR: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;73&quot;&gt;#73&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
 &lt;h2 id=&quot;improve-safe-frame-compression-performance-7-15&quot;&gt;Improve Safe Frame Compression Performance 7-15%&lt;&#x2F;h2&gt;
-&lt;p&gt;The frame encoding uses a fixed size hashtable. By creating a special hashtable with a Box&amp;lt;[u32; 4096]&amp;gt; size, in combination with the bit shift of 4, which is also moved into a constant, the compiler can remove the bounds checks. For that to happen, the compiler also needs to recognize the &lt;code&gt;&amp;gt;&amp;gt; 48&lt;&#x2F;code&gt; right shift from the hash algorithm (u64 &amp;gt;&amp;gt; 52 &amp;lt;= 4096), which is the case. Yey. It also means we can use less &lt;code&gt;unsafe&lt;&#x2F;code&gt; for the unsafe version.&lt;&#x2F;p&gt;
+&lt;p&gt;The frame encoding uses a fixed size hashtable. By creating a special hashtable with a &lt;code&gt;Box&amp;lt;[u32; 4096]&amp;gt;&lt;&#x2F;code&gt; size, in combination with the bit shift of 4, 
+which is also moved into a constant, the compiler can remove the bounds checks. For that to happen, the compiler also needs to recognize the &lt;code&gt;&amp;gt;&amp;gt; 48&lt;&#x2F;code&gt; right shift 
+from the hash algorithm (u64 &amp;gt;&amp;gt; 52 &amp;lt;= 4096), which is the case. Yey. It also means we can use less &lt;code&gt;unsafe&lt;&#x2F;code&gt; for the unsafe variant.&lt;&#x2F;p&gt;
 &lt;ul&gt;
 &lt;li&gt;PR: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;74&quot;&gt;#74&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
