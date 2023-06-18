@@ -1383,8 +1383,7 @@ Frame Compress
 &lt;&#x2F;div&gt;
 &lt;&#x2F;p&gt;
 &lt;h1 id=&quot;performance-improvements&quot;&gt;Performance Improvements&lt;&#x2F;h1&gt;
-&lt;p&gt;I regularly get the question what makes lz4_flex so fast. 
-There’s no simple answer to that, but I can provide details of the performance improvements of v0.11.
+&lt;p&gt;In this release I took some effort to document the changes to improve performance.
 Maybe you can apply the insights to your own code.&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;custom-memcpy&quot;&gt;Custom memcpy&lt;&#x2F;h2&gt;
 &lt;p&gt;Calls to &lt;code&gt;memcpy&lt;&#x2F;code&gt; are replaced with a custom memcpy implementation, similar to the wildcopy of 16 bytes.
@@ -1409,7 +1408,8 @@ The unrolling is avoided by manually unrolling with a less aggressive version. D
 &lt;p&gt;&lt;code&gt;extend_from_within_overlapping&lt;&#x2F;code&gt; is used in safe decompression when overlapping data has been detected. 
 The previous version had an unnecessary assertion, which did not hoist the bounds checks. 
 Removing the temporary &lt;code&gt;&amp;amp;mut&lt;&#x2F;code&gt; slice also simplifies the resulting assembly.&lt;&#x2F;p&gt;
-&lt;p&gt;uiCA Code Analyzer:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;uica.uops.info&#x2F;&quot;&gt;uiCA&lt;&#x2F;a&gt; Code Analyzer can analyze assembly to estimate the number of cycles for different architectures.
+If you use it, be aware that the assembly may drastically change with inlining.&lt;&#x2F;p&gt;
 &lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Variant&lt;&#x2F;th&gt;&lt;th&gt;Skylake&lt;&#x2F;th&gt;&lt;th&gt;IceLake&lt;&#x2F;th&gt;&lt;th&gt;Tiger Lake&lt;&#x2F;th&gt;&lt;th&gt;Rocket Lake&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
 &lt;tr&gt;&lt;td&gt;uiCA Cycles Prev&lt;&#x2F;td&gt;&lt;td&gt;28.71&lt;&#x2F;td&gt;&lt;td&gt;30.67&lt;&#x2F;td&gt;&lt;td&gt;28.71&lt;&#x2F;td&gt;&lt;td&gt;27.57&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
 &lt;tr&gt;&lt;td&gt;uiCA Cycles Simplified&lt;&#x2F;td&gt;&lt;td&gt;13.00&lt;&#x2F;td&gt;&lt;td&gt;15.00&lt;&#x2F;td&gt;&lt;td&gt;13.00&lt;&#x2F;td&gt;&lt;td&gt;11.00&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
@@ -1629,7 +1629,7 @@ checks per iteration for every byte copied. That’s a lot of overhead.&lt;&#x2F
 &lt;p&gt;This removes an unnecessary check in the decompression, when the passed buffer is too big.
 &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;78&quot;&gt;#78&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;add-auto-finish-to-frameencoder&quot;&gt;Add auto_finish to FrameEncoder&lt;&#x2F;h2&gt;
-&lt;p&gt;Adds &lt;code&gt;auto_finish&lt;&#x2F;code&gt; to &lt;code&gt;FrameEncoder&lt;&#x2F;code&gt;, which flushes on drop. 
+&lt;p&gt;Adds &lt;code&gt;auto_finish&lt;&#x2F;code&gt; to &lt;code&gt;FrameEncoder&lt;&#x2F;code&gt;, which flushes on drop. This is useful if the flush method is abstracted away in a &lt;code&gt;Box&amp;lt;dyn Writer&amp;gt;&lt;&#x2F;code&gt;.
 &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;95&quot;&gt;#95&lt;&#x2F;a&gt; &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;100&quot;&gt;#100&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;autodetect-frame-blocksize&quot;&gt;Autodetect frame blocksize&lt;&#x2F;h2&gt;
 &lt;p&gt;The default blocksize of FrameInfo is now auto instead of 64kb, it will detect the blocksize

@@ -1450,8 +1450,7 @@ Frame Compress
 </div>
 </p>
 <h1 id="performance-improvements">Performance Improvements</h1>
-<p>I regularly get the question what makes lz4_flex so fast. 
-There’s no simple answer to that, but I can provide details of the performance improvements of v0.11.
+<p>In this release I took some effort to document the changes to improve performance.
 Maybe you can apply the insights to your own code.</p>
 <h2 id="custom-memcpy">Custom memcpy</h2>
 <p>Calls to <code>memcpy</code> are replaced with a custom memcpy implementation, similar to the wildcopy of 16 bytes.
@@ -1476,7 +1475,8 @@ The unrolling is avoided by manually unrolling with a less aggressive version. D
 <p><code>extend_from_within_overlapping</code> is used in safe decompression when overlapping data has been detected. 
 The previous version had an unnecessary assertion, which did not hoist the bounds checks. 
 Removing the temporary <code>&amp;mut</code> slice also simplifies the resulting assembly.</p>
-<p>uiCA Code Analyzer:</p>
+<p><a href="https://uica.uops.info/">uiCA</a> Code Analyzer can analyze assembly to estimate the number of cycles for different architectures.
+If you use it, be aware that the assembly may drastically change with inlining.</p>
 <table><thead><tr><th>Variant</th><th>Skylake</th><th>IceLake</th><th>Tiger Lake</th><th>Rocket Lake</th></tr></thead><tbody>
 <tr><td>uiCA Cycles Prev</td><td>28.71</td><td>30.67</td><td>28.71</td><td>27.57</td></tr>
 <tr><td>uiCA Cycles Simplified</td><td>13.00</td><td>15.00</td><td>13.00</td><td>11.00</td></tr>
@@ -1696,7 +1696,7 @@ checks per iteration for every byte copied. That’s a lot of overhead.</p>
 <p>This removes an unnecessary check in the decompression, when the passed buffer is too big.
 <a href="https://github.com/PSeitz/lz4_flex/pull/78">#78</a>.</p>
 <h2 id="add-auto-finish-to-frameencoder">Add auto_finish to FrameEncoder</h2>
-<p>Adds <code>auto_finish</code> to <code>FrameEncoder</code>, which flushes on drop. 
+<p>Adds <code>auto_finish</code> to <code>FrameEncoder</code>, which flushes on drop. This is useful if the flush method is abstracted away in a <code>Box&lt;dyn Writer&gt;</code>.
 <a href="https://github.com/PSeitz/lz4_flex/pull/95">#95</a> <a href="https://github.com/PSeitz/lz4_flex/pull/100">#100</a>.</p>
 <h2 id="autodetect-frame-blocksize">Autodetect frame blocksize</h2>
 <p>The default blocksize of FrameInfo is now auto instead of 64kb, it will detect the blocksize
