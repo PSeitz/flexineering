@@ -1629,7 +1629,7 @@ checks per iteration for every byte copied. That’s a lot of overhead.&lt;&#x2F
 &lt;p&gt;This removes an unnecessary check in the decompression, when the passed buffer is too big.
 &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;78&quot;&gt;#78&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;add-auto-finish-to-frameencoder&quot;&gt;Add auto_finish to FrameEncoder&lt;&#x2F;h2&gt;
-&lt;p&gt;Empty input was ignored previously and didn’t write anything. Now an empty Frame is written. This improves compatibility with the reference implementation and some corner cases.
+&lt;p&gt;Adds &lt;code&gt;auto_finish&lt;&#x2F;code&gt; to &lt;code&gt;FrameEncoder&lt;&#x2F;code&gt;, which flushes on drop. 
 &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;95&quot;&gt;#95&lt;&#x2F;a&gt; &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;100&quot;&gt;#100&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;autodetect-frame-blocksize&quot;&gt;Autodetect frame blocksize&lt;&#x2F;h2&gt;
 &lt;p&gt;The default blocksize of FrameInfo is now auto instead of 64kb, it will detect the blocksize
