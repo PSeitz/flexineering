@@ -8,6 +8,9 @@
 
 // global-reset()
 
+.accent{
+    color: var(--color-accent-1);
+}
 
 /* Styles for both divs */
 .mode-toggle {
@@ -79,10 +82,11 @@ body {
     color: var(--color-accent-1);
     text-decoration: none;
 
-    @include underline(5px, var(--color-text));
+    //@include underline(5px, var(--color-text));
 
     &:hover {
-      background-image: linear-gradient(transparent, transparent 4px, var(--color-link) 4px, var(--color-link));
+      text-decoration: 2px underline solid var(--color-link);
+      text-underline-offset: 3px;
     }
   }
   a.icon {

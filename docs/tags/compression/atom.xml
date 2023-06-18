@@ -4,12 +4,12 @@
     <link href="http://flexineering.com/tags/compression/atom.xml" rel="self" type="application/atom+xml"/>
     <link href="http://flexineering.com/"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
-    <updated>2023-06-17T00:00:00+00:00</updated>
+    <updated>2023-06-18T00:00:00+00:00</updated>
     <id>http://flexineering.com/tags/compression/atom.xml</id>
     <entry xml:lang="en">
         <title>lz4_flex 0.11: Gainzzzzz Unleashed!</title>
-        <published>2023-06-17T00:00:00+00:00</published>
-        <updated>2023-06-17T00:00:00+00:00</updated>
+        <published>2023-06-18T00:00:00+00:00</published>
+        <updated>2023-06-18T00:00:00+00:00</updated>
         <author>
           <name>Unknown</name>
         </author>
@@ -894,8 +894,8 @@ c103 -31 164 -103 181 -211 l6 -41 -140 -153 c-77 -84 -162 -181 -188 -216
 &lt;&#x2F;svg&gt;
 &lt;span class=&quot;flex-info&quot;&gt;Flex Info&lt;&#x2F;span&gt;
 &lt;&#x2F;div&gt;
-	&lt;div&gt; &lt;p&gt;lz4_flex &lt;code&gt;0.10&lt;&#x2F;code&gt; and before had a feature-flag &lt;code&gt;checked-decode&lt;&#x2F;code&gt; to do additional checks to avoid out-of-bounds access.
-&lt;code&gt;0.11&lt;&#x2F;code&gt; inverts this feature-flag to &lt;code&gt;unchecked-decode&lt;&#x2F;code&gt;. In the benchmarks below all tests are done with out-of-bounds checks.&lt;&#x2F;p&gt;
+	&lt;div&gt; &lt;p&gt;lz4_flex &lt;code&gt;0.10&lt;&#x2F;code&gt; and before had a feature flag &lt;code&gt;checked-decode&lt;&#x2F;code&gt; to do additional checks to avoid out-of-bounds access.
+&lt;code&gt;0.11&lt;&#x2F;code&gt; inverts this feature flag to &lt;code&gt;unchecked-decode&lt;&#x2F;code&gt;. In the benchmarks below all tests are done with out-of-bounds checks.&lt;&#x2F;p&gt;
  &lt;&#x2F;div&gt;
 &lt;&#x2F;div&gt;
 &lt;h2 id=&quot;block-format&quot;&gt;Block Format&lt;&#x2F;h2&gt;
@@ -903,9 +903,9 @@ c103 -31 164 -103 181 -211 l6 -41 -140 -153 c-77 -84 -162 -181 -188 -216
 The lz4_flex crate is tested in two configuration variants:&lt;&#x2F;p&gt;
 &lt;ul&gt;
 &lt;li&gt;no suffix: contains &lt;code&gt;unsafe&lt;&#x2F;code&gt;.&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;code&gt;safe&lt;&#x2F;code&gt; suffix: contains no &lt;code&gt;unsafe&lt;&#x2F;code&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;safe suffix: contains no &lt;code&gt;unsafe&lt;&#x2F;code&gt;.&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
-&lt;div class=&quot;testo&quot;&gt;
+&lt;div &gt;
 &lt;svg viewBox=&quot;0 0 800 600&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;
 &lt;g fill=&quot;#FFFFFF&quot; font-family=&quot;Roboto-Regular,Roboto, sans-serif&quot;&gt;
 &lt;rect fill=&quot;#1d1f21&quot; height=&quot;600&quot; width=&quot;800&quot; x=&quot;0&quot; y=&quot;0&quot;&#x2F;&gt;
@@ -1010,7 +1010,7 @@ Block Decompress
 &lt;&#x2F;g&gt;
 &lt;&#x2F;svg&gt;
 &lt;&#x2F;div&gt;
-&lt;div class=&quot;testo&quot;&gt;
+&lt;div &gt;
 &lt;svg viewBox=&quot;0 0 800 600&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;
 &lt;g fill=&quot;#FFFFFF&quot; font-family=&quot;Roboto-Regular,Roboto, sans-serif&quot;&gt;
 &lt;rect fill=&quot;#1d1f21&quot; height=&quot;600&quot; width=&quot;800&quot; x=&quot;0&quot; y=&quot;0&quot;&#x2F;&gt;
@@ -1111,8 +1111,10 @@ Block Compress
 &lt;&#x2F;svg&gt;
 &lt;&#x2F;div&gt;
 &lt;h2 id=&quot;frame-format&quot;&gt;Frame Format&lt;&#x2F;h2&gt;
-&lt;p&gt;The frame format is suitable for streaming, it consists of concatenated blocks. Blocks in the frame format can be independent or linked for higher compression.&lt;&#x2F;p&gt;
-&lt;p&gt;&lt;div class=&quot;testo&quot;&gt;
+&lt;p&gt;The frame format is suitable for streaming large data. That is reflected on the test data for the benchmarks.
+It consists of concatenated blocks. Blocks in the frame format can be independent or linked for higher compression.
+The tests below are only from the lz4_flex versions that contain &lt;code&gt;unsafe&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;div &gt;
 &lt;svg viewBox=&quot;0 0 800 600&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;
 &lt;g fill=&quot;#FFFFFF&quot; font-family=&quot;Roboto-Regular,Roboto, sans-serif&quot;&gt;
 &lt;rect fill=&quot;#1d1f21&quot; height=&quot;600&quot; width=&quot;800&quot; x=&quot;0&quot; y=&quot;0&quot;&#x2F;&gt;
@@ -1246,7 +1248,7 @@ Frame Decompress
 &lt;&#x2F;svg&gt;
 &lt;&#x2F;div&gt;
 
-&lt;div class=&quot;testo&quot;&gt;
+&lt;div &gt;
 &lt;svg viewBox=&quot;0 0 800 600&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;
 &lt;g fill=&quot;#FFFFFF&quot; font-family=&quot;Roboto-Regular,Roboto, sans-serif&quot;&gt;
 &lt;rect fill=&quot;#1d1f21&quot; height=&quot;600&quot; width=&quot;800&quot; x=&quot;0&quot; y=&quot;0&quot;&#x2F;&gt;
@@ -1382,28 +1384,28 @@ Frame Compress
 &lt;&#x2F;p&gt;
 &lt;h1 id=&quot;performance-improvements&quot;&gt;Performance Improvements&lt;&#x2F;h1&gt;
 &lt;p&gt;I regularly get the question what makes lz4_flex so fast. 
-There’s no simple answer to that, but I can give some insights into the performance improvements of v0.11.
+There’s no simple answer to that, but I can provide details of the performance improvements of v0.11.
 Maybe you can apply the insights to your own code.&lt;&#x2F;p&gt;
-&lt;h3 id=&quot;custom-memcpy&quot;&gt;Custom memcpy&lt;&#x2F;h3&gt;
+&lt;h2 id=&quot;custom-memcpy&quot;&gt;Custom memcpy&lt;&#x2F;h2&gt;
 &lt;p&gt;Calls to &lt;code&gt;memcpy&lt;&#x2F;code&gt; are replaced with a custom memcpy implementation, similar to the wildcopy of 16 bytes.
 The function also employs a double copy trick to reduce the number of instructions the CPU has to execute.
 Check it out here: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;blob&#x2F;main&#x2F;src&#x2F;fastcpy.rs&quot;&gt;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;blob&#x2F;main&#x2F;src&#x2F;fastcpy.rs&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;ul&gt;
 &lt;li&gt;PR: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;113&quot;&gt;#113&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;112&quot;&gt;#112&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
-&lt;h3 id=&quot;optimize-wildcopy&quot;&gt;Optimize Wildcopy&lt;&#x2F;h3&gt;
+&lt;h2 id=&quot;optimize-wildcopy&quot;&gt;Optimize Wildcopy&lt;&#x2F;h2&gt;
 &lt;p&gt;The initial check in the 16-byte wild copy is unnecessary since it is already done before calling the method. Likely irrelevant for performance, but in general: avoid unnecessary work.&lt;&#x2F;p&gt;
 &lt;ul&gt;
 &lt;li&gt;PR: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;109&quot;&gt;#109&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
-&lt;h3 id=&quot;faster-duplicate-overlapping&quot;&gt;Faster duplicate_overlapping&lt;&#x2F;h3&gt;
+&lt;h2 id=&quot;faster-duplicate-overlapping&quot;&gt;Faster duplicate_overlapping&lt;&#x2F;h2&gt;
 &lt;p&gt;Replace the aggressive compiler unrolling after the failed attempt &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;69&quot;&gt;#69&lt;&#x2F;a&gt; (wrote out of bounds in some cases). 
 The compiler will unroll&#x2F;auto-vectorize a simple byte-by-byte copy with a lot of branches. This is not what we want, as large overlapping copies are not that common.
 The unrolling is avoided by manually unrolling with a less aggressive version. Decompression performance is slightly improved by ca 4%, except for the smallest test case.&lt;&#x2F;p&gt;
 &lt;ul&gt;
 &lt;li&gt;PR: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;114&quot;&gt;#114&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
-&lt;h3 id=&quot;simplify-extend-from-within-overlapping&quot;&gt;Simplify extend_from_within_overlapping&lt;&#x2F;h3&gt;
+&lt;h2 id=&quot;simplify-extend-from-within-overlapping&quot;&gt;Simplify extend_from_within_overlapping&lt;&#x2F;h2&gt;
 &lt;p&gt;&lt;code&gt;extend_from_within_overlapping&lt;&#x2F;code&gt; is used in safe decompression when overlapping data has been detected. 
 The previous version had an unnecessary assertion, which did not hoist the bounds checks. 
 Removing the temporary &lt;code&gt;&amp;amp;mut&lt;&#x2F;code&gt; slice also simplifies the resulting assembly.&lt;&#x2F;p&gt;
@@ -1415,29 +1417,31 @@ Removing the temporary &lt;code&gt;&amp;amp;mut&lt;&#x2F;code&gt; slice also sim
 &lt;ul&gt;
 &lt;li&gt;PR: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;72&quot;&gt;#72&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
-&lt;h3 id=&quot;improve-safe-decompression-performance-8-18&quot;&gt;Improve Safe Decompression Performance 8-18%&lt;&#x2F;h3&gt;
+&lt;h2 id=&quot;improve-safe-decompression-performance-8-18&quot;&gt;Improve Safe Decompression Performance 8-18%&lt;&#x2F;h2&gt;
+&lt;p&gt;Reduce multiple slice fetches: every slice access, also nested ones, carries some overhead. In the hot loop, a fixed &lt;code&gt;&amp;amp;[u8;16]&lt;&#x2F;code&gt; is fetched to operate on. 
+This is purely done to pass that info to the compiler. Remove error handling that only carries overhead. As we are in safe mode, we can rely on bounds checks if custom 
+error handling only adds overhead. In normal operation, no error should occur.&lt;&#x2F;p&gt;
+&lt;p&gt;The strategy to identify improvements was by counting the lines of assembly. A rough heuristic, but seems effective.&lt;&#x2F;p&gt;
 &lt;ul&gt;
 &lt;li&gt;PR: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;73&quot;&gt;#73&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
-&lt;p&gt;Reduce multiple slice fetches: every slice access, also nested ones, carries some overhead. In the hot loop, a fixed &amp;amp;[u8;16] is fetched to operate on. This is purely done to pass that info to the compiler. Remove error handling that only carries overhead. As we are in safe mode, we can rely on bounds checks if custom error handling only adds overhead. In normal operation, no error should occur.&lt;&#x2F;p&gt;
-&lt;p&gt;The strategy to identify improvements was by counting the lines of assembly. A rough heuristic, but seems effective.&lt;&#x2F;p&gt;
-&lt;h3 id=&quot;improve-safe-frame-compression-performance-7-15&quot;&gt;Improve Safe Frame Compression Performance 7-15%&lt;&#x2F;h3&gt;
+&lt;h2 id=&quot;improve-safe-frame-compression-performance-7-15&quot;&gt;Improve Safe Frame Compression Performance 7-15%&lt;&#x2F;h2&gt;
+&lt;p&gt;The frame encoding uses a fixed size hashtable. By creating a special hashtable with a Box&amp;lt;[u32; 4096]&amp;gt; size, in combination with the bit shift of 4, which is also moved into a constant, the compiler can remove the bounds checks. For that to happen, the compiler also needs to recognize the &lt;code&gt;&amp;gt;&amp;gt; 48&lt;&#x2F;code&gt; right shift from the hash algorithm (u64 &amp;gt;&amp;gt; 52 &amp;lt;= 4096), which is the case. Yey. It also means we can use less &lt;code&gt;unsafe&lt;&#x2F;code&gt; for the unsafe version.&lt;&#x2F;p&gt;
 &lt;ul&gt;
 &lt;li&gt;PR: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;74&quot;&gt;#74&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
-&lt;p&gt;The frame encoding uses a fixed size hashtable. By creating a special hashtable with a Box&amp;lt;[u32; 4096]&amp;gt; size, in combination with the bit shift of 4, which is also moved into a constant, the compiler can remove the bounds checks. For that to happen, the compiler also needs to recognize the &lt;code&gt;&amp;gt;&amp;gt; 48&lt;&#x2F;code&gt; right shift from the hash algorithm (u64 &amp;gt;&amp;gt; 52 &amp;lt;= 4096), which is the case. Yey. It also means we can use less &lt;code&gt;unsafe&lt;&#x2F;code&gt; for the unsafe version.&lt;&#x2F;p&gt;
-&lt;h3 id=&quot;switch-to-use-only-3-kinds-of-hashtable&quot;&gt;Switch To Use Only 3 Kinds Of Hashtable&lt;&#x2F;h3&gt;
+&lt;h2 id=&quot;switch-to-use-only-3-kinds-of-hashtable&quot;&gt;Switch To Use Only 3 Kinds Of Hashtable&lt;&#x2F;h2&gt;
+&lt;p&gt;Use only hashtables with fixed sizes and bit shifts that allow removing bounds checks.&lt;&#x2F;p&gt;
 &lt;ul&gt;
 &lt;li&gt;PR: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;77&quot;&gt;#77&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
-&lt;p&gt;Use only hashtables with fixed sizes and bit shifts that allow removing bounds checks.&lt;&#x2F;p&gt;
 &lt;h1 id=&quot;why-is-the-safe-variant-slower-triumph-triumph-triumph&quot;&gt;Why is the safe variant slower?  😤😤😤&lt;&#x2F;h1&gt;
 &lt;p&gt;The safe variant’s performance has significantly improved due to ongoing effort and compiler optimizations. 
 It is still lagging behind though and there’s only a few reasons for that:&lt;&#x2F;p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;Bounds checks&lt;&#x2F;strong&gt;:
-Each slice access in the safe variant requires bounds checks, if they can’t be elided. The &lt;code&gt;unsafe&lt;&#x2F;code&gt; variant can avoid them using &lt;code&gt;get_unchecked&lt;&#x2F;code&gt; or similar. 
+Each slice access in the safe variant requires bounds checks, if they can’t be elided. The &lt;code&gt;unsafe&lt;&#x2F;code&gt; variant can avoid them by using &lt;code&gt;get_unchecked&lt;&#x2F;code&gt; or similar. 
 It can be difficult to convince the compiler to eliminate bounds checks.&lt;&#x2F;p&gt;
 &lt;&#x2F;li&gt;
 &lt;li&gt;
@@ -1606,9 +1610,9 @@ c103 -31 164 -103 181 -211 l6 -41 -140 -153 c-77 -84 -162 -181 -188 -216
 If the safe version suffers from the presence of bounds checks, it limits the optimizations the compiler can perform without altering the logic.
 Reordering the code can’t be done if it reorders a bounds check and therefore a potentional panic.
 Additionally, there are cases where LLVM generates suboptimal assembly code, further impacting performance. 
-I think the reason for that is that the rust compiler generates a lot of llvm IR.&lt;&#x2F;li&gt;
+I think the reason for that is that the rust compiler generates &lt;em&gt;a lot&lt;&#x2F;em&gt; of llvm IR for bounds checks.&lt;&#x2F;li&gt;
 &lt;&#x2F;ol&gt;
-&lt;p&gt;An example where bounds checks hoisting was unable to be performed is a backwards &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;blob&#x2F;main&#x2F;src&#x2F;sink.rs#L191-L195&quot;&gt;loop&lt;&#x2F;a&gt;, resulting in two bounds
+&lt;p&gt;To provide an example where bounds checks hoisting was unable to be performed, this backwards &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;blob&#x2F;main&#x2F;src&#x2F;sink.rs#L191-L195&quot;&gt;loop&lt;&#x2F;a&gt;, does two bounds
 checks per iteration for every byte copied. That’s a lot of overhead.&lt;&#x2F;p&gt;
 &lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#282a36;color:#f8f8f2;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;color:#ff79c6;&quot;&gt;pub &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#8be9fd;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#50fa7b;&quot;&gt;extend_from_within_overlapping&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#ffb86c;&quot;&gt;output&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff79c6;&quot;&gt;&amp;amp;mut&lt;&#x2F;span&gt;&lt;span&gt; [&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#8be9fd;&quot;&gt;u8&lt;&#x2F;span&gt;&lt;span&gt;], &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#ffb86c;&quot;&gt;pos&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff79c6;&quot;&gt;&amp;amp;mut &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#8be9fd;&quot;&gt;usize&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#ffb86c;&quot;&gt;start&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#8be9fd;&quot;&gt;usize&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#ffb86c;&quot;&gt;num_bytes&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#8be9fd;&quot;&gt;usize&lt;&#x2F;span&gt;&lt;span&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffffff;&quot;&gt;{
 &lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#8be9fd;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span&gt; offset &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff79c6;&quot;&gt;= *&lt;&#x2F;span&gt;&lt;span&gt;pos &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff79c6;&quot;&gt;-&lt;&#x2F;span&gt;&lt;span&gt; start;
@@ -1621,37 +1625,36 @@ checks per iteration for every byte copied. That’s a lot of overhead.&lt;&#x2F
 &lt;p&gt;So if you are up for the challenge to try to remove the bounds checks, it’s all ready for you:
 &lt;a href=&quot;https:&#x2F;&#x2F;godbolt.org&#x2F;z&#x2F;bscqYModz&quot;&gt;https:&#x2F;&#x2F;godbolt.org&#x2F;z&#x2F;bscqYModz&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;h1 id=&quot;new-features&quot;&gt;New Features&lt;&#x2F;h1&gt;
-&lt;h3 id=&quot;allow-to-pass-buffer-larger-than-size&quot;&gt;Allow to pass buffer larger than size&lt;&#x2F;h3&gt;
+&lt;h2 id=&quot;allow-to-pass-buffer-larger-than-size&quot;&gt;Allow to pass buffer larger than size&lt;&#x2F;h2&gt;
 &lt;p&gt;This removes an unnecessary check in the decompression, when the passed buffer is too big.
 &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;78&quot;&gt;#78&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
-&lt;h3 id=&quot;add-auto-finish-to-frameencoder&quot;&gt;Add auto_finish to FrameEncoder&lt;&#x2F;h3&gt;
+&lt;h2 id=&quot;add-auto-finish-to-frameencoder&quot;&gt;Add auto_finish to FrameEncoder&lt;&#x2F;h2&gt;
 &lt;p&gt;Empty input was ignored previously and didn’t write anything. Now an empty Frame is written. This improves compatibility with the reference implementation and some corner cases.
 &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;95&quot;&gt;#95&lt;&#x2F;a&gt; &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;100&quot;&gt;#100&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
-&lt;h3 id=&quot;autodetect-frame-blocksize&quot;&gt;Autodetect frame blocksize&lt;&#x2F;h3&gt;
+&lt;h2 id=&quot;autodetect-frame-blocksize&quot;&gt;Autodetect frame blocksize&lt;&#x2F;h2&gt;
 &lt;p&gt;The default blocksize of FrameInfo is now auto instead of 64kb, it will detect the blocksize
 depending of the size of the first write call. This increases
 compression ratio and speed for use cases where the data is larger than
 64kb.
 &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;81&quot;&gt;#81&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
-&lt;h3 id=&quot;add-fluent-api-style-contruction-for-frameinfo&quot;&gt;Add fluent API style contruction for FrameInfo&lt;&#x2F;h3&gt;
-&lt;p&gt;This adds in fluent API style construction for FrameInfo. Now you can do&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;add-fluent-api-style-contruction-for-frameinfo&quot;&gt;Add fluent API style contruction for FrameInfo&lt;&#x2F;h2&gt;
+&lt;p&gt;This adds in fluent API style construction for FrameInfo (thanks @CosmicHorrorDev). &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;99&quot;&gt;#99&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
 &lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#282a36;color:#f8f8f2;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;font-style:italic;color:#8be9fd;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span&gt; info &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff79c6;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;text-decoration:underline;color:#66d9ef;&quot;&gt;FrameInfo&lt;&#x2F;span&gt;&lt;span style=&quot;text-decoration:underline;color:#ff79c6;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;new()
 &lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff79c6;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8be9fd;&quot;&gt;block_size&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;text-decoration:underline;color:#66d9ef;&quot;&gt;BlockSize&lt;&#x2F;span&gt;&lt;span style=&quot;text-decoration:underline;color:#ff79c6;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;Max1MB)
 &lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff79c6;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8be9fd;&quot;&gt;content_checksum&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bd93f9;&quot;&gt;true&lt;&#x2F;span&gt;&lt;span&gt;);
 &lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
-&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;99&quot;&gt;#99&lt;&#x2F;a&gt; (thanks @CosmicHorrorDev).&lt;&#x2F;p&gt;
-&lt;h3 id=&quot;handle-empty-input&quot;&gt;Handle empty input&lt;&#x2F;h3&gt;
+&lt;h2 id=&quot;handle-empty-input&quot;&gt;Handle empty input&lt;&#x2F;h2&gt;
 &lt;p&gt;Empty input was ignored previously and didn’t write anything. Now an empty Frame is written. This improves compatibility with the reference implementation and some corner cases.
 &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;120&quot;&gt;#120&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
 &lt;h1 id=&quot;breaking-changes&quot;&gt;Breaking Changes&lt;&#x2F;h1&gt;
-&lt;p&gt;lz4_flex &lt;code&gt;0.10&lt;&#x2F;code&gt; and before had a feature-flag &lt;code&gt;checked-decode&lt;&#x2F;code&gt; to do additional checks to avoid out-of-bounds access. &lt;code&gt;0.11&lt;&#x2F;code&gt; inverts this feature-flag to &lt;code&gt;unchecked-decode&lt;&#x2F;code&gt;.
+&lt;p&gt;lz4_flex &lt;code&gt;0.10&lt;&#x2F;code&gt; and before had a feature flag &lt;code&gt;checked-decode&lt;&#x2F;code&gt; to do additional checks to avoid out-of-bounds access. &lt;code&gt;0.11&lt;&#x2F;code&gt; inverts this feature flag to &lt;code&gt;unchecked-decode&lt;&#x2F;code&gt;.
 Typically features flags are additive in Rust, so enabling a feature flag will add functionality. In the case of &lt;code&gt;checked-decode&lt;&#x2F;code&gt;, there was a unwanted side-effect. 
-&lt;code&gt;default-features=false&lt;&#x2F;code&gt; caused the API to be unsound. With &lt;code&gt;unchecked-decode&lt;&#x2F;code&gt; it requires deliberate action to enable the unsafe API.&lt;&#x2F;p&gt;
+&lt;code&gt;default-features=false&lt;&#x2F;code&gt; caused the API to be unsound. With &lt;code&gt;unchecked-decode&lt;&#x2F;code&gt; it requires deliberate action to enable the unsound API where the caller know its safe to call.&lt;&#x2F;p&gt;
 &lt;p&gt;&lt;code&gt;unchecked-decode&lt;&#x2F;code&gt; can be used in a few cases:&lt;&#x2F;p&gt;
 &lt;ul&gt;
 &lt;li&gt;Compression&#x2F;Decompression happens in memory.&lt;&#x2F;li&gt;
-&lt;li&gt;You run sandboxed so out of bounds reads&#x2F;writes are not a problem.&lt;&#x2F;li&gt;
-&lt;li&gt;You data is checked against a checksum.&lt;&#x2F;li&gt;
+&lt;li&gt;The compression runs sandboxed so out of bounds reads&#x2F;writes are less of a problem.&lt;&#x2F;li&gt;
+&lt;li&gt;The data is validated against a checksum.&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
 &lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;&#x2F;h1&gt;
 &lt;p&gt;See the full changelog &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;blob&#x2F;main&#x2F;CHANGELOG.md&quot;&gt;here&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
