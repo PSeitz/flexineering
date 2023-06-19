@@ -71,6 +71,7 @@ body {
   flex-direction: column;
   min-height: 100%;
   overflow-wrap: break-word;
+  margin-bottom: 2rem;
 
   p {
     @include hyphens(auto);
