@@ -1030,7 +1030,7 @@ Block Compress
 </div>
 <h2 id="frame-format">Frame Format</h2>
 <p>The frame format is suitable for streaming large data. That is reflected on the test data for the benchmarks.
-It consists of concatenated blocks. Blocks in the frame format can be independent or linked for higher compression.
+A frame consists of concatenated blocks. Blocks in the frame format can be independent or linked for higher compression.
 The tests below are from the lz4_flex variants that contain <code>unsafe</code>.</p>
 <p><div >
 <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
@@ -1523,7 +1523,8 @@ c103 -31 164 -103 181 -211 l6 -41 -140 -153 c-77 -84 -162 -181 -188 -216
 <span class="flex-info">Flex Info</span>
 </div>
 	<div> <p><code>slice_index_order</code> checks can be avoided by proving a value can’t wrap, e.g.
-<code>pos_u32 as usize + 10</code></p>
+<code>pos_u32 as usize + 10</code> </p>
+<p><strong>UPDATE</strong>: A fix in LLVM has been <a href="https://github.com/rust-lang/rust/issues/112782">merged</a>, soon you should be able to simply use <code>saturating_add</code>.</p>
  </div>
 </div>
 <ol start="3">

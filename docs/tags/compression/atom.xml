@@ -961,7 +961,7 @@ Block Compress
 &lt;&#x2F;div&gt;
 &lt;h2 id=&quot;frame-format&quot;&gt;Frame Format&lt;&#x2F;h2&gt;
 &lt;p&gt;The frame format is suitable for streaming large data. That is reflected on the test data for the benchmarks.
-It consists of concatenated blocks. Blocks in the frame format can be independent or linked for higher compression.
+A frame consists of concatenated blocks. Blocks in the frame format can be independent or linked for higher compression.
 The tests below are from the lz4_flex variants that contain &lt;code&gt;unsafe&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
 &lt;p&gt;&lt;div &gt;
 &lt;svg viewBox=&quot;0 0 800 600&quot; xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot;&gt;
@@ -1454,7 +1454,8 @@ c103 -31 164 -103 181 -211 l6 -41 -140 -153 c-77 -84 -162 -181 -188 -216
 &lt;span class=&quot;flex-info&quot;&gt;Flex Info&lt;&#x2F;span&gt;
 &lt;&#x2F;div&gt;
 	&lt;div&gt; &lt;p&gt;&lt;code&gt;slice_index_order&lt;&#x2F;code&gt; checks can be avoided by proving a value can’t wrap, e.g.
-&lt;code&gt;pos_u32 as usize + 10&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;code&gt;pos_u32 as usize + 10&lt;&#x2F;code&gt; &lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;UPDATE&lt;&#x2F;strong&gt;: A fix in LLVM has been &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;rust-lang&#x2F;rust&#x2F;issues&#x2F;112782&quot;&gt;merged&lt;&#x2F;a&gt;, soon you should be able to simply use &lt;code&gt;saturating_add&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
  &lt;&#x2F;div&gt;
 &lt;&#x2F;div&gt;
 &lt;ol start=&quot;3&quot;&gt;
