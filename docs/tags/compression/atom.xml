@@ -1504,8 +1504,10 @@ Typically features flags are additive in Rust, so enabling a feature flag will a
 &lt;code&gt;default-features=false&lt;&#x2F;code&gt; caused the API to be unsound. With &lt;code&gt;unchecked-decode&lt;&#x2F;code&gt; it requires deliberate action to enable the unsound API where the caller know its safe to call.&lt;&#x2F;p&gt;
 &lt;p&gt;&lt;strong&gt;Update&lt;&#x2F;strong&gt;: &lt;code&gt;0.11.1&lt;&#x2F;code&gt; has been released, which removes &lt;code&gt;unchecked-decode&lt;&#x2F;code&gt;, since the removed checks could spill to other parts of the code due to &lt;a href=&quot;https:&#x2F;&#x2F;doc.rust-lang.org&#x2F;cargo&#x2F;reference&#x2F;features.html#feature-unification&quot;&gt;feature-unification&lt;&#x2F;a&gt;.
 The API is now always sound.&lt;&#x2F;p&gt;
-&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;changelog&quot;&gt;Changelog&lt;&#x2F;h2&gt;
 &lt;p&gt;See the full &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;blob&#x2F;main&#x2F;CHANGELOG.md&quot;&gt;changelog&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;&lt;em&gt;If you want to comment here is the &lt;a href=&quot;https:&#x2F;&#x2F;de.reddit.com&#x2F;r&#x2F;rust&#x2F;comments&#x2F;14cokmj&#x2F;lz4_flex_011_gainzzzzz_unleashed_performance&#x2F;&quot;&gt;discussion on reddit&lt;&#x2F;a&gt;.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
 </content>
         
     </entry>
