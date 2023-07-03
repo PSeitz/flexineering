@@ -13,7 +13,7 @@ compile_sass = true
 build_search_index = true
 
 theme = "zola-cactus" # "after-dark"
-#title = "Flexineering"
+title = "A blog about Rust, Compression, and other things."
 
 paginate_by = 5
 
@@ -99,6 +99,10 @@ name = "TOML <-> JSON Converter"
 url = "https://pseitz.github.io/toml-to-json-online-converter/"
 desc = "With Rust + WebAssembly." 
 
+[[extra.projects]]
+name = "A English-Chinese Dictionary"
+url = "http://chisho.org"
+desc = "Completely done in Rust. Searchengine and Website." 
 
 #[[extra.social]]
   #name = "github"

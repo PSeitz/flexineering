@@ -5,7 +5,7 @@
   <title>{{ page.title | default(value=config.title) }}</title>
   <link rel = 'canonical' href = '{{ page.permalink | default(value=config.title) }}'>
 </head>
-<body class="max-width mx-auto px3 ltr">
+<body class="max-width mx-auto px3 ltr fade-in">
   <div class="content index py4">
     {% include "partials/header.html" %}
     <h1>{{ term.name }} <small>({{ taxonomy.name }})</small></h1>
