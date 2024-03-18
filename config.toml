@@ -95,6 +95,11 @@ url = "https://github.com/PSeitz/serde_json_borrow"
 desc = "Fast JSON deserialization into DOM on borrowed data."
 
 [[extra.projects]]
+name = "peakmem_alloc"
+url = "https://github.com/PSeitz/peakmem-alloc"
+desc = "An allocator to measure peak memory consumption in Rust."
+
+[[extra.projects]]
 name = "TOML <-> JSON Converter"
 url = "https://pseitz.github.io/toml-to-json-online-converter/"
 desc = "With Rust + WebAssembly." 
