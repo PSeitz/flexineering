@@ -13,11 +13,11 @@ tags = [ "perf", "serde", "json", "rust" ]
 
 # serde_json_borrow 0.8
 
-`serde_json_borrow` 0.8 is out! This release brings significant performance improvements making it 
-the fastest JSON parser in all datasets in the benchmarks, even outperforming `simd_json`.
+`serde_json_borrow` 0.8 is out! This release brings a major performance improvement.
+It is now the fastest JSON parser in all benchmarks, even outperforming `simd_json`.
 
 ## What is it
-`serde_json_borrow` builds on `serde_json`'s deserializer to produce a `Value<'ctx>` that can borrow directly from the 
+`serde_json_borrow` builds on `serde_json`'s deserializer to produce a `serde_json_borrow::Value<'ctx>` that can borrow directly from the 
 input buffer and reference string slices and other data directly from the input buffer.
 
 It's ideal for scenarios where JSON is used as a transient representation to extract some data or apply some transformation. 
@@ -43,11 +43,11 @@ It requires that the input `&'ctx str` outlives the parsed `Value<'ctx>`.
 The feature flag `cowkeys` uses `Cow<str>` instead of `&str` as keys in objects. This enables support for escaped strings.
 The feature is enabled by default, but can be disabled if you know your JSON data does not contain escaped strings.
 
-## Benchmark
+# Benchmark
 
-The benchmark results show that `serde_json_borrow` is now the fastest choice, even outperforming `simd_json` in all cases.
+The benchmark results show that `serde_json_borrow` is now the fastest choice, even outperforming `simd_json` in all test cases.
 
-### Benchmark Setup
+## Benchmark Setup
 
 The benchmarks were run on a machine with the following specifications:
 
@@ -58,7 +58,9 @@ The benchmarks were run on a machine with the following specifications:
 * **Rust Version**: 1.87.0
 * **Benchmarking Tool**: [binggan](https://github.com/PSeitz/binggan)
 
-The benchmarks were configured to trash the CPU cache and branch predictor (or at least try to :) to ensure that the performance measurements are not influenced by caching effects. This uses the `CacheTrasher` and `BPUTrasher` plugins from the `binggan` crate:
+The benchmarks were configured to trash the CPU cache and branch predictor (or at least try to 🙂) to ensure that the 
+performance measurements are not influenced by caching effects. This uses the `CacheTrasher` and 
+`BPUTrasher` plugins from the `binggan` crate:
 
 ```rust
 let mut runner: BenchRunner = BenchRunner::new();
@@ -72,21 +74,23 @@ You can run the benchmarks yourself with `cargo bench` on the
 branch in the `serde_json_borrow` github repo.
 
 The benchmarks below are the worst case configuration for `serde_json_borrow`:
-* Only `OwnedValue` is tested (But the data is already `String`).
+* Only `OwnedValue` is tested (but the data is already `String`).
 * The `cowkeys` feature is enabled, which allows for escaped keys in JSON objects.
 
 ### Accessing the Parsed JSON
-One of the main differences between `serde_json_borrow` and `simd_json` is that `serde_json_borrow` uses a `Vec` for objects. 
-This improves deserializion performance, but reduces read access performance for large objects.
-The benchmarks reads several keys 10 times from the parsed JSON object. Read access is 
-dwarfed by the parsing performance in this benchmark.
+One of the main differences between `serde_json_borrow` and `serde_json` is that `serde_json_borrow` uses a `Vec` for objects 
+instead of a `BTreeMap`. 
+This improves deserialization performance, but reduces read-access performance for very large objects.
+The benchmark reads several keys 10 times from the parsed JSON object. 
+Read access is dwarfed by the parsing performance in this benchmark.
 
-### Results
-The benchmarks were conducted using five different datasets.
+For objects with very few keys, a scan of the `Vec` is faster than a binary search in a `BTreeMap`.
+The break-even probably between 10 and 30 keys.
 
-#### Dataset: simple_json
+## Results
 
-| Method                                   | Avg MB/s | Median MB/s | Range Low MB/s | Range High MB/s |
+
+| Dataset: simple_json | Avg MB/s | Median MB/s | Range Low MB/s | Range High MB/s |
 | :--------------------------------------- | -------: | ----------: | -------------: | --------------: |
 | serde_json                             |   309.41 |      309.42 |         297.48 |          312.87 |
 | serde_json + access                    |   302.63 |      303.51 |         292.17 |          306.87 |
@@ -95,9 +99,8 @@ The benchmarks were conducted using five different datasets.
 | serde_json_borrow v0.7::OwnedValue     |   440.91 |      440.59 |         429.04 |          449.27 |
 | simd_json_borrow                       |   291.32 |      291.51 |         285.61 |          292.38 |
 
-#### Dataset: hdfs
 
-| Method                                   | Avg MB/s | Median MB/s | Range Low MB/s | Range High MB/s |
+| Dataset: hdfs | Avg MB/s | Median MB/s | Range Low MB/s | Range High MB/s |
 | :--------------------------------------- | -------: | ----------: | -------------: | --------------: |
 | serde_json                             |   684.07 |      685.38 |         672.70 |          689.32 |
 | serde_json + access                    |   690.25 |      687.36 |         664.73 |          700.37 |
@@ -106,9 +109,7 @@ The benchmarks were conducted using five different datasets.
 | serde_json_borrow v0.7::OwnedValue     |   893.49 |      895.36 |         827.68 |          911.69 |
 | simd_json_borrow                       |   688.15 |      690.37 |         659.29 |          692.93 |
 
-#### Dataset: hdfs_with_array
-
-| Method                                   | Avg MB/s | Median MB/s | Range Low MB/s | Range High MB/s |
+| Dataset: hdfs_with_array | Avg MB/s | Median MB/s | Range Low MB/s | Range High MB/s |
 | :--------------------------------------- | -------: | ----------: | -------------: | --------------: |
 | serde_json                             |   460.97 |      461.01 |         453.62 |          474.36 |
 | serde_json + access                    |   475.77 |      476.88 |         464.11 |          485.78 |
@@ -117,9 +118,7 @@ The benchmarks were conducted using five different datasets.
 | serde_json_borrow v0.7::OwnedValue     |   731.79 |      731.43 |         717.81 |          741.30 |
 | simd_json_borrow                       |   539.51 |      540.13 |         533.17 |          541.27 |
 
-#### Dataset: wiki
-
-| Method                                   | Avg MB/s | Median MB/s | Range Low MB/s | Range High MB/s |
+| Dataset: wiki | Avg MB/s | Median MB/s | Range Low MB/s | Range High MB/s |
 | :--------------------------------------- | -------: | ----------: | -------------: | --------------: |
 | serde_json                             |  1354.50 |     1354.40 |        1337.20 |         1367.90 |
 | serde_json + access                    |  1397.20 |     1397.60 |        1385.00 |         1414.60 |
@@ -128,9 +127,7 @@ The benchmarks were conducted using five different datasets.
 | serde_json_borrow v0.7::OwnedValue     |  1463.10 |     1463.60 |        1447.10 |         1481.30 |
 | simd_json_borrow                       |  1473.60 |     1473.70 |        1459.00 |         1483.20 |
 
-#### Dataset: gh-archive
-
-| Method                                   | Avg MB/s | Median MB/s | Range Low MB/s | Range High MB/s |
+| Dataset: gh-archive | Avg MB/s | Median MB/s | Range Low MB/s | Range High MB/s |
 | :--------------------------------------- | -------: | ----------: | -------------: | --------------: |
 | serde_json                             |   450.44 |      450.08 |         439.20 |          456.40 |
 | serde_json + access                    |   447.61 |      446.50 |         442.51 |          455.33 |
@@ -139,8 +136,8 @@ The benchmarks were conducted using five different datasets.
 | serde_json_borrow v0.7::OwnedValue     |   690.87 |      689.07 |         682.23 |          700.78 |
 | simd_json_borrow                       |   995.81 |      996.01 |         991.79 |          999.33 |
 
-## Conclusion
+# Conclusion
 
-Noice isn't it? 
+Noice, isn't it? 
 
 
