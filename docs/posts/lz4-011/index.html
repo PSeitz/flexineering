@@ -1316,15 +1316,15 @@ Check it out here: <a href="https://github.com/PSeitz/lz4_flex/blob/main/src/fas
 <li>PR: <a href="https://github.com/PSeitz/lz4_flex/pull/109">#109</a></li>
 </ul>
 <h2 id="faster-duplicate-overlapping">Faster duplicate_overlapping</h2>
-<p>Replace the aggressive compiler unrolling after the failed attempt <a href="https://github.com/PSeitz/lz4_flex/pull/69">#69</a> (wrote out of bounds in some cases). 
+<p>Replace the aggressive compiler unrolling after the failed attempt <a href="https://github.com/PSeitz/lz4_flex/pull/69">#69</a> (wrote out of bounds in some cases).
 The compiler will unroll/auto-vectorize a simple byte-by-byte copy with a lot of branches. This is not what we want, as large overlapping copies are not that common.
 The unrolling is avoided by manually unrolling with a less aggressive version. Decompression performance is slightly improved by ca 4%, except for the smallest test case.</p>
 <ul>
 <li>PR: <a href="https://github.com/PSeitz/lz4_flex/pull/114">#114</a></li>
 </ul>
 <h2 id="simplify-extend-from-within-overlapping">Simplify extend_from_within_overlapping</h2>
-<p><code>extend_from_within_overlapping</code> is used in safe decompression when overlapping data has been detected. 
-The previous version had an unnecessary assertion, which did not hoist the bounds checks. 
+<p><code>extend_from_within_overlapping</code> is used in safe decompression when overlapping data has been detected.
+The previous version had an unnecessary assertion, which did not hoist the bounds checks.
 Removing the temporary <code>&amp;mut</code> slice also simplifies the resulting assembly.</p>
 <p><a href="https://uica.uops.info/">uiCA</a> Code Analyzer can analyze assembly to estimate the number of cycles for different architectures.
 If you use it, be aware that the assembly may drastically change with inlining.</p>
@@ -1336,8 +1336,8 @@ If you use it, be aware that the assembly may drastically change with inlining.<
 <li>PR: <a href="https://github.com/PSeitz/lz4_flex/pull/72">#72</a></li>
 </ul>
 <h2 id="improve-safe-decompression-performance-8-18">Improve Safe Decompression Performance 8-18%</h2>
-<p>Reduce multiple slice fetches: every slice access, also nested ones, carries some overhead. In the hot loop, a fixed <code>&amp;[u8;16]</code> is fetched to operate on. 
-This is purely done to pass that info to the compiler. Remove error handling that only carries overhead. As we are in safe mode, we can rely on bounds checks if custom 
+<p>Reduce multiple slice fetches: every slice access, also nested ones, carries some overhead. In the hot loop, a fixed <code>&amp;[u8;16]</code> is fetched to operate on.
+This is purely done to pass that info to the compiler. Remove error handling that only carries overhead. As we are in safe mode, we can rely on bounds checks if custom
 error handling only adds overhead. In normal operation, no error should occur.</p>
 <p>The strategy to identify improvements was by counting the lines of assembly. A rough heuristic, but seems effective.
 <code>cargo asm --release --example decompress_block decompress_internal | wc -l</code></p>
@@ -1345,8 +1345,8 @@ error handling only adds overhead. In normal operation, no error should occur.</
 <li>PR: <a href="https://github.com/PSeitz/lz4_flex/pull/73">#73</a></li>
 </ul>
 <h2 id="improve-safe-frame-compression-performance-7-15">Improve Safe Frame Compression Performance 7-15%</h2>
-<p>The frame encoding uses a fixed size hashtable. By creating a special hashtable with a <code>Box&lt;[u32; 4096]&gt;</code> size, in combination with the bit shift of 4, 
-which is also moved into a constant, the compiler can remove the bounds checks. For that to happen, the compiler also needs to recognize the <code>&gt;&gt; 48</code> right shift 
+<p>The frame encoding uses a fixed size hashtable. By creating a special hashtable with a <code>Box&lt;[u32; 4096]&gt;</code> size, in combination with the bit shift of 4,
+which is also moved into a constant, the compiler can remove the bounds checks. For that to happen, the compiler also needs to recognize the <code>&gt;&gt; 48</code> right shift
 from the hash algorithm (u64 &gt;&gt; 52 &lt;= 4096), which is the case. Yey. It also means we can use less <code>unsafe</code> for the unsafe variant.</p>
 <ul>
 <li>PR: <a href="https://github.com/PSeitz/lz4_flex/pull/74">#74</a></li>
@@ -1357,12 +1357,12 @@ from the hash algorithm (u64 &gt;&gt; 52 &lt;= 4096), which is the case. Yey. It
 <li>PR: <a href="https://github.com/PSeitz/lz4_flex/pull/77">#77</a></li>
 </ul>
 <h1 id="why-is-the-safe-variant-slower-triumph-triumph-triumph">Why is the safe variant slower?  😤😤😤</h1>
-<p>The safe variant’s performance has significantly improved due to ongoing effort and compiler optimizations. 
+<p>The safe variant’s performance has significantly improved due to ongoing effort and compiler optimizations.
 It is still lagging behind though and there’s only a few reasons for that:</p>
 <ol>
 <li>
 <p><strong>Bounds checks</strong>:
-Each slice access in the safe variant requires bounds checks, if they can’t be elided. The <code>unsafe</code> variant can avoid them by using <code>get_unchecked</code> or similar. 
+Each slice access in the safe variant requires bounds checks, if they can’t be elided. The <code>unsafe</code> variant can avoid them by using <code>get_unchecked</code> or similar.
 It can be difficult to convince the compiler to eliminate bounds checks.</p>
 </li>
 <li>
@@ -1523,7 +1523,7 @@ c103 -31 164 -103 181 -211 l6 -41 -140 -153 c-77 -84 -162 -181 -188 -216
 <span class="flex-info">Flex Info</span>
 </div>
 	<div> <p><code>slice_index_order</code> checks can be avoided by proving a value can’t wrap, e.g.
-<code>pos_u32 as usize + 10</code> </p>
+<code>pos_u32 as usize + 10</code></p>
 <p><strong>UPDATE</strong>: A fix in LLVM has been <a href="https://github.com/rust-lang/rust/issues/112782">merged</a>, soon you should be able to simply use <code>saturating_add</code>.</p>
  </div>
 </div>
@@ -1531,7 +1531,7 @@ c103 -31 164 -103 181 -211 l6 -41 -140 -153 c-77 -84 -162 -181 -188 -216
 <li><strong>LLVM Assembly</strong>:
 If the safe version suffers from the presence of bounds checks, it limits the optimizations the compiler can perform without altering the logic.
 Reordering the code can’t be done if it reorders a bounds check and therefore a potentional panic.
-Additionally, there are cases where LLVM generates suboptimal assembly code, further impacting performance. 
+Additionally, there are cases where LLVM generates suboptimal assembly code, further impacting performance.
 I think the reason for that is that the rust compiler generates <em>a lot</em> of llvm IR for bounds checks.</li>
 </ol>
 <p>To provide an example where bounds checks hoisting was unable to be performed, this backwards <a href="https://github.com/PSeitz/lz4_flex/blob/main/src/sink.rs#L191-L195">loop</a> does two bounds
@@ -1570,7 +1570,7 @@ compression ratio and speed for use cases where the data is larger than
 <a href="https://github.com/PSeitz/lz4_flex/pull/120">#120</a>.</p>
 <h1 id="breaking-changes">Breaking Changes</h1>
 <p>lz4_flex <code>0.10</code> and before had a feature flag <code>checked-decode</code> to do additional checks to avoid out-of-bounds access. <code>0.11</code> inverts this feature flag to <code>unchecked-decode</code>.
-Typically features flags are additive in Rust, so enabling a feature flag will add functionality. In the case of <code>checked-decode</code>, there was a unwanted side-effect. 
+Typically features flags are additive in Rust, so enabling a feature flag will add functionality. In the case of <code>checked-decode</code>, there was a unwanted side-effect.
 <code>default-features=false</code> caused the API to be unsound. With <code>unchecked-decode</code> it requires deliberate action to enable the unsound API where the caller know its safe to call.</p>
 <p><strong>Update</strong>: <code>0.11.1</code> has been released, which removes <code>unchecked-decode</code>, since the removed checks could spill to other parts of the code due to <a href="https://doc.rust-lang.org/cargo/reference/features.html#feature-unification">feature-unification</a>.
 The API is now always sound.</p>
@@ -1588,7 +1588,7 @@ The API is now always sound.</p>
     <!-- print hugo function >> zola -->
 <footer id="footer">
   <div class="footer-left">
-    Copyright  &copy; 2024  Pascal Seitz 
+    Copyright  &copy; 2025  Pascal Seitz 
   </div>
   <div class="footer-right">
     <nav>

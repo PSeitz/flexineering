@@ -18,9 +18,25 @@
         <lastmod>2023-06-18</lastmod>
     </url>
     <url>
+        <loc>http://flexineering.com/posts/serde-json-borrow-08/</loc>
+        <lastmod>2025-06-15</lastmod>
+    </url>
+    <url>
         <loc>http://flexineering.com/tags/</loc>
     </url>
     <url>
         <loc>http://flexineering.com/tags/compression/</loc>
+    </url>
+    <url>
+        <loc>http://flexineering.com/tags/json/</loc>
+    </url>
+    <url>
+        <loc>http://flexineering.com/tags/perf/</loc>
+    </url>
+    <url>
+        <loc>http://flexineering.com/tags/rust/</loc>
+    </url>
+    <url>
+        <loc>http://flexineering.com/tags/serde/</loc>
     </url>
 </urlset>

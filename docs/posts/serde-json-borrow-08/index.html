@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark" >
+<head>
+  <!--<link rel="preload" href='http://flexineering.com/lib/JetBrainsMono/web/woff2/JetBrainsMono-Regular.woff2' as="font" type="font/woff2" crossorigin="anonymous">-->
+
+<!--<script type="text/javascript" src="https://latest.cactus.chat/cactus.js"></script>-->
+<!--<link rel="stylesheet" href="https://latest.cactus.chat/style.css" type="text/css">-->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+<meta name="description" content="A blog post about the new Serde JSON Borrow 0.8 release, its features, and how it improves performance.">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="all,follow">
+<meta name="googlebot" content="index,follow,snippet,archive">
+
+<link rel="stylesheet" href="/style.css">
+
+
+
+<link rel="icon" type="image/png" href="images&#x2F;favicon.svg" />
+
+  <title>serde_json_borrow 0.8: Faster than SIMD?</title>
+  <link rel = 'canonical' href = 'http:&#x2F;&#x2F;flexineering.com&#x2F;posts&#x2F;serde-json-borrow-08&#x2F;'>
+</head>
+<body class="max-width mx-auto px3 ltr fade-in">
+  <div class="content index py3">
+
+    <header id="header">
+  <div id="nav">
+    <ul>
+      <li class="icon nav_toggle">
+        <a href="#" aria-label="Menu"><i class="fas fa-bars fa-2x" aria-hidden="true"></i></a>
+      </li>
+      
+        <li><a href="&#x2F;" aria-label="Home">Home</a></li>
+      
+        <li><a href="&#x2F;posts" aria-label="Posts">Posts</a></li>
+      
+        <li><a href="&#x2F;about" aria-label="About">About</a></li>
+      
+  
+      <li>
+          <a target="_blank" rel="noopener" href="https://github.com/PSeitz" aria-label="github">
+	      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+	  </a>
+      </li>
+
+      <li>
+        <div class="mode-toggle mode-specific dark-mode-only">
+	  <svg height="20" viewBox="0 0 124 124" width="20" xmlns="http://www.w3.org/2000/svg"><g fill="#fff" pointer-events="all"><path d="m54.06 11c-24.72 10.72-36.06 39.39-25.3 64.05 10.75 24.65 39.51 35.95 64.24 25.23-19.39-3.34-35.79-16.18-43.64-34.17-7.84-17.98-6.08-38.7 4.7-55.11z" transform="matrix(.90630779 -.42261826 .42261826 .90630779 -20.579796 29.170539)"/><path d="m45.5 31 8-2 2-8 2 8 8 2-8 2-2 8-2-8z"/><path d="m62 61 6-1.5 1.5-6 1.5 6 6 1.5-6 1.5-1.5 6-1.5-6z"/><path d="m77 41 8-2 2-8 2 8 8 2-8 2-2 8-2-8z"/></g></svg>
+        </div>
+	<div class="mode-toggle mode-specific light-mode-only">
+	  <svg height="20" viewBox="0 0 201 201" width="20" xmlns="http://www.w3.org/2000/svg"><g fill="#000" pointer-events="all"><ellipse cx="100" cy="100" rx="50" ry="50"/><path d="m80 10 40 10-40 10z" transform="matrix(0 -1 1 0 80 120)"/><path d="m80 170 40 10-40 10z" transform="matrix(0 1 -1 0 280 80)"/><path d="m160 90 40 10-40 10z"/><path d="m0 90 40 10-40 10z" transform="matrix(-1 0 0 -1 40 200)"/><path d="m137 147 40 10-40 10z" transform="matrix(.70710678 .70710678 -.70710678 .70710678 157 -65.031529)"/><path d="m23 147 40 10-40 10z" transform="matrix(-.70710678 .70710678 -.70710678 -.70710678 184.421356 237.610173)"/><path d="m23 33 40 10-40 10z" transform="matrix(-.70710678 -.70710678 .70710678 -.70710678 43 103.811183)"/><path d="m137 33 40 10-40 10z" transform="matrix(.70710678 -.70710678 .70710678 .70710678 15.578644 123.610173)"/></g></svg>
+        </div>
+
+      </li>
+
+    </ul>
+  </div>
+</header>
+
+    
+      <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    <h1 class="posttitle" itemprop="name headline">
+      serde_json_borrow 0.8: Faster than SIMD?
+    </h1>
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">A blog about Rust, Compression, and other things.
+        </span>
+      </span>
+      <div class="postdate">
+        
+      </div>
+      
+      
+      
+
+      
+    </div>
+  </header>
+
+  
+  
+  <div class="content" itemprop="articleBody">
+    <hr />
+<h1 id="serde-json-borrow-0-8">serde_json_borrow 0.8</h1>
+<p><code>serde_json_borrow</code> 0.8 is out! This release brings a major performance improvement.
+It is now the fastest JSON parser in all benchmarks, even outperforming <code>simd_json</code>.</p>
+<h2 id="what-is-it">What is it</h2>
+<p><code>serde_json_borrow</code> builds on <code>serde_json</code>’s deserializer to produce a <code>serde_json_borrow::Value&lt;'ctx&gt;</code> that can borrow directly from the
+input buffer and reference string slices and other data directly from the input buffer.</p>
+<p>It’s ideal for scenarios where JSON is used as a transient representation to extract some data or apply some transformation.</p>
+<h2 id="what-changed-in-0-8">What Changed in 0.8</h2>
+<p>The main change and performance improvement comes from <a href="https://github.com/PSeitz/serde_json_borrow/pull/32">PR #32</a> (thanks @jszwec).
+Previously, serde’s default behavior would always create <code>Cow::Owned</code> for object keys even when borrowing was possible
+(see <a href="https://github.com/serde-rs/serde/issues/1852">serde-rs/serde#1852</a>). To address this,
+<code>serde_json_borrow</code> introduces a custom wrapper around <code>Cow</code> to allow borrowed keys.</p>
+<h2 id="value-vs-ownedvalue">Value vs OwnedValue</h2>
+<p><code>serde_json_borrow</code> provides two main ways to work with parsed JSON:</p>
+<ul>
+<li>
+<p><strong><code>Value&lt;'ctx&gt;</code></strong>: This variant borrows string slices and other data directly from the input buffer.
+It requires that the input <code>&amp;'ctx str</code> outlives the parsed <code>Value&lt;'ctx&gt;</code>.</p>
+</li>
+<li>
+<p><strong><code>OwnedValue</code></strong>: This variant clones the serialized JSON <code>&amp;str</code> and therefore does not depend on the input buffer’s lifetime.</p>
+</li>
+</ul>
+<h2 id="cowkeys-feature-flag"><code>cowkeys</code> Feature Flag</h2>
+<p>The feature flag <code>cowkeys</code> uses <code>Cow&lt;str&gt;</code> instead of <code>&amp;str</code> as keys in objects. This enables support for escaped strings.
+The feature is enabled by default, but can be disabled if you know your JSON data does not contain escaped strings.</p>
+<h1 id="benchmark">Benchmark</h1>
+<p>The benchmark results show that <code>serde_json_borrow</code> is now the fastest choice, even outperforming <code>simd_json</code> in all test cases.</p>
+<h2 id="benchmark-setup">Benchmark Setup</h2>
+<p>The benchmarks were run on a machine with the following specifications:</p>
+<ul>
+<li><strong>CPU</strong>: AMD Ryzen 9 9800X3D</li>
+<li><strong>RAM</strong>: 32 GB</li>
+<li><strong>OS</strong>: 6.14.6-2-MANJARO</li>
+<li><strong>Disk</strong>: Samsung SSD 990 PRO</li>
+<li><strong>Rust Version</strong>: 1.87.0</li>
+<li><strong>Benchmarking Tool</strong>: <a href="https://github.com/PSeitz/binggan">binggan</a></li>
+</ul>
+<p>The benchmarks were configured to trash the CPU cache and branch predictor (or at least try to 🙂) to ensure that the
+performance measurements are not influenced by caching effects. This uses the <code>CacheTrasher</code> and
+<code>BPUTrasher</code> plugins from the <code>binggan</code> crate:</p>
+<pre data-lang="rust" style="background-color:#282a36;color:#f8f8f2;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="font-style:italic;color:#8be9fd;">let </span><span style="color:#ff79c6;">mut</span><span> runner: BenchRunner </span><span style="color:#ff79c6;">= </span><span style="text-decoration:underline;color:#66d9ef;">BenchRunner</span><span style="text-decoration:underline;color:#ff79c6;">::</span><span>new();
+</span><span>runner
+</span><span>    </span><span style="color:#ff79c6;">.</span><span style="color:#8be9fd;">add_plugin</span><span>(</span><span style="text-decoration:underline;color:#66d9ef;">CacheTrasher</span><span style="text-decoration:underline;color:#ff79c6;">::</span><span>default())
+</span><span>    </span><span style="color:#ff79c6;">.</span><span style="color:#8be9fd;">add_plugin</span><span>(</span><span style="text-decoration:underline;color:#66d9ef;">BPUTrasher</span><span style="text-decoration:underline;color:#ff79c6;">::</span><span>default());
+</span></code></pre>
+<p>You can run the benchmarks yourself with <code>cargo bench</code> on the
+<a href="https://github.com/serde_json_borrow/tree/blog_post_benchmark"><code>https://github.com/serde_json_borrow/tree/blog_post_benchmark</code></a>
+branch in the <code>serde_json_borrow</code> github repo.</p>
+<p>The benchmarks below are the worst case configuration for <code>serde_json_borrow</code>:</p>
+<ul>
+<li>Only <code>OwnedValue</code> is tested (but the data is already <code>String</code>).</li>
+<li>The <code>cowkeys</code> feature is enabled, which allows for escaped keys in JSON objects.</li>
+</ul>
+<h3 id="accessing-the-parsed-json">Accessing the Parsed JSON</h3>
+<p>One of the main differences between <code>serde_json_borrow</code> and <code>serde_json</code> is that <code>serde_json_borrow</code> uses a <code>Vec</code> for objects
+instead of a <code>BTreeMap</code>.
+This improves deserialization performance, but reduces read-access performance for very large objects.
+The benchmark reads several keys 10 times from the parsed JSON object.
+Read access is dwarfed by the parsing performance in this benchmark.</p>
+<p>For objects with very few keys, a scan of the <code>Vec</code> is faster than a binary search in a <code>BTreeMap</code>.
+The break-even probably between 10 and 30 keys.</p>
+<h2 id="results">Results</h2>
+<table><thead><tr><th style="text-align: left">Dataset: simple_json</th><th style="text-align: right">Avg MB/s</th><th style="text-align: right">Median MB/s</th><th style="text-align: right">Range Low MB/s</th><th style="text-align: right">Range High MB/s</th></tr></thead><tbody>
+<tr><td style="text-align: left">serde_json</td><td style="text-align: right">309.41</td><td style="text-align: right">309.42</td><td style="text-align: right">297.48</td><td style="text-align: right">312.87</td></tr>
+<tr><td style="text-align: left">serde_json + access</td><td style="text-align: right">302.63</td><td style="text-align: right">303.51</td><td style="text-align: right">292.17</td><td style="text-align: right">306.87</td></tr>
+<tr><td style="text-align: left">serde_json_borrow::OwnedValue</td><td style="text-align: right">551.28</td><td style="text-align: right">550.57</td><td style="text-align: right">537.65</td><td style="text-align: right">561.81</td></tr>
+<tr><td style="text-align: left">serde_json_borrow::OwnedValue + access</td><td style="text-align: right">528.08</td><td style="text-align: right">528.61</td><td style="text-align: right">510.66</td><td style="text-align: right">542.12</td></tr>
+<tr><td style="text-align: left">serde_json_borrow v0.7::OwnedValue</td><td style="text-align: right">440.91</td><td style="text-align: right">440.59</td><td style="text-align: right">429.04</td><td style="text-align: right">449.27</td></tr>
+<tr><td style="text-align: left">simd_json_borrow</td><td style="text-align: right">291.32</td><td style="text-align: right">291.51</td><td style="text-align: right">285.61</td><td style="text-align: right">292.38</td></tr>
+</tbody></table>
+<table><thead><tr><th style="text-align: left">Dataset: hdfs</th><th style="text-align: right">Avg MB/s</th><th style="text-align: right">Median MB/s</th><th style="text-align: right">Range Low MB/s</th><th style="text-align: right">Range High MB/s</th></tr></thead><tbody>
+<tr><td style="text-align: left">serde_json</td><td style="text-align: right">684.07</td><td style="text-align: right">685.38</td><td style="text-align: right">672.70</td><td style="text-align: right">689.32</td></tr>
+<tr><td style="text-align: left">serde_json + access</td><td style="text-align: right">690.25</td><td style="text-align: right">687.36</td><td style="text-align: right">664.73</td><td style="text-align: right">700.37</td></tr>
+<tr><td style="text-align: left">serde_json_borrow::OwnedValue</td><td style="text-align: right">1138.48</td><td style="text-align: right">1143.40</td><td style="text-align: right">1047.45</td><td style="text-align: right">1156.10</td></tr>
+<tr><td style="text-align: left">serde_json_borrow::OwnedValue + access</td><td style="text-align: right">1128.96</td><td style="text-align: right">1121.38</td><td style="text-align: right">1085.85</td><td style="text-align: right">1163.26</td></tr>
+<tr><td style="text-align: left">serde_json_borrow v0.7::OwnedValue</td><td style="text-align: right">893.49</td><td style="text-align: right">895.36</td><td style="text-align: right">827.68</td><td style="text-align: right">911.69</td></tr>
+<tr><td style="text-align: left">simd_json_borrow</td><td style="text-align: right">688.15</td><td style="text-align: right">690.37</td><td style="text-align: right">659.29</td><td style="text-align: right">692.93</td></tr>
+</tbody></table>
+<table><thead><tr><th style="text-align: left">Dataset: hdfs_with_array</th><th style="text-align: right">Avg MB/s</th><th style="text-align: right">Median MB/s</th><th style="text-align: right">Range Low MB/s</th><th style="text-align: right">Range High MB/s</th></tr></thead><tbody>
+<tr><td style="text-align: left">serde_json</td><td style="text-align: right">460.97</td><td style="text-align: right">461.01</td><td style="text-align: right">453.62</td><td style="text-align: right">474.36</td></tr>
+<tr><td style="text-align: left">serde_json + access</td><td style="text-align: right">475.77</td><td style="text-align: right">476.88</td><td style="text-align: right">464.11</td><td style="text-align: right">485.78</td></tr>
+<tr><td style="text-align: left">serde_json_borrow::OwnedValue</td><td style="text-align: right">817.97</td><td style="text-align: right">819.37</td><td style="text-align: right">795.93</td><td style="text-align: right">834.68</td></tr>
+<tr><td style="text-align: left">serde_json_borrow::OwnedValue + access</td><td style="text-align: right">817.90</td><td style="text-align: right">818.61</td><td style="text-align: right">788.71</td><td style="text-align: right">833.57</td></tr>
+<tr><td style="text-align: left">serde_json_borrow v0.7::OwnedValue</td><td style="text-align: right">731.79</td><td style="text-align: right">731.43</td><td style="text-align: right">717.81</td><td style="text-align: right">741.30</td></tr>
+<tr><td style="text-align: left">simd_json_borrow</td><td style="text-align: right">539.51</td><td style="text-align: right">540.13</td><td style="text-align: right">533.17</td><td style="text-align: right">541.27</td></tr>
+</tbody></table>
+<table><thead><tr><th style="text-align: left">Dataset: wiki</th><th style="text-align: right">Avg MB/s</th><th style="text-align: right">Median MB/s</th><th style="text-align: right">Range Low MB/s</th><th style="text-align: right">Range High MB/s</th></tr></thead><tbody>
+<tr><td style="text-align: left">serde_json</td><td style="text-align: right">1354.50</td><td style="text-align: right">1354.40</td><td style="text-align: right">1337.20</td><td style="text-align: right">1367.90</td></tr>
+<tr><td style="text-align: left">serde_json + access</td><td style="text-align: right">1397.20</td><td style="text-align: right">1397.60</td><td style="text-align: right">1385.00</td><td style="text-align: right">1414.60</td></tr>
+<tr><td style="text-align: left">serde_json_borrow::OwnedValue</td><td style="text-align: right">1510.70</td><td style="text-align: right">1514.30</td><td style="text-align: right">1480.30</td><td style="text-align: right">1537.00</td></tr>
+<tr><td style="text-align: left">serde_json_borrow::OwnedValue + access</td><td style="text-align: right">1558.60</td><td style="text-align: right">1558.40</td><td style="text-align: right">1536.70</td><td style="text-align: right">1583.30</td></tr>
+<tr><td style="text-align: left">serde_json_borrow v0.7::OwnedValue</td><td style="text-align: right">1463.10</td><td style="text-align: right">1463.60</td><td style="text-align: right">1447.10</td><td style="text-align: right">1481.30</td></tr>
+<tr><td style="text-align: left">simd_json_borrow</td><td style="text-align: right">1473.60</td><td style="text-align: right">1473.70</td><td style="text-align: right">1459.00</td><td style="text-align: right">1483.20</td></tr>
+</tbody></table>
+<table><thead><tr><th style="text-align: left">Dataset: gh-archive</th><th style="text-align: right">Avg MB/s</th><th style="text-align: right">Median MB/s</th><th style="text-align: right">Range Low MB/s</th><th style="text-align: right">Range High MB/s</th></tr></thead><tbody>
+<tr><td style="text-align: left">serde_json</td><td style="text-align: right">450.44</td><td style="text-align: right">450.08</td><td style="text-align: right">439.20</td><td style="text-align: right">456.40</td></tr>
+<tr><td style="text-align: left">serde_json + access</td><td style="text-align: right">447.61</td><td style="text-align: right">446.50</td><td style="text-align: right">442.51</td><td style="text-align: right">455.33</td></tr>
+<tr><td style="text-align: left">serde_json_borrow::OwnedValue</td><td style="text-align: right">1147.90</td><td style="text-align: right">1143.91</td><td style="text-align: right">1124.97</td><td style="text-align: right">1170.94</td></tr>
+<tr><td style="text-align: left">serde_json_borrow::OwnedValue + access</td><td style="text-align: right">1154.05</td><td style="text-align: right">1154.36</td><td style="text-align: right">1129.16</td><td style="text-align: right">1185.28</td></tr>
+<tr><td style="text-align: left">serde_json_borrow v0.7::OwnedValue</td><td style="text-align: right">690.87</td><td style="text-align: right">689.07</td><td style="text-align: right">682.23</td><td style="text-align: right">700.78</td></tr>
+<tr><td style="text-align: left">simd_json_borrow</td><td style="text-align: right">995.81</td><td style="text-align: right">996.01</td><td style="text-align: right">991.79</td><td style="text-align: right">999.33</td></tr>
+</tbody></table>
+<h1 id="conclusion">Conclusion</h1>
+<p>Noice, isn’t it?</p>
+
+  </div>
+</article>
+
+    
+
+
+    <!-- print hugo function >> zola -->
+<footer id="footer">
+  <div class="footer-left">
+    Copyright  &copy; 2025  Pascal Seitz 
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+        <li><a href="&#x2F;">Home</a></li>
+         
+        <li><a href="&#x2F;posts">Posts</a></li>
+         
+        <li><a href="&#x2F;about">About</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+
+
+
+</footer>
+
+
+  </div>
+    <script>
+    // avoid flickering
+    setUserColorMode();
+    function setUserColorMode() {
+      const storedMode = window.localStorage.getItem('colorMode');
+      let fallbackMode = wantsLightMode() ? 'light' : 'dark';
+      console.log(storedMode || fallbackMode)
+      const isDarkMode =  (storedMode || fallbackMode) == 'dark';  
+      const root = document.documentElement;
+      root.setAttribute('data-mode', isDarkMode ? 'dark' : 'light');
+    }
+    function wantsLightMode(){
+	return window.matchMedia('(prefers-color-scheme: light)').matches;
+    }
+  </script>
+
+</body>
+<!--<link rel="stylesheet" href='http://flexineering.com/lib/font-awesome/css/all.min.css'>-->
+<!--<script src='http://flexineering.com/lib/jquery/jquery.min.js'></script>-->
+<!--<script src='http://flexineering.com/js/main.js'></script>-->
+<script src='http://flexineering.com/js/index.js'></script>
+
+</html>

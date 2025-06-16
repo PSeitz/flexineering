@@ -25,8 +25,7 @@
   <link rel = 'canonical' href = 'A blog about Rust, Compression, and other things.'>
 </head>
 <body class="max-width mx-auto px3 ltr fade-in">
-  <div class="content index py3">
-
+  <div class="content index py4">
     <header id="header">
   <div id="nav">
     <ul>
@@ -61,15 +60,18 @@
   </div>
 </header>
 
-
+    <h1>json <small>(tags)</small></h1>
     <div id="archive">
   <ul class="post-list">
   <!-- { set mainPosts = paginator.pages } -->
   
   
   
-
   
+  
+  
+    
+    
     
     
     
@@ -90,27 +92,11 @@
     
     
     
-      
-      
-    
-    
-      <h2>2023</h2>
-    
-    <li class="post-item">
-      <div class="meta">
-        <time datetime="2023-06-18" itemprop="datePublished">2023-06-18</time>
-      </div>
-      <span>
-        <a class="" href="http:&#x2F;&#x2F;flexineering.com&#x2F;posts&#x2F;lz4-011&#x2F;">lz4_flex 0.11: Gainzzzzz Unleashed!</a>
-      </span>
-    </li>
-    
   </ul>
   
     
   
 </div>
-
     <!-- print hugo function >> zola -->
 <footer id="footer">
   <div class="footer-left">
@@ -134,8 +120,23 @@
 
 </footer>
 
-
   </div>
+    <script>
+    // avoid flickering
+    setUserColorMode();
+    function setUserColorMode() {
+      const storedMode = window.localStorage.getItem('colorMode');
+      let fallbackMode = wantsLightMode() ? 'light' : 'dark';
+      console.log(storedMode || fallbackMode)
+      const isDarkMode =  (storedMode || fallbackMode) == 'dark';  
+      const root = document.documentElement;
+      root.setAttribute('data-mode', isDarkMode ? 'dark' : 'light');
+    }
+    function wantsLightMode(){
+	return window.matchMedia('(prefers-color-scheme: light)').matches;
+    }
+  </script>
+
 </body>
 <!--<link rel="stylesheet" href='http://flexineering.com/lib/font-awesome/css/all.min.css'>-->
 <!--<script src='http://flexineering.com/lib/jquery/jquery.min.js'></script>-->

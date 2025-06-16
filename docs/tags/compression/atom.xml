@@ -1253,15 +1253,15 @@ Check it out here: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2
 &lt;li&gt;PR: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;109&quot;&gt;#109&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
 &lt;h2 id=&quot;faster-duplicate-overlapping&quot;&gt;Faster duplicate_overlapping&lt;&#x2F;h2&gt;
-&lt;p&gt;Replace the aggressive compiler unrolling after the failed attempt &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;69&quot;&gt;#69&lt;&#x2F;a&gt; (wrote out of bounds in some cases). 
+&lt;p&gt;Replace the aggressive compiler unrolling after the failed attempt &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;69&quot;&gt;#69&lt;&#x2F;a&gt; (wrote out of bounds in some cases).
 The compiler will unroll&#x2F;auto-vectorize a simple byte-by-byte copy with a lot of branches. This is not what we want, as large overlapping copies are not that common.
 The unrolling is avoided by manually unrolling with a less aggressive version. Decompression performance is slightly improved by ca 4%, except for the smallest test case.&lt;&#x2F;p&gt;
 &lt;ul&gt;
 &lt;li&gt;PR: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;114&quot;&gt;#114&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
 &lt;h2 id=&quot;simplify-extend-from-within-overlapping&quot;&gt;Simplify extend_from_within_overlapping&lt;&#x2F;h2&gt;
-&lt;p&gt;&lt;code&gt;extend_from_within_overlapping&lt;&#x2F;code&gt; is used in safe decompression when overlapping data has been detected. 
-The previous version had an unnecessary assertion, which did not hoist the bounds checks. 
+&lt;p&gt;&lt;code&gt;extend_from_within_overlapping&lt;&#x2F;code&gt; is used in safe decompression when overlapping data has been detected.
+The previous version had an unnecessary assertion, which did not hoist the bounds checks.
 Removing the temporary &lt;code&gt;&amp;amp;mut&lt;&#x2F;code&gt; slice also simplifies the resulting assembly.&lt;&#x2F;p&gt;
 &lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;uica.uops.info&#x2F;&quot;&gt;uiCA&lt;&#x2F;a&gt; Code Analyzer can analyze assembly to estimate the number of cycles for different architectures.
 If you use it, be aware that the assembly may drastically change with inlining.&lt;&#x2F;p&gt;
@@ -1273,8 +1273,8 @@ If you use it, be aware that the assembly may drastically change with inlining.&
 &lt;li&gt;PR: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;72&quot;&gt;#72&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
 &lt;h2 id=&quot;improve-safe-decompression-performance-8-18&quot;&gt;Improve Safe Decompression Performance 8-18%&lt;&#x2F;h2&gt;
-&lt;p&gt;Reduce multiple slice fetches: every slice access, also nested ones, carries some overhead. In the hot loop, a fixed &lt;code&gt;&amp;amp;[u8;16]&lt;&#x2F;code&gt; is fetched to operate on. 
-This is purely done to pass that info to the compiler. Remove error handling that only carries overhead. As we are in safe mode, we can rely on bounds checks if custom 
+&lt;p&gt;Reduce multiple slice fetches: every slice access, also nested ones, carries some overhead. In the hot loop, a fixed &lt;code&gt;&amp;amp;[u8;16]&lt;&#x2F;code&gt; is fetched to operate on.
+This is purely done to pass that info to the compiler. Remove error handling that only carries overhead. As we are in safe mode, we can rely on bounds checks if custom
 error handling only adds overhead. In normal operation, no error should occur.&lt;&#x2F;p&gt;
 &lt;p&gt;The strategy to identify improvements was by counting the lines of assembly. A rough heuristic, but seems effective.
 &lt;code&gt;cargo asm --release --example decompress_block decompress_internal | wc -l&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
@@ -1282,8 +1282,8 @@ error handling only adds overhead. In normal operation, no error should occur.&l
 &lt;li&gt;PR: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;73&quot;&gt;#73&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
 &lt;h2 id=&quot;improve-safe-frame-compression-performance-7-15&quot;&gt;Improve Safe Frame Compression Performance 7-15%&lt;&#x2F;h2&gt;
-&lt;p&gt;The frame encoding uses a fixed size hashtable. By creating a special hashtable with a &lt;code&gt;Box&amp;lt;[u32; 4096]&amp;gt;&lt;&#x2F;code&gt; size, in combination with the bit shift of 4, 
-which is also moved into a constant, the compiler can remove the bounds checks. For that to happen, the compiler also needs to recognize the &lt;code&gt;&amp;gt;&amp;gt; 48&lt;&#x2F;code&gt; right shift 
+&lt;p&gt;The frame encoding uses a fixed size hashtable. By creating a special hashtable with a &lt;code&gt;Box&amp;lt;[u32; 4096]&amp;gt;&lt;&#x2F;code&gt; size, in combination with the bit shift of 4,
+which is also moved into a constant, the compiler can remove the bounds checks. For that to happen, the compiler also needs to recognize the &lt;code&gt;&amp;gt;&amp;gt; 48&lt;&#x2F;code&gt; right shift
 from the hash algorithm (u64 &amp;gt;&amp;gt; 52 &amp;lt;= 4096), which is the case. Yey. It also means we can use less &lt;code&gt;unsafe&lt;&#x2F;code&gt; for the unsafe variant.&lt;&#x2F;p&gt;
 &lt;ul&gt;
 &lt;li&gt;PR: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;74&quot;&gt;#74&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
@@ -1294,12 +1294,12 @@ from the hash algorithm (u64 &amp;gt;&amp;gt; 52 &amp;lt;= 4096), which is the c
 &lt;li&gt;PR: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;77&quot;&gt;#77&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
 &lt;h1 id=&quot;why-is-the-safe-variant-slower-triumph-triumph-triumph&quot;&gt;Why is the safe variant slower?  😤😤😤&lt;&#x2F;h1&gt;
-&lt;p&gt;The safe variant’s performance has significantly improved due to ongoing effort and compiler optimizations. 
+&lt;p&gt;The safe variant’s performance has significantly improved due to ongoing effort and compiler optimizations.
 It is still lagging behind though and there’s only a few reasons for that:&lt;&#x2F;p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;Bounds checks&lt;&#x2F;strong&gt;:
-Each slice access in the safe variant requires bounds checks, if they can’t be elided. The &lt;code&gt;unsafe&lt;&#x2F;code&gt; variant can avoid them by using &lt;code&gt;get_unchecked&lt;&#x2F;code&gt; or similar. 
+Each slice access in the safe variant requires bounds checks, if they can’t be elided. The &lt;code&gt;unsafe&lt;&#x2F;code&gt; variant can avoid them by using &lt;code&gt;get_unchecked&lt;&#x2F;code&gt; or similar.
 It can be difficult to convince the compiler to eliminate bounds checks.&lt;&#x2F;p&gt;
 &lt;&#x2F;li&gt;
 &lt;li&gt;
@@ -1460,7 +1460,7 @@ c103 -31 164 -103 181 -211 l6 -41 -140 -153 c-77 -84 -162 -181 -188 -216
 &lt;span class=&quot;flex-info&quot;&gt;Flex Info&lt;&#x2F;span&gt;
 &lt;&#x2F;div&gt;
 	&lt;div&gt; &lt;p&gt;&lt;code&gt;slice_index_order&lt;&#x2F;code&gt; checks can be avoided by proving a value can’t wrap, e.g.
-&lt;code&gt;pos_u32 as usize + 10&lt;&#x2F;code&gt; &lt;&#x2F;p&gt;
+&lt;code&gt;pos_u32 as usize + 10&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;&lt;strong&gt;UPDATE&lt;&#x2F;strong&gt;: A fix in LLVM has been &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;rust-lang&#x2F;rust&#x2F;issues&#x2F;112782&quot;&gt;merged&lt;&#x2F;a&gt;, soon you should be able to simply use &lt;code&gt;saturating_add&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
  &lt;&#x2F;div&gt;
 &lt;&#x2F;div&gt;
@@ -1468,7 +1468,7 @@ c103 -31 164 -103 181 -211 l6 -41 -140 -153 c-77 -84 -162 -181 -188 -216
 &lt;li&gt;&lt;strong&gt;LLVM Assembly&lt;&#x2F;strong&gt;:
 If the safe version suffers from the presence of bounds checks, it limits the optimizations the compiler can perform without altering the logic.
 Reordering the code can’t be done if it reorders a bounds check and therefore a potentional panic.
-Additionally, there are cases where LLVM generates suboptimal assembly code, further impacting performance. 
+Additionally, there are cases where LLVM generates suboptimal assembly code, further impacting performance.
 I think the reason for that is that the rust compiler generates &lt;em&gt;a lot&lt;&#x2F;em&gt; of llvm IR for bounds checks.&lt;&#x2F;li&gt;
 &lt;&#x2F;ol&gt;
 &lt;p&gt;To provide an example where bounds checks hoisting was unable to be performed, this backwards &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;blob&#x2F;main&#x2F;src&#x2F;sink.rs#L191-L195&quot;&gt;loop&lt;&#x2F;a&gt; does two bounds
@@ -1507,7 +1507,7 @@ compression ratio and speed for use cases where the data is larger than
 &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;lz4_flex&#x2F;pull&#x2F;120&quot;&gt;#120&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
 &lt;h1 id=&quot;breaking-changes&quot;&gt;Breaking Changes&lt;&#x2F;h1&gt;
 &lt;p&gt;lz4_flex &lt;code&gt;0.10&lt;&#x2F;code&gt; and before had a feature flag &lt;code&gt;checked-decode&lt;&#x2F;code&gt; to do additional checks to avoid out-of-bounds access. &lt;code&gt;0.11&lt;&#x2F;code&gt; inverts this feature flag to &lt;code&gt;unchecked-decode&lt;&#x2F;code&gt;.
-Typically features flags are additive in Rust, so enabling a feature flag will add functionality. In the case of &lt;code&gt;checked-decode&lt;&#x2F;code&gt;, there was a unwanted side-effect. 
+Typically features flags are additive in Rust, so enabling a feature flag will add functionality. In the case of &lt;code&gt;checked-decode&lt;&#x2F;code&gt;, there was a unwanted side-effect.
 &lt;code&gt;default-features=false&lt;&#x2F;code&gt; caused the API to be unsound. With &lt;code&gt;unchecked-decode&lt;&#x2F;code&gt; it requires deliberate action to enable the unsound API where the caller know its safe to call.&lt;&#x2F;p&gt;
 &lt;p&gt;&lt;strong&gt;Update&lt;&#x2F;strong&gt;: &lt;code&gt;0.11.1&lt;&#x2F;code&gt; has been released, which removes &lt;code&gt;unchecked-decode&lt;&#x2F;code&gt;, since the removed checks could spill to other parts of the code due to &lt;a href=&quot;https:&#x2F;&#x2F;doc.rust-lang.org&#x2F;cargo&#x2F;reference&#x2F;features.html#feature-unification&quot;&gt;feature-unification&lt;&#x2F;a&gt;.
 The API is now always sound.&lt;&#x2F;p&gt;

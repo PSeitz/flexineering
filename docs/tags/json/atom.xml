@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>A blog about Rust, Compression, and other things. - json</title>
+    <subtitle>A blog about Rust, Compression, WebAssembly, and other things.</subtitle>
+    <link rel="self" type="application/atom+xml" href="http://flexineering.com/tags/json/atom.xml"/>
+    <link rel="alternate" type="text/html" href="http://flexineering.com/"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-06-15T00:00:00+00:00</updated>
+    <id>http://flexineering.com/tags/json/atom.xml</id>
+    <entry xml:lang="en">
+        <title>serde_json_borrow 0.8: Faster than SIMD?</title>
+        <published>2025-06-15T00:00:00+00:00</published>
+        <updated>2025-06-15T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="http://flexineering.com/posts/serde-json-borrow-08/"/>
+        <id>http://flexineering.com/posts/serde-json-borrow-08/</id>
+        
+        <content type="html" xml:base="http://flexineering.com/posts/serde-json-borrow-08/">&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;serde-json-borrow-0-8&quot;&gt;serde_json_borrow 0.8&lt;&#x2F;h1&gt;
+&lt;p&gt;&lt;code&gt;serde_json_borrow&lt;&#x2F;code&gt; 0.8 is out! This release brings a major performance improvement.
+It is now the fastest JSON parser in all benchmarks, even outperforming &lt;code&gt;simd_json&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;what-is-it&quot;&gt;What is it&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;code&gt;serde_json_borrow&lt;&#x2F;code&gt; builds on &lt;code&gt;serde_json&lt;&#x2F;code&gt;’s deserializer to produce a &lt;code&gt;serde_json_borrow::Value&amp;lt;&#x27;ctx&amp;gt;&lt;&#x2F;code&gt; that can borrow directly from the
+input buffer and reference string slices and other data directly from the input buffer.&lt;&#x2F;p&gt;
+&lt;p&gt;It’s ideal for scenarios where JSON is used as a transient representation to extract some data or apply some transformation.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;what-changed-in-0-8&quot;&gt;What Changed in 0.8&lt;&#x2F;h2&gt;
+&lt;p&gt;The main change and performance improvement comes from &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;serde_json_borrow&#x2F;pull&#x2F;32&quot;&gt;PR #32&lt;&#x2F;a&gt; (thanks @jszwec).
+Previously, serde’s default behavior would always create &lt;code&gt;Cow::Owned&lt;&#x2F;code&gt; for object keys even when borrowing was possible
+(see &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;serde-rs&#x2F;serde&#x2F;issues&#x2F;1852&quot;&gt;serde-rs&#x2F;serde#1852&lt;&#x2F;a&gt;). To address this,
+&lt;code&gt;serde_json_borrow&lt;&#x2F;code&gt; introduces a custom wrapper around &lt;code&gt;Cow&lt;&#x2F;code&gt; to allow borrowed keys.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;value-vs-ownedvalue&quot;&gt;Value vs OwnedValue&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;code&gt;serde_json_borrow&lt;&#x2F;code&gt; provides two main ways to work with parsed JSON:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;Value&amp;lt;&#x27;ctx&amp;gt;&lt;&#x2F;code&gt;&lt;&#x2F;strong&gt;: This variant borrows string slices and other data directly from the input buffer.
+It requires that the input &lt;code&gt;&amp;amp;&#x27;ctx str&lt;&#x2F;code&gt; outlives the parsed &lt;code&gt;Value&amp;lt;&#x27;ctx&amp;gt;&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;OwnedValue&lt;&#x2F;code&gt;&lt;&#x2F;strong&gt;: This variant clones the serialized JSON &lt;code&gt;&amp;amp;str&lt;&#x2F;code&gt; and therefore does not depend on the input buffer’s lifetime.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;cowkeys-feature-flag&quot;&gt;&lt;code&gt;cowkeys&lt;&#x2F;code&gt; Feature Flag&lt;&#x2F;h2&gt;
+&lt;p&gt;The feature flag &lt;code&gt;cowkeys&lt;&#x2F;code&gt; uses &lt;code&gt;Cow&amp;lt;str&amp;gt;&lt;&#x2F;code&gt; instead of &lt;code&gt;&amp;amp;str&lt;&#x2F;code&gt; as keys in objects. This enables support for escaped strings.
+The feature is enabled by default, but can be disabled if you know your JSON data does not contain escaped strings.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;benchmark&quot;&gt;Benchmark&lt;&#x2F;h1&gt;
+&lt;p&gt;The benchmark results show that &lt;code&gt;serde_json_borrow&lt;&#x2F;code&gt; is now the fastest choice, even outperforming &lt;code&gt;simd_json&lt;&#x2F;code&gt; in all test cases.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;benchmark-setup&quot;&gt;Benchmark Setup&lt;&#x2F;h2&gt;
+&lt;p&gt;The benchmarks were run on a machine with the following specifications:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;CPU&lt;&#x2F;strong&gt;: AMD Ryzen 9 9800X3D&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;RAM&lt;&#x2F;strong&gt;: 32 GB&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;OS&lt;&#x2F;strong&gt;: 6.14.6-2-MANJARO&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Disk&lt;&#x2F;strong&gt;: Samsung SSD 990 PRO&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Rust Version&lt;&#x2F;strong&gt;: 1.87.0&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Benchmarking Tool&lt;&#x2F;strong&gt;: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;binggan&quot;&gt;binggan&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;The benchmarks were configured to trash the CPU cache and branch predictor (or at least try to 🙂) to ensure that the
+performance measurements are not influenced by caching effects. This uses the &lt;code&gt;CacheTrasher&lt;&#x2F;code&gt; and
+&lt;code&gt;BPUTrasher&lt;&#x2F;code&gt; plugins from the &lt;code&gt;binggan&lt;&#x2F;code&gt; crate:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#282a36;color:#f8f8f2;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;font-style:italic;color:#8be9fd;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff79c6;&quot;&gt;mut&lt;&#x2F;span&gt;&lt;span&gt; runner: BenchRunner &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff79c6;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;text-decoration:underline;color:#66d9ef;&quot;&gt;BenchRunner&lt;&#x2F;span&gt;&lt;span style=&quot;text-decoration:underline;color:#ff79c6;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;new();
+&lt;&#x2F;span&gt;&lt;span&gt;runner
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff79c6;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8be9fd;&quot;&gt;add_plugin&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;text-decoration:underline;color:#66d9ef;&quot;&gt;CacheTrasher&lt;&#x2F;span&gt;&lt;span style=&quot;text-decoration:underline;color:#ff79c6;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;default())
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff79c6;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8be9fd;&quot;&gt;add_plugin&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;text-decoration:underline;color:#66d9ef;&quot;&gt;BPUTrasher&lt;&#x2F;span&gt;&lt;span style=&quot;text-decoration:underline;color:#ff79c6;&quot;&gt;::&lt;&#x2F;span&gt;&lt;span&gt;default());
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;You can run the benchmarks yourself with &lt;code&gt;cargo bench&lt;&#x2F;code&gt; on the
+&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;serde_json_borrow&#x2F;tree&#x2F;blog_post_benchmark&quot;&gt;&lt;code&gt;https:&#x2F;&#x2F;github.com&#x2F;serde_json_borrow&#x2F;tree&#x2F;blog_post_benchmark&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;
+branch in the &lt;code&gt;serde_json_borrow&lt;&#x2F;code&gt; github repo.&lt;&#x2F;p&gt;
+&lt;p&gt;The benchmarks below are the worst case configuration for &lt;code&gt;serde_json_borrow&lt;&#x2F;code&gt;:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Only &lt;code&gt;OwnedValue&lt;&#x2F;code&gt; is tested (but the data is already &lt;code&gt;String&lt;&#x2F;code&gt;).&lt;&#x2F;li&gt;
+&lt;li&gt;The &lt;code&gt;cowkeys&lt;&#x2F;code&gt; feature is enabled, which allows for escaped keys in JSON objects.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;accessing-the-parsed-json&quot;&gt;Accessing the Parsed JSON&lt;&#x2F;h3&gt;
+&lt;p&gt;One of the main differences between &lt;code&gt;serde_json_borrow&lt;&#x2F;code&gt; and &lt;code&gt;serde_json&lt;&#x2F;code&gt; is that &lt;code&gt;serde_json_borrow&lt;&#x2F;code&gt; uses a &lt;code&gt;Vec&lt;&#x2F;code&gt; for objects
+instead of a &lt;code&gt;BTreeMap&lt;&#x2F;code&gt;.
+This improves deserialization performance, but reduces read-access performance for very large objects.
+The benchmark reads several keys 10 times from the parsed JSON object.
+Read access is dwarfed by the parsing performance in this benchmark.&lt;&#x2F;p&gt;
+&lt;p&gt;For objects with very few keys, a scan of the &lt;code&gt;Vec&lt;&#x2F;code&gt; is faster than a binary search in a &lt;code&gt;BTreeMap&lt;&#x2F;code&gt;.
+The break-even probably between 10 and 30 keys.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th style=&quot;text-align: left&quot;&gt;Dataset: simple_json&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: right&quot;&gt;Avg MB&#x2F;s&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: right&quot;&gt;Median MB&#x2F;s&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: right&quot;&gt;Range Low MB&#x2F;s&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: right&quot;&gt;Range High MB&#x2F;s&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;serde_json&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;309.41&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;309.42&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;297.48&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;312.87&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;serde_json + access&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;302.63&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;303.51&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;292.17&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;306.87&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;serde_json_borrow::OwnedValue&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;551.28&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;550.57&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;537.65&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;561.81&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;serde_json_borrow::OwnedValue + access&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;528.08&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;528.61&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;510.66&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;542.12&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;serde_json_borrow v0.7::OwnedValue&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;440.91&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;440.59&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;429.04&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;449.27&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;simd_json_borrow&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;291.32&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;291.51&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;285.61&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;292.38&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th style=&quot;text-align: left&quot;&gt;Dataset: hdfs&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: right&quot;&gt;Avg MB&#x2F;s&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: right&quot;&gt;Median MB&#x2F;s&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: right&quot;&gt;Range Low MB&#x2F;s&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: right&quot;&gt;Range High MB&#x2F;s&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;serde_json&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;684.07&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;685.38&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;672.70&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;689.32&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;serde_json + access&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;690.25&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;687.36&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;664.73&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;700.37&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;serde_json_borrow::OwnedValue&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1138.48&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1143.40&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1047.45&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1156.10&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;serde_json_borrow::OwnedValue + access&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1128.96&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1121.38&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1085.85&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1163.26&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;serde_json_borrow v0.7::OwnedValue&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;893.49&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;895.36&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;827.68&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;911.69&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;simd_json_borrow&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;688.15&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;690.37&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;659.29&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;692.93&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th style=&quot;text-align: left&quot;&gt;Dataset: hdfs_with_array&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: right&quot;&gt;Avg MB&#x2F;s&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: right&quot;&gt;Median MB&#x2F;s&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: right&quot;&gt;Range Low MB&#x2F;s&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: right&quot;&gt;Range High MB&#x2F;s&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;serde_json&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;460.97&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;461.01&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;453.62&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;474.36&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;serde_json + access&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;475.77&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;476.88&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;464.11&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;485.78&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;serde_json_borrow::OwnedValue&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;817.97&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;819.37&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;795.93&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;834.68&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;serde_json_borrow::OwnedValue + access&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;817.90&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;818.61&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;788.71&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;833.57&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;serde_json_borrow v0.7::OwnedValue&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;731.79&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;731.43&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;717.81&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;741.30&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;simd_json_borrow&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;539.51&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;540.13&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;533.17&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;541.27&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th style=&quot;text-align: left&quot;&gt;Dataset: wiki&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: right&quot;&gt;Avg MB&#x2F;s&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: right&quot;&gt;Median MB&#x2F;s&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: right&quot;&gt;Range Low MB&#x2F;s&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: right&quot;&gt;Range High MB&#x2F;s&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;serde_json&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1354.50&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1354.40&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1337.20&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1367.90&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;serde_json + access&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1397.20&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1397.60&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1385.00&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1414.60&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;serde_json_borrow::OwnedValue&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1510.70&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1514.30&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1480.30&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1537.00&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;serde_json_borrow::OwnedValue + access&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1558.60&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1558.40&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1536.70&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1583.30&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;serde_json_borrow v0.7::OwnedValue&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1463.10&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1463.60&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1447.10&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1481.30&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;simd_json_borrow&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1473.60&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1473.70&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1459.00&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1483.20&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th style=&quot;text-align: left&quot;&gt;Dataset: gh-archive&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: right&quot;&gt;Avg MB&#x2F;s&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: right&quot;&gt;Median MB&#x2F;s&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: right&quot;&gt;Range Low MB&#x2F;s&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: right&quot;&gt;Range High MB&#x2F;s&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;serde_json&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;450.44&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;450.08&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;439.20&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;456.40&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;serde_json + access&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;447.61&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;446.50&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;442.51&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;455.33&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;serde_json_borrow::OwnedValue&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1147.90&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1143.91&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1124.97&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1170.94&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;serde_json_borrow::OwnedValue + access&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1154.05&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1154.36&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1129.16&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1185.28&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;serde_json_borrow v0.7::OwnedValue&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;690.87&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;689.07&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;682.23&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;700.78&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: left&quot;&gt;simd_json_borrow&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;995.81&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;996.01&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;991.79&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;999.33&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;&#x2F;h1&gt;
+&lt;p&gt;Noice, isn’t it?&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>
