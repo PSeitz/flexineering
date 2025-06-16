@@ -77,7 +77,7 @@ table {
     // If you have a function or mixin (e.g., from a UI lib) to compute contrast, use it.
     // Otherwise, pick manually, e.g. white or black depending on the shade:
   }
-  --color-border: var($color-accent-1);
+  --color-border: var(--color-accent-1);
 }
 html {
   margin: 0;

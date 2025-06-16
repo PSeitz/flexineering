@@ -85,7 +85,7 @@
     margin-left: 15px;
 
     &:hover {
-      color: 
+      color: var(--color-accent-1);
     }
   }
   .active {
@@ -96,7 +96,7 @@
     margin-right: 2rem;
   }
   #nav {
-    color: 
+    color: var(--color-accent-1);
     letter-spacing: .01em;
     font-weight: 200;
     font-style: normal;
@@ -162,34 +162,37 @@
     text-align: right;
 
     a:hover {
-      color: $color-link;
+      color: var(--color-link);
     }
     // .toc-level-1 > .toc-link
     //   display: none
 
     nav > ul > li {
-      color: $color-text;
+      color: var(--color-text);
       font-size: .8rem;
 
       &:before {
-        color: $color-accent-1;
+        color: var(--color-accent-1);
         content: "#";
         margin-right: 8px;
       }
     }
     nav > ul > li > ul > li {
-      color: $color-meta;
+      color: var(--color-meta);
       font-size: .7rem;
 
       &:before {
-        color: $color-accent-1;
+        color: var(--color-accent-1);
         content: "·";
         font-weight: bold;
         margin-right: 3px;
       }
     }
     nav > ul > li > ul > li > ul > li {
-      color: darken($color-meta, 20%);
+      /* fallback for older browsers: just the base color */
+      color: var(--color-meta);
+      /* dynamic darken at runtime: mix 80% meta + 20% black */
+      color: color-mix(in srgb, var(--color-meta) 80%, black 20%);
       font-size: .4rem;
     }
     .toc-level-5 {
