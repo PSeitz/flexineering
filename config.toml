@@ -3,7 +3,7 @@
 #base_url = "http://192.168.1.103:8080/"
 base_url = "http://flexineering.com/"
 
-github = "https://github.com/PSeitz"
+#github = "https://github.com/PSeitz"
 description = "A blog about Rust, Compression, WebAssembly, and other things."
 
 # Whether to automatically compile all Sass files in the sass directory
@@ -15,7 +15,7 @@ build_search_index = true
 theme = "zola-cactus" # "after-dark"
 title = "A blog about Rust, Compression, and other things."
 
-paginate_by = 5
+#paginate_by = 5
 
 taxonomies = [
     # You can enable/disable RSS

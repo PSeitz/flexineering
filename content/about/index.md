@@ -7,3 +7,5 @@ I like to write efficient software and I'm interested in compression algorithms,
 I work at [quickwit](https://github.com/quickwit-oss/quickwit) where we create the best search engine for logs.
 
 Github: [PSeitz](https://github.com/PSeitz)
+
+Contact: pascal.seitz [ät] gmail [dot] com
