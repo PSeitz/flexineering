@@ -1,7 +1,7 @@
-@import "variables";
-@import "colors/dark";
-@import "util";
 @import "mixins";
+@import "variables";
+//@import "colors/dark";
+@import "util";
 @import "extend";
 @import "reset";
 //@import "fonts";
@@ -72,7 +72,7 @@ table{
 }
 table {
   th {
-    color: $color-accent-1;
+    color: var(--color-accent-1);
     // Ensure text is readable: choose a contrasting color.
     // If you have a function or mixin (e.g., from a UI lib) to compute contrast, use it.
     // Otherwise, pick manually, e.g. white or black depending on the shade:

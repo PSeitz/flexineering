@@ -1,3 +1,5 @@
+@import "mixins";       
+
 $font-family-body: system-ui, 'Helvetica Neue', Helvetica, sans-serif;
 $font-family-mono: system-ui, 'Helvetica Neue', Helvetica, sans-serif;
 $font-family-tt: "Inconsolata", monospace;
@@ -7,29 +9,6 @@ $page-width: 48rem;
 $logo-width: 50px;
 $logo-height: 50px;
 $logo-grayout: true;
-// Colors
-$colors: "dark"; // white dark light classic
-
-@mixin darkmode {
-  --color-mode: "dark";
-  --color-background: #1d1f21;
-  --color-background-code: #222426;
-  --color-footer-mobile-2: #35393c;
-  --color-meta-code: #666;
-  --color-link: #d480aa;
-  --color-text: #c9cacc;
-  --color-accent-1: #5fffc6;
-  //--color-accent-1: #00cfff;
-  --color-accent-3: #cccccc;
-  --color-accent-2: #eeeeee;
-
-}
-@mixin lightmode {
-  --color-mode: "light";
-  --color-accent-1: #1d3d50;
-  --color-background: #d6e2f5;
-  --color-text: #090908;
-}
 
 .tip {
   display: flex;

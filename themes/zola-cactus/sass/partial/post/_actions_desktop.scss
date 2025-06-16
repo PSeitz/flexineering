@@ -1,3 +1,4 @@
+
 #header-post {
   position: fixed;
   top: 2rem;
@@ -15,7 +16,7 @@
     background: none;
 
     &:hover {
-      color: $color-link;
+      color: var(--color-link);
     }
   }
   nav {
@@ -64,7 +65,7 @@
     margin-left: 15px;
 
     &:hover {
-      color: $color-accent-1;
+      color: var(--color-accent-1);
     }
   }
   #menu-icon-tablet {
@@ -73,7 +74,7 @@
     margin-left: 15px;
 
     &:hover {
-      color: $color-accent-1;
+      color: var(--color-accent-1);
     }
   }
   #top-icon-tablet {
@@ -84,18 +85,18 @@
     margin-left: 15px;
 
     &:hover {
-      color: $color-accent-1;
+      color: 
     }
   }
   .active {
-    color: $color-accent-1;
+    color: var(--color-accent-1);
   }
   #menu {
     visibility: hidden;
     margin-right: 2rem;
   }
   #nav {
-    color: $color-accent-1;
+    color: 
     letter-spacing: .01em;
     font-weight: 200;
     font-style: normal;
@@ -106,13 +107,13 @@
 
       a {
         margin-right: 15px;
-        color: $color-accent-1;
+        color: var(--color-accent-1);
       }
       a:hover {
-        @include underline(5px, $color-accent-1);
+        @include underline(5px, var(--color-accent-1));
       }
       li {
-        border-right: 1px dotted $color-accent-1;
+        border-right: 1px dotted var(--color-accent-1);
       }
       li:last-child {
         margin-right: 0;
