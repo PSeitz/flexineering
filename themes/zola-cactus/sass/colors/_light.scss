@@ -15,8 +15,8 @@
 
 @mixin lightmode {
   --color-mode: "light";
-  --color-accent-1: #1d3d50;
-  --color-background: #d6e2f5;
-  --color-text: #090908;
+  --color-accent-1: #193930;
+  --color-background: #f0f6ff;
+  --color-text: #040403;
+  --color-background-code: #e1eafa;
 }
-

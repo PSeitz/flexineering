@@ -1,77 +1,106 @@
 +++
-title = "dep_graph_rs: A tool to visualize crate-internal dependencies"
-description = "A blog post about the dep_graph_rs tool. It explains how to use it to generate dependency graphs for Rust crates."
+title = "Visualizing Internal Crates Dependencies with dep_graph_rs!"
+description = "A blog post about dep_graph_rs. It explains how to use it to generate dependency graphs for Rust crates to understand and refactor your code."
 date = 2025-07-16
-keywords = [ "rust", "graph", "dependencies", "visualization" ]
+keywords = [ "rust", "graph", "dependencies", "visualization", "refactoring", "tools" ]
 [taxonomies]
 categories = [ ]
 tags = [ "rust", "tools" ]
 +++
 
-I've created a new tool called [`dep_graph_rs`](https://github.com/PSeitz/dep_graph_rs). It's a small utility to generate a dependency graph for the internal modules of a Rust crate.
+Ever found yourself wondering which modules in a gigantonormus rust crate talk to each other? 
+Wouldn't be a graph be awesome for that.
 
-It uses the [`syn`](https://github.com/dtolnay/syn) crate to parse Rust source code and analyzes `use crate::...` statements to build a directed graph of dependencies between modules or files. The graph is then output in the [DOT](https://graphviz.org/doc/info/lang.html) language.
+[`dep_graph_rs`](https://github.com/PSeitz/dep_graph_rs) comes to the rescue! 
+It's a command-line tool that generates a dependency graph for the internal dependencies of your Rust crate. 
+Vivid dependency graphs at your fingertips!
 
-It's important to note that this tool visualizes dependencies *within* a single crate. It does not show dependencies on external crates from `Cargo.toml`.
+## How does it work?
 
-## Example
+It parses your source code using the [`syn`](https://github.com/dtolnay/syn) crate, 
+analyzes all the `use crate` statements, tries to find the files they belong to, and builds a directed graph of 
+how everything is connected. 
 
-One of the main motivations for this tool was to help with refactoring and understanding dependencies in larger crates. My personal use case is to analyze the dependencies of a module before extracting it into a separate crate. For example, I wanted to analyze the dependencies of the `directory` module in `tantivy` before extracting it into a `tantivy-directory` crate.
+The output is in a [DOT](https://graphviz.org/doc/info/lang.html) graph, ready for visualization. 
+For now at least, maybe later some more CLI friendly output?
 
-With `dep_graph_rs`, you can see which other modules the `directory` module depends on:
+## A Real-World Example
+
+I was looking at the 
+[`tantivy`](https://github.com/quickwit-oss/tantivy) crate and thinking about extracting the `directory` 
+module into its own, separate crate. Before doing that, I wanted a map of its dependencies. 
+Like a treasure map, but for code!
+
+We can generate a graph of just the dependencies going outwards from the `directory` module:
 
 ```bash
-dep_graph_rs tantivy_folder --source "directory.*" > tantivy_directory_deps.dot
+dep_graph_rs path/to/tantivy --source "directory.*" > tantivy_directory_deps.dot
 ```
 
-This generates a `.dot` file, which you can then render into a beautiful graph:
+And voilà! This command produces a `.dot` file that can be rendered into this fantastically beautiful graph:
 
 ![Fantastically beautiful graph for the tantivy 'directory' module](/example_dep_graph.png)
 
+{% info() %}
+Yes, this graph indeed has <span class="rainbow">colors</span>! We really live in the future.
+{% end %}
+
+
+Now there are two constants, `META_FILEPATH` and `MANAGED_FILEPATH` in `core`, that maybe could be moved into the `directory` module?
+To find out, we can create a new graph that only shows these two items:
+
+```bash
+dep_graph_rs path/to/tantivy/ --item "META_FILEPATH|MANAGED_FILEPATH" | xclip -selection clipboard
+```
+
+![META_FILEPATH and MANAGED_FILEPATH  dependency graph](/example_dep_graph2.png)
+
+Now we can see that these two constants have some unexpected dependencies, 
+which might complicate the extraction of the `directory` module into its own crate.
+
 ## Features
 
-*   Generates dependency graphs from Rust source code.
-*   Outputs in DOT format for use with Graphviz.
-*   Group dependencies by file or by module.
-*   Filter the graph by source, destination, or item (e.g., function name).
-*   Clusters nodes by their root module for better readability.
+*   **Generates dependency graphs** from your Rust source code.
+*   **Outputs in DOT format**, so you can use it with awesome tools like Graphviz.
+*   **Group dependencies** by file or by module.
+*   **Filter the graph** by source, destination, or even the specific item being imported (like a function or struct).
+*   **Clusters nodes** by their root module for a cleaner, more readable graph.
 
-## Usage
+## How to Use It
 
-You can install the tool using `cargo`:
+First, install it with `cargo`:
 
 ```bash
 cargo install dep_graph_rs
 ```
 
-To generate a dependency graph, run the tool with the path to your crate's root (`src/lib.rs` or `src/main.rs`):
+Then, just run it from your crate's root directory:
 
 ```bash
 dep_graph_rs > graph.dot
 ```
 
-This will output the graph in DOT format to `graph.dot`.
+This will spit out the dependency graph in DOT format into a file named `graph.dot`.
 
-### Rendering the Graph
+To render the graph, you have a couple of options:
 
-You can render the generated `graph.dot` file in a few ways:
+1.  **Online:** The quickest way is to copy the contents of `graph.dot` and paste them into an online viewer like [GraphvizOnline](https://dreampuf.github.io/GraphvizOnline/).
+2.  **Local:** If you have [Graphviz](https://graphviz.org/) installed, you can render it to an image yourself: `dot -Tpng graph.dot -o graph.png`
 
-1.  **Online Viewer:** Paste the content of `graph.dot` into an online viewer like [GraphvizOnline](https://dreampuf.github.io/GraphvizOnline/).
-2.  **Local Installation:** If you have [Graphviz](https://graphviz.org/) installed locally, you can use the `dot` command to render the graph to an image:
+### Powerful Filtering
 
-```bash
-dot -Tpng graph.dot -o graph.png
-```
+You can slice and dice the graph to only show what you care about.
 
-### Options
-
-*   `--mode <MODE>`: Group the graph by file or by module (default: `module`).
-*   `--source <SOURCE>`: Filter by source module/file.
-*   `--destination <DESTINATION>`: Filter by destination module/file.
+*   `--mode <MODE>`: Group by `file` or `module` (the default).
+*   `--source <SOURCE>`: Only show dependencies from a specific module.
+*   `--destination <DESTINATION>`: Only show dependencies pointing to a specific module.
 *   `--item <ITEM>`: Filter by the name of the imported item (e.g., a function or struct).
 
-For example, to only show dependencies originating from the `graphics` module:
+{% info() %}
+`source`, `destination`, and `item` filters are exact matches, except if they contains regex characters, in which case they are treated as regex patterns.
+{% end %}
 
-```bash
-dep_graph_rs ./test_proj1 --source "graphics" > graph.dot
-```
+### Limitations
+
+Glob dependencies (`*`) are not correctly handled yet, so if you have `use crate::mega_module::*;`, it will not resolve the actual items being used here.
+

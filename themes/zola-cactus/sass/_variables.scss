@@ -47,7 +47,6 @@ circle{
     fill: var(--color-accent-1); 
 }
 html {
-  --color-background-code: #dddbd9;
   --color-accent: var(--color-background-code);
   --color-footer-mobile-1: var(--color-background-code);
   --color-footer-mobile-2: #cac7c3;
@@ -61,9 +60,20 @@ html {
 
   &[data-mode="dark"] {
     @include darkmode;
+    .rainbow {
+      background: linear-gradient(90deg, #e63946, #f1faee, #a8dadc, #457b9d);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
   }
   &[data-mode="light"] {
     @include lightmode;
+    .rainbow {
+      background: linear-gradient(90deg, #a63946, #81aaee, #38dadc, #457b9d);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
   }
 
   &.dark:not([data-mode="light"]) {
