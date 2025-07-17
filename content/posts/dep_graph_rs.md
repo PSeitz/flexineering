@@ -1,7 +1,7 @@
 +++
 title = "Visualizing Internal Crates Dependencies with dep_graph_rs!"
 description = "A blog post about dep_graph_rs. It explains how to use it to generate dependency graphs for Rust crates to understand and refactor your code."
-date = 2025-07-16
+date = 2025-07-17
 keywords = [ "rust", "graph", "dependencies", "visualization", "refactoring", "tools" ]
 [taxonomies]
 categories = [ ]
