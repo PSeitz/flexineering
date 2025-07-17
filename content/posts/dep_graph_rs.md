@@ -1,15 +1,15 @@
 +++
-title = "Visualizing Internal Crates Dependencies with dep_graph_rs!"
+title = "Visualizing Internal Crate Dependencies with dep_graph_rs!"
 description = "A blog post about dep_graph_rs. It explains how to use it to generate dependency graphs for Rust crates to understand and refactor your code."
 date = 2025-07-17
-keywords = [ "rust", "graph", "dependencies", "visualization", "refactoring", "tools" ]
+keywords = ["rust", "graph", "dependencies", "visualization", "refactoring", "tools"]
 [taxonomies]
 categories = [ ]
-tags = [ "rust", "tools" ]
+tags = ["rust", "tools"]
 +++
 
-Ever found yourself wondering which modules in a gigantonormus rust crate talk to each other? 
-Wouldn't be a graph be awesome for that.
+Navigating the tangled web of a massive Rust crate can feel like exploring a dark maze without a guide.
+Sure `rust-analyzer` gives you some hints, but what if you want a bird's-eye view of how everything connects?
 
 [`dep_graph_rs`](https://github.com/PSeitz/dep_graph_rs) comes to the rescue! 
 It's a command-line tool that generates a dependency graph for the internal dependencies of your Rust crate. 
@@ -17,8 +17,8 @@ Vivid dependency graphs at your fingertips!
 
 ## How does it work?
 
-It parses your source code using the [`syn`](https://github.com/dtolnay/syn) crate, 
-analyzes all the `use crate` statements, tries to find the files they belong to, and builds a directed graph of 
+It parses source code using the [`syn`](https://github.com/dtolnay/syn) crate, 
+analyzes all the `use crate` statements, tries to find & parse the files they belong to, and builds a directed graph of 
 how everything is connected. 
 
 The output is in a [DOT](https://graphviz.org/doc/info/lang.html) graph, ready for visualization. 
@@ -46,7 +46,7 @@ Yes, this graph indeed has <span class="rainbow">colors</span>! We really live i
 {% end %}
 
 
-Now there are two constants, `META_FILEPATH` and `MANAGED_FILEPATH` in `core`, that maybe could be moved into the `directory` module?
+There are two constants, `META_FILEPATH` and `MANAGED_FILEPATH` in `core`, that maybe could be moved into the `directory` module?
 To find out, we can create a new graph that only shows these two items:
 
 ```bash
@@ -80,7 +80,7 @@ Then, just run it from your crate's root directory:
 dep_graph_rs > graph.dot
 ```
 
-This will spit out the dependency graph in DOT format into a file named `graph.dot`.
+This will output the dependency graph in DOT format into a file named `graph.dot`.
 
 To render the graph, you have a couple of options:
 
@@ -97,10 +97,13 @@ You can slice and dice the graph to only show what you care about.
 *   `--item <ITEM>`: Filter by the name of the imported item (e.g., a function or struct).
 
 {% info() %}
-`source`, `destination`, and `item` filters are exact matches, except if they contains regex characters, in which case they are treated as regex patterns.
+`source`, `destination`, and `item` filters are exact matches, except if they contain regex characters, in which case they are treated as regex patterns.
 {% end %}
 
-### Limitations
+## Limitations & Disclaimer
+This tool is still in its early stages, so expect some rough edges.
 
 Glob dependencies (`*`) are not correctly handled yet, so if you have `use crate::mega_module::*;`, it will not resolve the actual items being used here.
+
+Exceedingly large unfiltered graphs can be overwhelming for your brain and your computer.
 
