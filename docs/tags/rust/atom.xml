@@ -8,7 +8,7 @@
     <updated>2025-07-17T00:00:00+00:00</updated>
     <id>http://flexineering.com/tags/rust/atom.xml</id>
     <entry xml:lang="en">
-        <title>Visualizing Internal Crates Dependencies with dep_graph_rs!</title>
+        <title>Visualizing Internal Crate Dependencies with dep_graph_rs!</title>
         <published>2025-07-17T00:00:00+00:00</published>
         <updated>2025-07-17T00:00:00+00:00</updated>
         
@@ -23,14 +23,14 @@
         <link rel="alternate" type="text/html" href="http://flexineering.com/posts/dep-graph-rs/"/>
         <id>http://flexineering.com/posts/dep-graph-rs/</id>
         
-        <content type="html" xml:base="http://flexineering.com/posts/dep-graph-rs/">&lt;p&gt;Ever found yourself wondering which modules in a gigantonormus rust crate talk to each other?
-Wouldn’t be a graph be awesome for that.&lt;&#x2F;p&gt;
+        <content type="html" xml:base="http://flexineering.com/posts/dep-graph-rs/">&lt;p&gt;Navigating the tangled web of a massive Rust crate can feel like exploring a dark maze without a guide.
+Sure &lt;code&gt;rust-analyzer&lt;&#x2F;code&gt; gives you some hints, but what if you want a bird’s-eye view of how everything connects?&lt;&#x2F;p&gt;
 &lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PSeitz&#x2F;dep_graph_rs&quot;&gt;&lt;code&gt;dep_graph_rs&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; comes to the rescue!
 It’s a command-line tool that generates a dependency graph for the internal dependencies of your Rust crate.
 Vivid dependency graphs at your fingertips!&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;how-does-it-work&quot;&gt;How does it work?&lt;&#x2F;h2&gt;
-&lt;p&gt;It parses your source code using the &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;dtolnay&#x2F;syn&quot;&gt;&lt;code&gt;syn&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; crate,
-analyzes all the &lt;code&gt;use crate&lt;&#x2F;code&gt; statements, tries to find the files they belong to, and builds a directed graph of
+&lt;p&gt;It parses source code using the &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;dtolnay&#x2F;syn&quot;&gt;&lt;code&gt;syn&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; crate,
+analyzes all the &lt;code&gt;use crate&lt;&#x2F;code&gt; statements, tries to find &amp;amp; parse the files they belong to, and builds a directed graph of
 how everything is connected.&lt;&#x2F;p&gt;
 &lt;p&gt;The output is in a &lt;a href=&quot;https:&#x2F;&#x2F;graphviz.org&#x2F;doc&#x2F;info&#x2F;lang.html&quot;&gt;DOT&lt;&#x2F;a&gt; graph, ready for visualization.
 For now at least, maybe later some more CLI friendly output?&lt;&#x2F;p&gt;
@@ -196,7 +196,7 @@ c103 -31 164 -103 181 -211 l6 -41 -140 -153 c-77 -84 -162 -181 -188 -216
 	&lt;div&gt; &lt;p&gt;Yes, this graph indeed has &lt;span class=&quot;rainbow&quot;&gt;colors&lt;&#x2F;span&gt;! We really live in the future.&lt;&#x2F;p&gt;
  &lt;&#x2F;div&gt;
 &lt;&#x2F;div&gt;
-&lt;p&gt;Now there are two constants, &lt;code&gt;META_FILEPATH&lt;&#x2F;code&gt; and &lt;code&gt;MANAGED_FILEPATH&lt;&#x2F;code&gt; in &lt;code&gt;core&lt;&#x2F;code&gt;, that maybe could be moved into the &lt;code&gt;directory&lt;&#x2F;code&gt; module?
+&lt;p&gt;There are two constants, &lt;code&gt;META_FILEPATH&lt;&#x2F;code&gt; and &lt;code&gt;MANAGED_FILEPATH&lt;&#x2F;code&gt; in &lt;code&gt;core&lt;&#x2F;code&gt;, that maybe could be moved into the &lt;code&gt;directory&lt;&#x2F;code&gt; module?
 To find out, we can create a new graph that only shows these two items:&lt;&#x2F;p&gt;
 &lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#282a36;color:#f8f8f2;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#50fa7b;&quot;&gt;dep_graph_rs&lt;&#x2F;span&gt;&lt;span&gt; path&#x2F;to&#x2F;tantivy&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#ffb86c;&quot;&gt; --item &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f1fa8c;&quot;&gt;&amp;quot;META_FILEPATH|MANAGED_FILEPATH&amp;quot; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff79c6;&quot;&gt;| &lt;&#x2F;span&gt;&lt;span style=&quot;color:#50fa7b;&quot;&gt;xclip&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#ffb86c;&quot;&gt; -selection&lt;&#x2F;span&gt;&lt;span&gt; clipboard
 &lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
@@ -218,7 +218,7 @@ which might complicate the extraction of the &lt;code&gt;directory&lt;&#x2F;code
 &lt;p&gt;Then, just run it from your crate’s root directory:&lt;&#x2F;p&gt;
 &lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#282a36;color:#f8f8f2;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#50fa7b;&quot;&gt;dep_graph_rs &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff79c6;&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span&gt; graph.dot
 &lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
-&lt;p&gt;This will spit out the dependency graph in DOT format into a file named &lt;code&gt;graph.dot&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;This will output the dependency graph in DOT format into a file named &lt;code&gt;graph.dot&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
 &lt;p&gt;To render the graph, you have a couple of options:&lt;&#x2F;p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;Online:&lt;&#x2F;strong&gt; The quickest way is to copy the contents of &lt;code&gt;graph.dot&lt;&#x2F;code&gt; and paste them into an online viewer like &lt;a href=&quot;https:&#x2F;&#x2F;dreampuf.github.io&#x2F;GraphvizOnline&#x2F;&quot;&gt;GraphvizOnline&lt;&#x2F;a&gt;.&lt;&#x2F;li&gt;
@@ -381,11 +381,13 @@ c103 -31 164 -103 181 -211 l6 -41 -140 -153 c-77 -84 -162 -181 -188 -216
 &lt;&#x2F;svg&gt;
 &lt;span class=&quot;flex-info&quot;&gt;Flex Info&lt;&#x2F;span&gt;
 &lt;&#x2F;div&gt;
-	&lt;div&gt; &lt;p&gt;&lt;code&gt;source&lt;&#x2F;code&gt;, &lt;code&gt;destination&lt;&#x2F;code&gt;, and &lt;code&gt;item&lt;&#x2F;code&gt; filters are exact matches, except if they contains regex characters, in which case they are treated as regex patterns.&lt;&#x2F;p&gt;
+	&lt;div&gt; &lt;p&gt;&lt;code&gt;source&lt;&#x2F;code&gt;, &lt;code&gt;destination&lt;&#x2F;code&gt;, and &lt;code&gt;item&lt;&#x2F;code&gt; filters are exact matches, except if they contain regex characters, in which case they are treated as regex patterns.&lt;&#x2F;p&gt;
  &lt;&#x2F;div&gt;
 &lt;&#x2F;div&gt;
-&lt;h3 id=&quot;limitations&quot;&gt;Limitations&lt;&#x2F;h3&gt;
+&lt;h2 id=&quot;limitations-disclaimer&quot;&gt;Limitations &amp;amp; Disclaimer&lt;&#x2F;h2&gt;
+&lt;p&gt;This tool is still in its early stages, so expect some rough edges.&lt;&#x2F;p&gt;
 &lt;p&gt;Glob dependencies (&lt;code&gt;*&lt;&#x2F;code&gt;) are not correctly handled yet, so if you have &lt;code&gt;use crate::mega_module::*;&lt;&#x2F;code&gt;, it will not resolve the actual items being used here.&lt;&#x2F;p&gt;
+&lt;p&gt;Exceedingly large unfiltered graphs can be overwhelming for your brain and your computer.&lt;&#x2F;p&gt;
 </content>
         
     </entry>

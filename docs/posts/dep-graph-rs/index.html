@@ -21,7 +21,7 @@
 
 <link rel="icon" type="image/png" href="images&#x2F;favicon.svg" />
 
-  <title>Visualizing Internal Crates Dependencies with dep_graph_rs!</title>
+  <title>Visualizing Internal Crate Dependencies with dep_graph_rs!</title>
   <link rel = 'canonical' href = 'http:&#x2F;&#x2F;flexineering.com&#x2F;posts&#x2F;dep-graph-rs&#x2F;'>
 </head>
 <body class="max-width mx-auto px3 ltr fade-in">
@@ -65,7 +65,7 @@
       <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     <h1 class="posttitle" itemprop="name headline">
-      Visualizing Internal Crates Dependencies with dep_graph_rs!
+      Visualizing Internal Crate Dependencies with dep_graph_rs!
     </h1>
     <div class="meta">
       <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -86,14 +86,14 @@
   
   
   <div class="content" itemprop="articleBody">
-    <p>Ever found yourself wondering which modules in a gigantonormus rust crate talk to each other?
-Wouldn’t be a graph be awesome for that.</p>
+    <p>Navigating the tangled web of a massive Rust crate can feel like exploring a dark maze without a guide.
+Sure <code>rust-analyzer</code> gives you some hints, but what if you want a bird’s-eye view of how everything connects?</p>
 <p><a href="https://github.com/PSeitz/dep_graph_rs"><code>dep_graph_rs</code></a> comes to the rescue!
 It’s a command-line tool that generates a dependency graph for the internal dependencies of your Rust crate.
 Vivid dependency graphs at your fingertips!</p>
 <h2 id="how-does-it-work">How does it work?</h2>
-<p>It parses your source code using the <a href="https://github.com/dtolnay/syn"><code>syn</code></a> crate,
-analyzes all the <code>use crate</code> statements, tries to find the files they belong to, and builds a directed graph of
+<p>It parses source code using the <a href="https://github.com/dtolnay/syn"><code>syn</code></a> crate,
+analyzes all the <code>use crate</code> statements, tries to find &amp; parse the files they belong to, and builds a directed graph of
 how everything is connected.</p>
 <p>The output is in a <a href="https://graphviz.org/doc/info/lang.html">DOT</a> graph, ready for visualization.
 For now at least, maybe later some more CLI friendly output?</p>
@@ -259,7 +259,7 @@ c103 -31 164 -103 181 -211 l6 -41 -140 -153 c-77 -84 -162 -181 -188 -216
 	<div> <p>Yes, this graph indeed has <span class="rainbow">colors</span>! We really live in the future.</p>
  </div>
 </div>
-<p>Now there are two constants, <code>META_FILEPATH</code> and <code>MANAGED_FILEPATH</code> in <code>core</code>, that maybe could be moved into the <code>directory</code> module?
+<p>There are two constants, <code>META_FILEPATH</code> and <code>MANAGED_FILEPATH</code> in <code>core</code>, that maybe could be moved into the <code>directory</code> module?
 To find out, we can create a new graph that only shows these two items:</p>
 <pre data-lang="bash" style="background-color:#282a36;color:#f8f8f2;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#50fa7b;">dep_graph_rs</span><span> path/to/tantivy/</span><span style="font-style:italic;color:#ffb86c;"> --item </span><span style="color:#f1fa8c;">&quot;META_FILEPATH|MANAGED_FILEPATH&quot; </span><span style="color:#ff79c6;">| </span><span style="color:#50fa7b;">xclip</span><span style="font-style:italic;color:#ffb86c;"> -selection</span><span> clipboard
 </span></code></pre>
@@ -281,7 +281,7 @@ which might complicate the extraction of the <code>directory</code> module into 
 <p>Then, just run it from your crate’s root directory:</p>
 <pre data-lang="bash" style="background-color:#282a36;color:#f8f8f2;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#50fa7b;">dep_graph_rs </span><span style="color:#ff79c6;">&gt;</span><span> graph.dot
 </span></code></pre>
-<p>This will spit out the dependency graph in DOT format into a file named <code>graph.dot</code>.</p>
+<p>This will output the dependency graph in DOT format into a file named <code>graph.dot</code>.</p>
 <p>To render the graph, you have a couple of options:</p>
 <ol>
 <li><strong>Online:</strong> The quickest way is to copy the contents of <code>graph.dot</code> and paste them into an online viewer like <a href="https://dreampuf.github.io/GraphvizOnline/">GraphvizOnline</a>.</li>
@@ -444,11 +444,13 @@ c103 -31 164 -103 181 -211 l6 -41 -140 -153 c-77 -84 -162 -181 -188 -216
 </svg>
 <span class="flex-info">Flex Info</span>
 </div>
-	<div> <p><code>source</code>, <code>destination</code>, and <code>item</code> filters are exact matches, except if they contains regex characters, in which case they are treated as regex patterns.</p>
+	<div> <p><code>source</code>, <code>destination</code>, and <code>item</code> filters are exact matches, except if they contain regex characters, in which case they are treated as regex patterns.</p>
  </div>
 </div>
-<h3 id="limitations">Limitations</h3>
+<h2 id="limitations-disclaimer">Limitations &amp; Disclaimer</h2>
+<p>This tool is still in its early stages, so expect some rough edges.</p>
 <p>Glob dependencies (<code>*</code>) are not correctly handled yet, so if you have <code>use crate::mega_module::*;</code>, it will not resolve the actual items being used here.</p>
+<p>Exceedingly large unfiltered graphs can be overwhelming for your brain and your computer.</p>
 
   </div>
 </article>
