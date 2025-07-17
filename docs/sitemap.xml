@@ -14,6 +14,10 @@
         <loc>http://flexineering.com/posts/</loc>
     </url>
     <url>
+        <loc>http://flexineering.com/posts/dep-graph-rs/</loc>
+        <lastmod>2025-07-16</lastmod>
+    </url>
+    <url>
         <loc>http://flexineering.com/posts/lz4-011/</loc>
         <lastmod>2023-06-18</lastmod>
     </url>
@@ -38,5 +42,8 @@
     </url>
     <url>
         <loc>http://flexineering.com/tags/serde/</loc>
+    </url>
+    <url>
+        <loc>http://flexineering.com/tags/tools/</loc>
     </url>
 </urlset>
