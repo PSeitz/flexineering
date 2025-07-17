@@ -95,6 +95,11 @@ url = "https://github.com/PSeitz/serde_json_borrow"
 desc = "Fast JSON deserialization into DOM on borrowed data."
 
 [[extra.projects]]
+name = "dep_graph_rs"
+url = "https://github.com/PSeitz/dep_graph_rs"
+desc = "A CLI tool to visualize inter-crate Rust dependencies."
+
+[[extra.projects]]
 name = "peakmem_alloc"
 url = "https://github.com/PSeitz/peakmem-alloc"
 desc = "An allocator to measure peak memory consumption in Rust."
