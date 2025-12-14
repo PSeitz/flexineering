@@ -1,22 +1,20 @@
-// by @GabiThume (https://github.com/gabithume)
-//$color-background: #e2e0de;
-//$color-footer-mobile-1: darken($color-background, 2%);
-//$color-footer-mobile-2: darken($color-background, 10%);
-//$color-background-code: darken($color-background, 2%);
-//$color-border: #666;
-//$color-meta: #666;
-//$color-meta-code: lighten($color-meta, 10%);
-//$color-link: rgba(43, 188, 138, 1);
-//$color-text: #363533;
-//$color-accent-3: #666666;
-//$color-accent-2: #111111;
-//$color-accent-1: #d44375;
-//$color-quote: #ab2251;
-
 @mixin lightmode {
-  --color-mode: "light";
-  --color-accent-1: #193930;
-  --color-background: #f0f6ff;
-  --color-text: #040403;
-  --color-background-code: #e1eafa;
+  --color-mode: light;
+
+  /* Surfaces */
+  --color-background: #ffffff;
+  --color-background-code: #f6f8fa;   /* subtle neutral tint */
+  --color-footer-mobile-2: #f1f3f5;   /* light footer surface */
+
+  /* Text */
+  --color-text: #111827;              /* near-black, softer than pure black */
+  --color-meta-code: #6b7280;         /* muted gray */
+
+  /* Links / accents */
+  --color-link: #b4236a;              /* deeper, readable on white */
+  --color-accent-1: #007453;          /* your emerald, fixed */
+  --color-accent-2: #1f2937;          /* strong neutral (titles/icons) */
+  --color-accent-3: #d1d5db;          /* borders/dividers */
+
+  --color-header: #000000;
 }

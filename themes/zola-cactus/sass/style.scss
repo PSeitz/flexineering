@@ -123,8 +123,9 @@ body {
     //@include underline(5px, var(--color-text));
 
     &:hover {
-      text-decoration: 2px underline solid var(--color-link);
-      text-underline-offset: 3px;
+      //text-decoration: 2px underline solid var(--color-link);
+      //text-underline-offset: 3px;
+      color: var(--color-link);
     }
   }
   a.icon {
