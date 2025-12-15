@@ -25,10 +25,15 @@ First thing it does is turn on colored output, because obviously performance doe
 
 Then it pulls the hood over its head, grabs the strings, and *tightens them*, so you can only see the mouth speaking:
 
-* “Running one benchmark to completion and then the next? That’s cute. Let’s **interleave** them so cache effects don’t turn your results into… whatever *that* was.”
-* “Also: your stack doesn’t start at some divine, stable offset. It starts wherever process startup details leave it today (argv/env included — yes, even stuff like `USER=...`). So yeah: **stack offset randomization**. (Seeded by a very scientific die roll: +1.)”
-* “And because CPUs are tiny chaos machines with opinions, here’s a **cache trasher** to reduce cache carry-over between runs.”
-* “And for my next trick: I’m going to annoy your CPU’s Branch Prediction Unit, because otherwise you may end up benchmarking ‘how fast the CPU learned your pattern’ rather than your code. Hence: **BPU trasher**. Crown jewel. Cutting-edge. Also extremely dumb if you look at the implementation.”
+* "Running one benchmark to completion and then the next? That’s cute. Let’s **interleave** them so cache effects
+don’t turn your results into a wheel of fortune."
+* "Also: your stack doesn’t start at some divine, stable offset. It starts wherever process startup details
+leave it today argv/env included — yes, even your user name (root, right?). So yeah: **stack offset randomization**.
+(Seeded by a very scientific die roll: +1.)”
+* "And because CPUs with all their caches are tiny chaos machines, here’s a **cache trasher** to reduce cache carry-over between runs."
+* "And for my next trick: I’m going to annoy your CPU’s Branch Prediction Unit, because otherwise
+you may end up benchmarking ‘how fast the CPU learned your pattern’ rather than your code.
+Hence: **BPU trasher**. Crown jewel. Cutting-edge. Also extremely dumb if you look at the implementation."
 
 Then Binggan slaps `perf` on the table:
 
@@ -46,7 +51,7 @@ Angry GitHub issues are welcome.
 
 
 # Key Features
-So first let's show off what makes Binggan special:
+Here comes the obligatory list with emoji icons:
 
 * 📊 Peak Memory Usage
 * 💎 Stack Offset Randomization

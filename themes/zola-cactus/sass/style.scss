@@ -135,6 +135,12 @@ body {
       color: var(--color-link);
     }
   }
+  strong {
+    color: var(--color-accent-1);
+  }
+  em {
+    color: var(--color-link);
+  }
   h1 a,
   .h1 a,
   h2 a,
