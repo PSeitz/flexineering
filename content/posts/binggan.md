@@ -13,53 +13,32 @@ tags = [ "perf", "benchmark", "lib", "rust" ]
 
 Today I’m excited to announce the release of [Binggan](https://github.com/PSeitz/binggan).
 
-Binggan is the new cool kid on the block for Rust benchmarking. 
+Binggan is a Rust benchmarking library, think of it as the slightly opinionated new kid hanging out with Criterion and Divan.
+It shows up, looks at your perfectly warmed-up benchmark, and says:
 
-Just chilling with its friends Criterion and Divan, you know. Hanging out, benchmarking stuff.
-Dissing other libs behind their backs. Showing off its features and talking about how fast it is.
-Binggan shows up in a hoodie, kicks the door shut, and goes:
+“Cool numbers. Now let’s see if they hold when the branch predictor can’t memorize the pattern.”
 
-> *“Okay. We’re gonna benchmark. But this time we’ll measure the code, not just our CPU caches.”*
+Binggan fights the kinds of accidental determinism that make benchmarks lie: cache carry-over, predictor training, and layout roulette.
+Still not perfect truth—just results you can trust a bit more to act on.
 
-First thing it does is turn on colored output, because obviously performance doesn’t count unless it’s aesthetically pleasing. A marvelous achievement. Truly, society has peaked.
+The recipe: interleaving test, stack-offset variation, cache/BPU “trashers”, and extra signals like perf counters and peak memory.
 
-Then it pulls the hood over its head, grabs the strings, and tightens them, so you can only see the mouth speaking:
-
-* "Running one benchmark to completion and then the next? That’s cute. Let’s **interleave** them so cache effects
-don’t turn your results into a wheel of fortune."
-* "Also: your stack doesn’t start at some divine, stable offset. It starts wherever process startup details
-leave it today argv/env included — yes, even your user name (it's root, right?). So yeah: **stack offset randomization**.
-”
-* "And because CPUs with all their caches are tiny chaos machines, here’s a **cache trasher** to reduce cache carry-over between runs."
-* "And for my next trick: I’m going to annoy your CPU’s Branch Prediction Unit, because otherwise
-you may end up benchmarking ‘how fast the CPU learned your pattern’ rather than your code.
-Hence: **BPU trasher**. Crown jewel. Cutting-edge. Also extremely dumb if you look at the implementation."
-
-Then Binggan slaps a **`plugin system`** on the table:
-
-> “Do you want *numbers*, or do you want **answers**? I can collect counters—cycles, cache misses,
-branch mispredicts—so you can stop guessing why something got slower.</br>
-> Also, you’re trading memory for speed. Everyone is. Let’s measure **peak allocations** while we’re here.”
-
-And that’s the vibe: fast runs, stable-ish results, and enough context to actually understand what changed—plus delta comparisons so regressions can’t quietly sneak out the back door.
-
-If that sounds like your kind of trouble, check it out: [github.com/PSeitz/binggan](https://github.com/PSeitz/binggan)
-
-Angry GitHub issues are welcome.
-
+If that sounds useful—or mildly infuriating—read on. If not, then also read on, because
+anyone who meets reads is entitled to retrieve one cookie in person from me.
+BTW. binggan (饼干) means cookie in Chinese.
 
 # Key Features
 Here comes the obligatory list with emoji icons:
 
-* 📊 Peak Memory Usage
-* 💎 Stack Offset Randomization
-* 💖 Perf Integration
-* 🔄 Delta Comparison
-* ⚡ Fast Execution
-* 🔀 Interleaving Test Runs
-* 🏷️ Named Benchmark Inputs
-* 🧙 No Macros, No Magic, Just a regular API
-* 🎨 NOW with colored output! (A marvelous achievement)
+* 🔀 Interleaved test runs
+* 💎 Stack offset randomization
+* 📊 Peak memory usage
+* 💖 Perf integration
+* 🔄 Delta comparison
+* ⚡ Designed for quick runs
+* 🏷️ Named benchmark inputs
+* 🧙 No macros - just a regular API
+* 🎨 Colored output! (A marvelous achievement)
 * 🦀 Runs on Stable Rust
 
 # Motivation
@@ -111,6 +90,8 @@ There is some research on this topic, but for the most part, we don't really kno
 
 The BPU Trasher tries to disrupt the BPU, so it cannot learn patterns from your benchmark code.
 By executing a series of unpredictable branches, we are trying to trash the branch predictor's state.
+It's a delicate balance, as we want to introduce enough noise to disrupt the BPU,
+but not in a way that would not reflect real-world settings. 
 
 For more information, check out the BPU Trasher repository:
 https://github.com/pseitz/bpu_trasher
