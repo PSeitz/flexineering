@@ -19,29 +19,27 @@ Just chilling with its friends Criterion and Divan, you know. Hanging out, bench
 Dissing other libs behind their backs. Showing off its features and talking about how fast it is.
 Binggan shows up in a hoodie, kicks the door shut, and goes:
 
-> “Okay. We’re gonna benchmark. But this time we’ll measure the code, not just our CPU caches.”
+> *“Okay. We’re gonna benchmark. But this time we’ll measure the code, not just our CPU caches.”*
 
 First thing it does is turn on colored output, because obviously performance doesn’t count unless it’s aesthetically pleasing. A marvelous achievement. Truly, society has peaked.
 
-Then it pulls the hood over its head, grabs the strings, and *tightens them*, so you can only see the mouth speaking:
+Then it pulls the hood over its head, grabs the strings, and tightens them, so you can only see the mouth speaking:
 
 * "Running one benchmark to completion and then the next? That’s cute. Let’s **interleave** them so cache effects
 don’t turn your results into a wheel of fortune."
 * "Also: your stack doesn’t start at some divine, stable offset. It starts wherever process startup details
-leave it today argv/env included — yes, even your user name (root, right?). So yeah: **stack offset randomization**.
-(Seeded by a very scientific die roll: +1.)”
+leave it today argv/env included — yes, even your user name (it's root, right?). So yeah: **stack offset randomization**.
+”
 * "And because CPUs with all their caches are tiny chaos machines, here’s a **cache trasher** to reduce cache carry-over between runs."
 * "And for my next trick: I’m going to annoy your CPU’s Branch Prediction Unit, because otherwise
 you may end up benchmarking ‘how fast the CPU learned your pattern’ rather than your code.
 Hence: **BPU trasher**. Crown jewel. Cutting-edge. Also extremely dumb if you look at the implementation."
 
-Then Binggan slaps `perf` on the table:
+Then Binggan slaps a **`plugin system`** on the table:
 
-> “Do you want *numbers*, or do you want **answers**? I can collect counters—cycles, cache misses, branch mispredicts—so you can stop guessing why something got slower.”
-
-And just when you think it’s done, it pulls out a peak-tracking allocator like:
-
-> “Also, you’re trading memory for speed. Everyone is. Let’s measure **peak allocations** while we’re here.”
+> “Do you want *numbers*, or do you want **answers**? I can collect counters—cycles, cache misses,
+branch mispredicts—so you can stop guessing why something got slower.</br>
+> Also, you’re trading memory for speed. Everyone is. Let’s measure **peak allocations** while we’re here.”
 
 And that’s the vibe: fast runs, stable-ish results, and enough context to actually understand what changed—plus delta comparisons so regressions can’t quietly sneak out the back door.
 
