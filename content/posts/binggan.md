@@ -24,8 +24,8 @@ Still not perfect truth—just results you can trust a bit more to act on.
 The recipe: interleaving test, stack-offset variation, cache/BPU “trashers”, and extra signals like perf counters and peak memory.
 
 If that sounds useful—or mildly infuriating—read on. If not, then also read on, because
-anyone who meets reads is entitled to retrieve one cookie in person from me.
-BTW. binggan (饼干) means cookie in Chinese.
+anyone who reads is entitled to retrieve one cookie in person from me.
+BTW binggan (饼干) means cookie in Chinese.
 
 # Key Features
 Here comes the obligatory list with emoji icons:
@@ -95,6 +95,8 @@ but not in a way that would not reflect real-world settings.
 
 For more information, check out the BPU Trasher repository:
 https://github.com/pseitz/bpu_trasher
+
+Stay tuned for a future blog post diving deeper into the BPU Trasher and its impact on benchmarking.
 
 ### Warmup or No Warmup?
 Generally having a warmup is questionable, as a branch predictor may even learn random number distribution 
