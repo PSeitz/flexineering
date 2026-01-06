@@ -1,7 +1,7 @@
 +++
 title = "Binggan: A new benchmark lib for rust"
 description = "A blog post about the release of Binggan, a benchmarking library in rust."
-date = 2025-12-14
+date = 2026-01-04
 keywords = [ "perf", "benchmark", "lib", "rust" ]
 draft = false
 
@@ -60,6 +60,11 @@ Binggan employs several techniques to minimize noise and variability in benchmar
 * BPU Trasher
 * Cache Trasher
 
+Stable and reliable results are slightly opposite, since benchmark results converge, when
+the branch predictor learns the pattern. This is not necessarily what you want, since in real-world scenarios,
+the payload may vary and the branch predictor may not be able to learn the pattern.
+Generally this can be mitigated by having a large enough test to circumvent the branch predictor learning the pattern.
+
 ### Interleaving Test Runs
 Instead of running all iterations of one benchmark before moving to the next,
 Binggan optionally interleaves the execution of different benchmarks within a group.
@@ -80,7 +85,7 @@ To minimize the impact of CPU cache state on benchmark results, Binggan includes
 It walks through a memory buffer to evict data from the CPU caches before each benchmark run.
 
 ### BPU Trasher
-Marvel at my most prized possession, the crown jewel, cutting-edge technology of stable benchmarking:
+Marvel at my most prized possession, the crown jewel, cutting-edge technology of benchmarking:
 The **mighty** BPU Trasher (and also lame if you check out the code).
 
 Branch Prediction Units (BPU) are a critical component of modern CPUs that predict 
@@ -91,7 +96,8 @@ There is some research on this topic, but for the most part, we don't really kno
 The BPU Trasher tries to disrupt the BPU, so it cannot learn patterns from your benchmark code.
 By executing a series of unpredictable branches, we are trying to trash the branch predictor's state.
 It's a delicate balance, as we want to introduce enough noise to disrupt the BPU,
-but not in a way that would not reflect real-world settings. 
+but not in a way that would not reflect real-world settings. E.g. we don't want to trash static branches that are always taken.
+In its current form, the BPU Trasher is more like a sledgehammer, but it shows promising results.
 
 For more information, check out the BPU Trasher repository:
 https://github.com/pseitz/bpu_trasher
@@ -105,7 +111,7 @@ https://lemire.me/blog/2019/10/16/benchmarking-is-hard-processors-learn-to-predi
 This may lead you to the conclusion that a version with more branches is faster,
 just because the branch predictor learned the pattern during warmup.
 
-In Binggan there is no warmup phase for the benchmark, but in order to know how many iterations the benchmark should be executed, 
+In Binggan there is currently no explicit warmup phase for the benchmark, but in order to know how many iterations the benchmark should be executed, 
 Binggan will run the benchmark to sample the execution time.
 
 ## Insight
