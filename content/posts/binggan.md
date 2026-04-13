@@ -1,7 +1,7 @@
 +++
 title = "Binggan: A new benchmark lib for rust"
 description = "A blog post about the release of Binggan, a benchmarking library in rust."
-date = 2026-01-04
+date = 2026-04-12
 keywords = [ "perf", "benchmark", "lib", "rust" ]
 draft = false
 
@@ -11,35 +11,41 @@ tags = [ "perf", "benchmark", "lib", "rust" ]
 +++
 
 
-Today I’m excited to announce the release of [Binggan](https://github.com/PSeitz/binggan).
+Out of fear to delay the release of Binggan any further, I decided to publish a blog post about it which may not cover all of its features.
+It's already very useful for me. So there you go:
 
-Binggan is a Rust benchmarking library, think of it as the slightly opinionated new kid hanging out with Criterion and Divan.
+Today I’m excited to announce the release of [Binggan](https://github.com/PSeitz/binggan), which has been released since more than a year, but I haven’t written about it yet.
+
+Binggan is a Rust benchmarking library, think of it as the new (and cool) kid hanging out with Criterion and Divan.
 It shows up, looks at your perfectly warmed-up benchmark, and says:
 
 “Cool numbers. Now let’s see if they hold when the branch predictor can’t memorize the pattern.”
 
 Binggan fights the kinds of accidental determinism that make benchmarks lie: cache carry-over, predictor training, and layout roulette.
-Still not perfect truth—just results you can trust a bit more to act on.
+Still not perfect, but results you can trust a bit more.
 
-The recipe: interleaving test, stack-offset variation, cache/BPU “trashers”, and extra signals like perf counters and peak memory.
+On top it provides insigths via plugins like perf integration and peak memory usage, and custom metrics returned by the benchmark code.
 
-If that sounds useful—or mildly infuriating—read on. If not, then also read on, because
-anyone who reads is entitled to retrieve one cookie in person from me.
+If that sounds useful, read on. If not, then also read on, because
+anyone who reads is entitled to retrieve one cookie in person from me with the secret pass phrase "give me cookie".
+With the inevitable AI takeover, I'll try to pivot to cookie dealer.
+
 BTW binggan (饼干) means cookie in Chinese.
 
 # Key Features
-Here comes the obligatory list with emoji icons:
+Here comes the obligatory list with emoji icons and something with BLAZINGLY:
 
 * 🔀 Interleaved test runs
 * 💎 Stack offset randomization
 * 📊 Peak memory usage
 * 💖 Perf integration
 * 🔄 Delta comparison
-* ⚡ Designed for quick runs
+* ⚡ BLAZINGLY Fast Execution
 * 🏷️ Named benchmark inputs
 * 🧙 No macros - just a regular API
-* 🎨 Colored output! (A marvelous achievement)
+* 🎨 Colored output! (marvelous achievement)
 * 🦀 Runs on Stable Rust
+* 🔍 Advanced Filtering (AND/OR/NOT and fields like `bench_name:my_bench`)
 
 # Motivation
 
@@ -146,6 +152,17 @@ When converting the benchmarks in lz4_flex from criterion to Binggan, I observed
 Criterion: ` Executed in  714.00 secs`
 
 Binggan: ` Executed in   88.46 secs`
+
+# Usage
+
+## Output
+
+Binggan provides a way to return additional output values from your benchmarks, which can be used to report on various metrics beyond just execution time.
+This is useful for understanding the performance characteristics of your code in more depth, as well as ensuring correctness.
+
+On top of that it will make it harder for the compiler to optimize away your benchmark code, since the output value is used in the benchmark report.
+
+## Filtering
 
 # A Quick Example
 
